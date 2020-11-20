@@ -8,3 +8,6 @@ def home_view(request,*args,**kwargs):
 
 def methods_view(request,*args,**kwargs):
     return render(request,'methods.html',{})
+
+def about_view(request, *args, **kwargs):
+    return render(request, 'about.html',{})
