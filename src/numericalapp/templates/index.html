@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% block different %}
+{% load static %}
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image-->
+                <img class="masthead-avatar mb-5" src="{% static 'assets/visual.svg' %}" alt="{% static 'assets/visual.svg' %}" />
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">Numerical Views</h1>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Masthead Subheading-->
+            </div>
+        </header>
+        
+        <script src="{% static 'assets/js/plotter.js'%}"></script>
+        <!-- <link href="{%static 'css/style.css' %}" rel="stylesheet" /> -->
+
+        <section class="page-section" >
+            <div class="container">
+                <!-- Contact Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Graph Plotter</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Contact Section Form-->
+                        <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
+                                <!-- <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                    <label>Function</label>
+                                </div> -->
+
+                                    
+
+                                <!-- <div class="float-container"> -->
+
+                                        <!-- <div class="float-child-1">
+                                                <input class="form-control" id="function"  onchange="plot()" type="text" placeholder="Write function here" required="required" data-validation-required-message="Please enter function." />
+
+                                            <p class="help-block text-danger"></p>
+                                        </div> -->
+                            <div class="grid-container">
+                                        <div class="grid-child purple">
+                                            <h1>here</h1>
+                                            <section id="plot">
+                                                <input class="form-control" id="function"  onchange="plot()" type="text" placeholder="Write function here" required="required" data-validation-required-message="Please enter function." />
+                                                <p class="help-block text-danger"></p>
+                                                <input type=number id="xMin"  value=-10 step=0.5 oninput="plot();">
+                                                <input type=number id="xMax" value=10 step=0.5 oninput="plot();">
+                                                <input type=number id="yMin"  value=-10 step=0.5 oninput="plot();">
+                                                <input type=number id="yMax"  value=10 step=0.5 oninput="plot();">
+                                                <input type=color id="color"  onchange="plot();">
+                                                <div id="myFunction"></div>
+                                                <p>
+                                                    <button class="btn btn-danger" id="hide" style="display: block-inline;" onclick="hidePlot();">Hide</button>
+                                                    <button class="btn btn-info" id="show" style="display: none;" onclick="showPlot();">Show</button>
+                                                </p>   
+                                            </section>
+                                        </div>
+
+                                          
+                            
+                                    <div class="float-child">
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+                            </div>
+                                    <script src="https://d3js.org/d3.v3.min.js"></script>
+                                    <script src="https://mauriciopoppe.github.io/function-plot/js/function-plot.js"></script>
+                                    <script src="{% static 'assets/js/graph.js' %}"></script>
+                             
+                                
+                            <div id="success"></div>
+                            <!-- <button onclick="plot()">Click Here</button> -->
+                            <button class="btn btn-primary btn-xl" id="sendMessageButton" onclick="plot()">Plot</button></div>
+                       
+                    
+                 
+
+
+
+
+
+
+
+
+             </div>
+        </section>
+        <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
+        <div class="scroll-to-top d-lg-none position-fixed">
+            <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a>
+        </div>
+       
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Contact form JS-->
+        <!-- Core theme JS-->
+        <!-- <script src="../static/assets/js/scripts.js"></script> -->
+
+{% endblock %}
