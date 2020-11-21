@@ -41,6 +41,9 @@ INSTALLED_APPS = [
 
     #custom apps
     'pages'
+
+    #method apps
+    'M04_Newton'
 ]
 
 MIDDLEWARE = [
