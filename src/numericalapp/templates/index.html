@@ -1,51 +1,102 @@
-{% extends "layouts/master.html" %}
-{% block content %}
-{% load static %}
+{% extends "layouts/master.html" %} {% block content %} {% load static %}
 
 <header class="masthead bg-primary text-white text-center">
-    <div class="container d-flex align-items-center flex-column">
-        <!-- Masthead Avatar Image-->
-        <img class="masthead-avatar mb-5" src="{% static 'assets/visual.svg' %}" alt="{% static 'assets/visual.svg' %}" />
-        <!-- Masthead Heading-->
-        <h1 class="masthead-heading text-uppercase mb-0">Numerical Views</h1>
-        <!-- Icon Divider-->
-        <div class="divider-custom divider-light">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-            <div class="divider-custom-line"></div>
-        </div>
-        <!-- Masthead Subheading-->
-    </div>
+  <div class="container d-flex align-items-center flex-column">
+    <!-- Masthead Avatar Image-->
+    <img
+      class="masthead-avatar mb-5"
+      src="{% static 'assets/visual.svg' %}"
+      alt="{% static 'assets/visual.svg' %}"
+    />
+    <!-- Masthead Heading-->
+    <h1 class="masthead-heading text-uppercase mb-0">Numerical views</h1>
+  </div>
 </header>
 
-<section class="page-section" >
+<section class="page-section">
   <div class="container">
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Graph Plotter</h2>
+    <h2
+      class="page-section-heading text-center text-uppercase text-secondary mb-0"
+    >
+      Graph Plotter
+    </h2>
 
     {% include 'layouts/icon_divider.html' %}
-        
+
     <div class="grid-container">
       <div class="grid-child purple">
         <section id="plot">
-          <input class="form-control" id="function"  onchange="plot()" type="text" placeholder="Write function here" required="required" data-validation-required-message="Please enter function." />
+          <input
+            class="form-control"
+            id="function"
+            onchange="plot()"
+            type="text"
+            placeholder="Write function here"
+            required="required"
+            data-validation-required-message="Please enter function."
+          />
           <p class="help-block text-danger"></p>
-          <input type=number id="xMin"  value=-10 step=0.5 oninput="plot();">
-          <input type=number id="xMax" value=10 step=0.5 oninput="plot();">
-          <input type=number id="yMin"  value=-10 step=0.5 oninput="plot();">
-          <input type=number id="yMax"  value=10 step=0.5 oninput="plot();">
-          <input type=color id="color"  onchange="plot();">
+          <input
+            type="number"
+            id="xMin"
+            value="-10"
+            step="0.5"
+            oninput="plot();"
+          />
+          <input
+            type="number"
+            id="xMax"
+            value="10"
+            step="0.5"
+            oninput="plot();"
+          />
+          <input
+            type="number"
+            id="yMin"
+            value="-10"
+            step="0.5"
+            oninput="plot();"
+          />
+          <input
+            type="number"
+            id="yMax"
+            value="10"
+            step="0.5"
+            oninput="plot();"
+          />
+          <input type="color" id="color" onchange="plot();" />
           <div id="myFunction"></div>
           <p>
-              <button class="btn btn-danger" id="hide" style="display: block-inline;" onclick="hidePlot();">Hide</button>
-              <button class="btn btn-info" id="show" style="display: none;" onclick="showPlot();">Show</button>
-          </p>   
+            <button
+              class="btn btn-danger"
+              id="hide"
+              style="display: block-inline"
+              onclick="hidePlot();"
+            >
+              Hide
+            </button>
+            <button
+              class="btn btn-info"
+              id="show"
+              style="display: none"
+              onclick="showPlot();"
+            >
+              Show
+            </button>
+          </p>
         </section>
       </div>
       <div class="float-child">
-          <canvas id="myChart"></canvas>
+        <canvas id="myChart"></canvas>
       </div>
     </div>
-    <button class="btn btn-primary btn-xl" id="sendMessageButton" onclick="plot()">Plot</button>
+    <button
+      class="btn btn-primary btn-xl"
+      id="sendMessageButton"
+      onclick="plot()"
+    >
+      Plot
+    </button>
   </div>
 </section>
 
