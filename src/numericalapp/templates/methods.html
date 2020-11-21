@@ -3,49 +3,31 @@
 <section class="page-section portfolio" id="portfolio">
   <div class="container">
     <!-- Portfolio Section Heading-->
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+    <h2
+      class="page-section-heading text-center text-uppercase text-secondary mb-0"
+    >
       Methods
     </h2>
 
     {% include 'layouts/icon_divider.html' %}
 
-    <!-- Portfolio Grid Items-->
-
     <div style="display: inline">
       <img
         class="img-method"
         src="{% static 'assets/img/rootimg.png' %}"
-        alt=""/>
+        alt=""
+      />
       <h4 class="methods-title text-uppercase text-secondary mb-0">
         NON-LINEAR EQUATIONS
       </h4>
     </div>
 
     <div class="row">
-
-      <!-- Portfolio Item -->
       <div class="col-md-6 col-lg-4 mb-5">
-        <div
-          class="portfolio-item mx-auto d-flex align-items-center justify-content-center"
-          data-toggle="modal"
-          data-target="#portfolioModal2">
-
-          <a href=""><label class="lk">Incremental Search</label></a>
-
-          <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-            <div class="portfolio-item-caption-content text-center text-white">
-              <i class="fas fa-plus fa-3x"></i>
-            </div>
-          </div>
-
-          <img class="img-fluid" src="assets/img/portfolio/cake.png" alt="" />
-        </div>
+          <a class="btn-success" href="">Incremental Search</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Portfolio Modals-->
-{% include 'layouts/modal.html' with text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.' id='portfolioModal2'%}
-
-{% endblock content%}
+{% endblock content %}
