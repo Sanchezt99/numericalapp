@@ -1,5 +1,5 @@
 import math
-import numericalapp.utils.Functions.py as fc
+import utils.Functions as fc
 
 class Secant:
     def __init__(self):

@@ -1,7 +1,6 @@
 import math
 from scitools.StringFunction import StringFunction
-from math import *
-import utils.Funcions as fc
+import utils.Functions as fc
 
 class FixedPoint:
 
