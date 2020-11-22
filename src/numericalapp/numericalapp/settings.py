@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'pages',
 
     #method apps
-    'Function_Roots'
+    'Function_Roots',
+    'Equation_Systems',
+    'Factorization',
 ]
 
 MIDDLEWARE = [

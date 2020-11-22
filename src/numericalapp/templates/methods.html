@@ -1,11 +1,10 @@
 {% extends "layouts/master.html" %} {% block content %} {% load static %}
 
-<section class="page-section portfolio" id="portfolio">
+<section class="page-section portfolio" id="methods">
   <div class="container">
     <!-- Portfolio Section Heading-->
     <h2
-      class="page-section-heading text-center text-uppercase text-secondary mb-0"
-    >
+      class="page-section-heading text-center text-uppercase text-secondary mb-0">
       Methods
     </h2>
 
@@ -18,16 +17,66 @@
         alt=""
       />
       <h4 class="methods-title text-uppercase text-secondary mb-0">
-        NON-LINEAR EQUATIONS
+        Root Functions
       </h4>
     </div>
 
     <div class="row">
       <div class="col-md-6 col-lg-4 mb-5">
-          <a class="btn-success" href="{% url 'doolittle.index' %}">Incremental Search</a>
+          <a class="btn" href="{% url 'fixedPoint.index' %}">Fixed Point Method</a>
+      </div>
+            <div class="col-md-6 col-lg-4 mb-5">
+          <a class="btn" href="{% url 'newton.index' %}">Newton Method</a>
+      </div>
+            <div class="col-md-6 col-lg-4 mb-5">
+          <a class="btn" href="{% url 'secant.index' %}">Secant Method</a>
       </div>
     </div>
-  </div>
+
+    <div style="display: inline">
+    <img
+      class="img-method"
+      src="{% static 'assets/img/eqs.png' %}"
+      alt=""
+    />
+    <h4 class="methods-title text-uppercase text-secondary mb-0">
+      Equation Systems
+    </h4>
+        <div class="row">
+      <div class="col-md-6 col-lg-4 mb-5">
+          <a class="btn" href="{% url 'doolittle.index' %}">Doolittle Method</a>
+      </div>
+            <div class="col-md-6 col-lg-4 mb-5">
+          <a class="btn" href="{% url 'gaussSeidel.index' %}">Gauss Seidel Method</a>
+      </div>
+            <div class="col-md-6 col-lg-4 mb-5">
+          <a class="btn" href="{% url 'jacobi.index' %}">Jacobi Method</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: inline">
+    <img
+      class="img-method"
+      src="{% static 'assets/img/split.png' %}"
+      alt=""
+    />
+    <h4 class="methods-title text-uppercase text-secondary mb-0">
+      Factorization
+    </h4>
+        <div class="row">
+      <div class="col-md-6 col-lg-4 mb-5">
+          <a class="btn" href="{% url 'about.index' %}">F1</a>
+      </div>
+            <div class="col-md-6 col-lg-4 mb-5">
+          <a class="btn" href="{% url 'about.index' %}">F2</a>
+      </div>
+            <div class="col-md-6 col-lg-4 mb-5">
+          <a class="btn" href="{% url 'about.index' %}">F3</a>
+        </div>
+      </div>
+    </div>
+
 </section>
 
 {% endblock content %}
