@@ -5,8 +5,35 @@
 <section class="page-section">
   <div class="container">
     <div class="card">
-      <h4><b>:(</b></h4>
-      <p>Nothing yet</p>          
+      <h4><b>Fixed Point Method</b> <i style="font-size:24px" class="fa">&#xf059;</i> </h4>
+      
+       <p>The objective of this method is to find a root of a function from an initial value, a tolerance and a number of iterations, in this case it is not necessary to have an interval. From an equation F (X) = 0 an equation X = g (X) is generated, to which a solution is sought, and the following must be taken into account "</p>
+       <p> 1. A value of X is searched for, when replacing it in g, the result is X. </p>
+       <p> 2. You must choose an initial approximation Xo </p>
+       <p> 3. X1 = g (Xo) is calculated </p>
+       <p> 4. And the previous step is repeated until reaching an approximation. </p><br> <br>
+
+    <form action="/uploadFixedPoint">
+
+    <label for="fixedPointF">Function f</label><br>
+    <input type="text" id="fixedPointF" name="fixedPointF" value="x+3"><br>
+
+    <label for="fixedPointG">Function g</label><br>
+    <input type="text" id="fixedPointG" name="fixedPointG" value="x-3"><br>
+
+    <label for="fixedPointx0">Initial value for x (x0)</label><br>
+    <input type="text" id="fixedPointx0" name="fixedPointx0" value="1"><br>
+
+    <label for="fixedPointTol">Tolerance</label><br>
+    <input type="text" id="fixedPointTol" name="fixedPointTol" value="1e-8"><br>
+
+    <label for="fixedPointIter">Max iterations</label><br>
+    <input type="text" id="fixedPointIter" name="fixedPointIter" value="100"><br>
+
+  
+  <br>
+  <input type="submit" value="Submit">
+</form>           
     </div>
   </div>
 </section>

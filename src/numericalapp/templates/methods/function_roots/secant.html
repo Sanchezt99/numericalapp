@@ -5,8 +5,35 @@
 <section class="page-section">
   <div class="container">
     <div class="card">
-      <h4><b>:(</b></h4>
-      <p>Nothing yet</p>          
+      <h4><b>Secant Method</b> <i style="font-size:24px" class="fa">&#xf059;</i> </h4>
+      
+       <p>The objective of this method is to find a root of a function from two initial values, a tolerance and a number of iterations, in this case it is not necessary to have an interval. The secant method is defined as a variant of Newton's method. From the iterative equation that defines Newton's method, the derivative is replaced by an expression that approximates it: X2 = X1 - ((f (X1) * (X1-Xo)) / (f (X1) -f ( Xo))</p>
+       <p> 1. You must choose two initial approximations X1 and X0</p>
+       <p> 2. X2 = Expression is calculated, Xn = Expression (n-1)</p>
+       <p> 3. And the previous step is repeated until reaching an approximation.</p>
+       <br><br>
+
+    <form action="/uploadSecant">
+
+    <label for="secantF">Function f</label><br>
+    <input type="text" id="secantF" name="secantF" value="x+3"><br>
+
+    <label for="secantx0">Initial value for x (x0)</label><br>
+    <input type="text" id="secantx0" name="secantx0" value="0.5"><br>
+
+    <label for="secantx1">Initial value for x (x1)</label><br>
+    <input type="text" id="secantx1" name="secantx1" value="1"><br>
+
+    <label for="secantTol">Tolerance</label><br>
+    <input type="text" id="secantTol" name="secantTol" value="1e-8"><br>
+
+    <label for="secantIter">Max iterations</label><br>
+    <input type="text" id="secantIter" name="secantIter" value="100"><br>
+
+  
+  <br>
+  <input type="submit" value="Submit">
+</form>           
     </div>
   </div>
 </section>
