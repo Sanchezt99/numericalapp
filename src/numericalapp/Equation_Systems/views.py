@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from .Methods.gaussSimple import gauss_enter
+from .Methods.gaussSimple import gauss_enter, gauss_elimination
 # Create your views here.
 
 
@@ -34,6 +34,7 @@ def graph(request):
 
 
 def gaussSimple_view(request):
+    message = ''
     if 'matrix_size' not in request.session:
         request.session['matrix_size'] = 2
 
@@ -46,13 +47,16 @@ def gaussSimple_view(request):
 
         if "method" in request.POST:
             elements = request.POST.getlist('element')
-            print(elements)
+            
             matrix = elements
-            gauss_enter(matrix,request.session['matrix_size'])
+            A,b = gauss_enter(matrix,request.session['matrix_size'])
+            print(f" A {A} \n b {b}")
+            message = gauss_elimination(A,b)
+            print("message", message)
 
     print(request.session['matrix_size'])
     return render(request, 'methods/equation_systems/gauss.html', {
-            "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement()
+            "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message
     })
 
 

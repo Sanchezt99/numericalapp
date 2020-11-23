@@ -5,30 +5,33 @@ def gauss_enter(a,size):
     A = a[0:-size]
     b = a[-size::]
     print(f"A {A} \n b {b}")
-
+    A = np.array(A).reshape(size,size).astype(np.float64)
+    b = np.array(b).reshape(size,1).astype(np.float64)
+    return A,b
 
 
 
 
 def gauss_elimination(a,b):
+    print("enter gauss")
     message = ""
     if a.shape[0] != a.shape[1]:
         message += "Matrix A has to be square"
         # file1.write("La matriz A debe ser cuadrada")
         # file1.close()
-        return 0
+        return message
     
     if a.shape[1] != b.shape[0]:
         message += "The number of columns of A must be the same as the number of rows of b"
         # file1.write("El número de columnas de A debe ser el mismo al número de filas de b")
         # file1.close()
-        return 0
+        return message
     
     if np.linalg.det(a) == 0:
-        message += "Determinant of A must be different from zero"
+        message = "Determinant of A must be different from zero"
         # file1.write("El determinante de A debe ser diferente de 0")
         # file1.close()
-        return 0
+        return message
 
 
     ns = "\n"*2
@@ -60,7 +63,7 @@ def gauss_elimination(a,b):
     x = sust_reg(ab)
     # file1.write("Después de sustitución regresiva:\n x:\n")
     # file1.write(str(x.T))
-    return x
+    return message
 def swap(ab,etapa):
     n, p = ab.shape
     for i in range(etapa+1,n):
