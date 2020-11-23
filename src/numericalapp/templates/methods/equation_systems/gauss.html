@@ -2,73 +2,61 @@
 {% block content %}
 {% load static %}
 <div>
-    <section class="page-section" >
-        <div class="container">
-            <!-- Contact Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">SIMPLE LU</h2>
+<section class="page-section" >
+  <div class="container">
+  <!-- Contact Section Heading-->
+  <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">SIMPLE LU</h2>
 
-                        <div class="grid-container">
-                                    <div class="grid-child purple">
-                                        <br>
-                                        <h6>Enter matrix size</h6>
-                                        <section id="plot">
-                                            <form action= "{% url 'gaussSimple.index' %}", method="post">
-                                                {% csrf_token %}
-                                                {{ form}}
-                                                <!-- <input type=number id="sizeMatriz"  value=2 step=1 min=2> -->
-                                                <br>
-                                                <br>
-                                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button></div>
-                                                
-                                            </form>
+  <div class="grid-container row">
+    <div class="grid-child purple col-4">
+      <br>
+      <h6>Enter matrix size</h6>
+      <section id="plot">
+        <form action= "{% url 'gaussSimple.index' %}", method="post">
+          {% csrf_token %}
+          {{ form}}
+          <!-- <input type=number id="sizeMatriz"  value=2 step=1 min=2> -->
+          <br>
+          <br>
+          <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button>
+        </form>
+      </section>
+    </div>
+    
+    <div class="matrix col-8">
+      <form action= "{% url 'gaussSimple.index' %}", method="post" class="ab">
+        {% csrf_token %}
 
-                                        </section>
-                                                                                
-                        
-                        <div class="matrix">
-                            <form action= "{% url 'gaussSimple.index' %}", method="post" class="ab">
-                                {% csrf_token %}
+        <div class="a">
+          {% with ''|center:size as range %}
+          {% for i in range %}
+              {% for j in range %}
+                    {{element}}
+              {% endfor %}
+              <br>
+          {% endfor %}
+          {% endwith %}
+        </div>
 
-                                <div class="a">
-                                    {% with ''|center:size as range %}
-                                    {% for i in range %}
-                                        {% for j in range %}
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                        {% endfor %}
-                                        <br>
-                                    {% endfor %}
-                                    {% endwith %}
-                                
-                                    </div>
+        {% comment %} <div class="a"> 
 
-                                    <div class="a"> 
+        {% with ''|center:size as range %}
+            {% for i in range %}
+                  <!-- <input id = i,j type=number> -->
+                  {{element}}
+                <br>
+            {% endfor %}
+        {% endwith %}
+        
+        </div> {% endcomment %}
 
-                                    {% with ''|center:size as range %}
-                                        {% for i in range %}
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                            <br>
-                                        {% endfor %}
-                                    {% endwith %}
-                                    
-                                    </div>
+        <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Enter Rows</button>
+      </form>
 
-                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Enter Rows</button>
-                            </form>
-
-                            {% if message%}
-                               <p style="text-align: center;">{{ message }} </p>
-                            {% endif %}
-                                   
-                        </div>
-                                <script src="https://d3js.org/d3.v3.min.js"></script>
-                                <script src="https://mauriciopoppe.github.io/function-plot/js/function-plot.js"></script>
-                                <script src="{% static 'assets/js/graph.js' %}"></script>
-                         
-                            
-                        <div id="success"></div>
-                        <!-- <button onclick="plot()">Click Here</button> -->
-                        
+        {% if message%}
+            <p style="text-align: center;">{{ message }} </p>
+        {% endif %}
+    </div>  
   </div>
+</section>
   {% endblock content %}
