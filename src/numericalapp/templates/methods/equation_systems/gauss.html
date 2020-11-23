@@ -27,11 +27,11 @@
       <form action= "{% url 'gaussSimple.index' %}", method="post" class="ab">
         {% csrf_token %}
 
-        <div class="a">
+        <div>
           {% with ''|center:size as range %}
           {% for i in range %}
               {% for j in range %}
-                    {{element}}
+                {{element}}
               {% endfor %}
               <br>
           {% endfor %}
