@@ -36,7 +36,7 @@ def newton_view(request, *args, **kwargs):
         return render(request, 'methods/function_roots/newton.html',{'form':form,'res':res,'sol':sol})
     else:
         form = NewtonForm()
-    return render(request, 'methods/function_roots/newton.html', {})
+    return render(request, 'methods/function_roots/newton.html', {'form':form})
 
 def secant_view(request, *args, **kwargs):
     if request.method == 'POST':
