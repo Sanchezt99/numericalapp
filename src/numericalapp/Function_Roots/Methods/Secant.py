@@ -17,8 +17,7 @@ class Secant:
             fx1 = fun(x1)
             cont = 2
             self.values.append([-1, str(x0), str("{:.2e}".format(fx0)), None])
-            self.values.append(
-                [cont, str(x1), str("{:.2e}".format(fx1)), None])
+            self.values.append([cont, str(x1), str("{:.2e}".format(fx1)), None])
             error = tol + 1
             den = fx1 - fx0
 

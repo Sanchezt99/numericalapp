@@ -2,6 +2,7 @@
 {% block content %}
 {% load static %}
 <div>
+<<<<<<< HEAD
 <section class="page-section" >
   <div class="container">
   <!-- Contact Section Heading-->
@@ -57,6 +58,99 @@
             <p style="text-align: center;">{{ message }} </p>
         {% endif %}
     </div>  
+=======
+    <section class="page-section" >
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">SIMPLE LU</h2>
+
+                        <div class="grid-container">
+                                    <div class="grid-child purple">
+                                        <br>
+                                        <h6>Enter matrix size</h6>
+                                        <section id="plot">
+                                            <form action= "{% url 'gaussSimple.index' %}", method="post">
+                                                {% csrf_token %}
+                                                {{ form}}
+                                                <!-- <input type=number id="sizeMatriz"  value=2 step=1 min=2> -->
+                                                <br>
+                                                <br>
+                                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button></div>
+                                                
+                                            </form>
+
+                                        </section>
+                                                                                
+                        
+                        <div class="matrix">
+                            <form action= "{% url 'gaussSimple.index' %}", method="post" class="ab">
+                                {% csrf_token %}
+
+                                <div class="a">
+                                    <h5>A</h5>
+                                    {% with ''|center:size as range %}
+                                    {% for i in range %}
+                                        {% for j in range %}
+                                             <!-- <input id = i,j type=number> -->
+                                             {{element}}
+                                        {% endfor %}
+                                        <br>
+                                    {% endfor %}
+                                    {% endwith %}
+                                
+                                    </div>
+
+                                    <div class="a"> 
+
+                                    <h5>b</h5>
+                                    {% with ''|center:size as range %}
+                                        {% for i in range %}
+                                             <!-- <input id = i,j type=number> -->
+                                             {{element}}
+                                            <br>
+                                        {% endfor %}
+                                    {% endwith %}
+                                    
+                                    </div>
+
+                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Enter Rows</button>
+                            </form>
+
+                            {% if message%}
+                               <p style="text-align: center;">{{ message }} </p>
+                            {% endif %}
+
+
+                            {% if matrixs %}
+                                <h5 style="text-align: center;">Simple Gaussian Elimination </h5>
+                                {%for matrix in matrixs%}
+                                    {% for row in matrix %}
+                                        {% for element in row %}
+                                            {{ element }}
+                                        {%endfor %}
+                                        <br>
+                                    {%endfor %}
+                                {%endfor%}
+                            {% endif %}
+
+                            <!-- {% if stages %}
+                                {%for i in stages%}
+                                    <p class="stage" style='text-align: center; font-weight: bold;'>Stage {{ i }} </p>
+                                    <p> matrix {{matrixs.i}}</p>
+                                         {{ matrixs.i|slugify }} 
+                                    <br>
+                                {%endfor%}
+                            {% endif %} -->
+                               
+                        </div>
+                                <script src="https://d3js.org/d3.v3.min.js"></script>
+                                <script src="https://mauriciopoppe.github.io/function-plot/js/function-plot.js"></script>
+                                <script src="{% static 'assets/js/graph.js' %}"></script>
+                         
+                            
+                        <div id="success"></div>
+                        <!-- <button onclick="plot()">Click Here</button> -->
+                        
+>>>>>>> 81e463e660ad10efca1a63fe730b3aa7741dbc08
   </div>
-</section>
-  {% endblock content %}
+  {% endblock content %}    

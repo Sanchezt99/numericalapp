@@ -13,27 +13,41 @@
        <p> 3. And the previous step is repeated until reaching an approximation.</p>
        <br><br>
 
-    <form action="/uploadSecant">
+        <div class="row">
+        <div class="col-4">
+          <form method="POST">
+            {% csrf_token %} 
+            {% for input in form %} {{input.label}}:
+            <br />
+            {{input}}
+            <br />
+            {% endfor %}
+            <br />
 
-    <label for="secantF">Function f</label><br>
-    <input type="text" id="secantF" name="secantF" value="x+3"><br>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="col-8">
 
-    <label for="secantx0">Initial value for x (x0)</label><br>
-    <input type="text" id="secantx0" name="secantx0" value="0.5"><br>
+        <table class="table table-bordered text-center">
+        {% for i in res %} {% comment %} manda arr {% endcomment %}
+        <tr>
+          {% for j in i %} {% comment %} separa cols {% endcomment %}
+            <td> {{j}} </td>
+          {% endfor %}
+        </tr>
+        
+        {% endfor %}
+        </table>
+        <br>
 
-    <label for="secantx1">Initial value for x (x1)</label><br>
-    <input type="text" id="secantx1" name="secantx1" value="1"><br>
+        {{sol}}
+        <br>
+        <br>
 
-    <label for="secantTol">Tolerance</label><br>
-    <input type="text" id="secantTol" name="secantTol" value="1e-8"><br>
+        </div>
+        </div>
 
-    <label for="secantIter">Max iterations</label><br>
-    <input type="text" id="secantIter" name="secantIter" value="100"><br>
-
-  
-  <br>
-  <input type="submit" value="Submit">
-</form>           
     </div>
   </div>
 </section>

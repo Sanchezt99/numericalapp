@@ -31,6 +31,7 @@ class FixedPoint:
         self.values.append([0, str(x0), str(fx), None])
         counter = 0
         error = tol + 0.1
+        
         while fx != 0 and error > tol and counter < iter:
             xn = g_function.subs(x,x0)
             fi = function.subs(x,xn)
@@ -50,12 +51,12 @@ class FixedPoint:
 
         if fx == 0:
             ansTable.append(x0)
-            return ansTable
+            return ansTable , x0
         elif error < tol:
             #ansTable.append([x0,tol,counter])
             return ansTable , f'The root is an approximation of: {x0} with a tolerance of {tol}'
         else:
-            return f"Failed after {iter} iterations "
+            return ansTable, f"Failed after {iter} iterations "
 
     #def tabla_values(self):
         #print(self.values)
