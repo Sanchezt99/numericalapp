@@ -11,16 +11,13 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
  
-.stage{
-  text-align: center;
-  font-weight: bold;
-}
 
 
 .matrix{
   border: 3px;
   padding: 20px;
 }
+
 .a{
   width: 50%;
   float: left;

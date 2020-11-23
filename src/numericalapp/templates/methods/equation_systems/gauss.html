@@ -63,14 +63,18 @@
                                <p style="text-align: center;">{{ message }} </p>
                             {% endif %}
 
+
                             {% if matrixs %}
+                                <h5 style="text-align: center;">Simple Gaussian Elimination </h5>
                                 {%for matrix in matrixs%}
                                     {% for row in matrix %}
-                                        <p class="stage" style='text-align: center;' >{{ row }}</p>
+                                        {% for element in row %}
+                                            {{ element }}
+                                        {%endfor %}
+                                        <br>
                                     {%endfor %}
                                 {%endfor%}
                             {% endif %}
-                            {{matrixs}}
 
                             <!-- {% if stages %}
                                 {%for i in stages%}
@@ -91,4 +95,4 @@
                         <!-- <button onclick="plot()">Click Here</button> -->
                         
   </div>
-  {% endblock content %}
+  {% endblock content %}    
