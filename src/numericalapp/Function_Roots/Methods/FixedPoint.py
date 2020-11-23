@@ -20,13 +20,13 @@ class FixedPoint:
         fx = function.subs(x,x0)
 
         if fx == 0:
-            print(f"{x0} is the root")
+           # print(f"{x0} is the root")
             return f"{x0} is the root"
         if iter < 1:
-            print("The iterator value is wrong")
+           # print("The iterator value is wrong")
             return "The iterator value is wrong"
         if tol < 0:
-            print("Tolerance error, must be greater than or equal to 0")
+           # print("Tolerance error, must be greater than or equal to 0")
             return "Tolerance error, must be greater than or equal to 0"
 
         self.values.append([0, str(x0), str(fx), None])
@@ -58,6 +58,6 @@ class FixedPoint:
         else:
             return f"Failed after {iter} iterations "
 
-    def tabla_values(self):
-        print(self.values)
-        return self.values
+    #def tabla_values(self):
+        #print(self.values)
+     #   return self.values

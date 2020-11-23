@@ -7,7 +7,7 @@ class Secant:
 
     def evaluate(self, tol, x0, x1, fun, niter, type_error=0):
 
-        print("Iter", "xi", "f(xi)", "E")    
+       # print("Iter", "xi", "f(xi)", "E")    
 
         fx0 = fun(x0)
 
@@ -23,7 +23,7 @@ class Secant:
             den = fx1 - fx0
 
 
-            print(0, x0, fx0)
+            #print(0, x0, fx0)
             x2 = x1 - (fx1*(x1 - x0)/den)
 
             x0 = x1
@@ -31,7 +31,7 @@ class Secant:
             x1 = x2
             fx1 = fun(x2)
             den = fx1 - fx0
-            print(1, x0, fx0)
+            #print(1, x0, fx0)
             
 
             while error > tol and fx1 != 0 and den != 0 and cont < niter:
@@ -50,7 +50,7 @@ class Secant:
                 fx1 = fun(x2)
                 den = fx1 - fx0
 
-                print(cont, x0, fx0, error)
+                #print(cont, x0, fx0, error)
 
                 cont += 1
                 self.values.append(
@@ -69,4 +69,4 @@ class Secant:
         return self.values
 
 sec = Secant()
-print(sec.evaluate(1E-7, 0.5, 1, fc.f, 100))
+#print(sec.evaluate(1E-7, 0.5, 1, fc.f, 100))

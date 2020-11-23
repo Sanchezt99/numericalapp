@@ -11,7 +11,7 @@ class FixedPointForm(forms.Form):
 class NewtonForm(forms.Form):
     F = forms.CharField(label='Function f')
     FPrime = forms.CharField(label='Function fprime')
-    x0 = forms.DecimalField(label='Initial x (x0)')
+    xi = forms.DecimalField(label='Initial x (x0)')
     Tol = forms.DecimalField(label='Tolerance')
     Iter = forms.IntegerField(label='Iterations')
 
