@@ -30,6 +30,7 @@
                                 {% csrf_token %}
 
                                 <div class="a">
+                                    <h5>A</h5>
                                     {% with ''|center:size as range %}
                                     {% for i in range %}
                                         {% for j in range %}
@@ -44,6 +45,7 @@
 
                                     <div class="a"> 
 
+                                    <h5>b</h5>
                                     {% with ''|center:size as range %}
                                         {% for i in range %}
                                              <!-- <input id = i,j type=number> -->
@@ -60,7 +62,25 @@
                             {% if message%}
                                <p style="text-align: center;">{{ message }} </p>
                             {% endif %}
-                                   
+
+                            {% if matrixs %}
+                                {%for matrix in matrixs%}
+                                    {% for row in matrix %}
+                                        <p class="stage" style='text-align: center;' >{{ row }}</p>
+                                    {%endfor %}
+                                {%endfor%}
+                            {% endif %}
+                            {{matrixs}}
+
+                            <!-- {% if stages %}
+                                {%for i in stages%}
+                                    <p class="stage" style='text-align: center; font-weight: bold;'>Stage {{ i }} </p>
+                                    <p> matrix {{matrixs.i}}</p>
+                                         {{ matrixs.i|slugify }} 
+                                    <br>
+                                {%endfor%}
+                            {% endif %} -->
+                               
                         </div>
                                 <script src="https://d3js.org/d3.v3.min.js"></script>
                                 <script src="https://mauriciopoppe.github.io/function-plot/js/function-plot.js"></script>
