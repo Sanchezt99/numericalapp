@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .Forms import *
-from .Methods import FixedPoint,Secant
+from .Methods import FixedPoint,Secant, Newton
 
 
 def fixedPoint_view(request, *args, **kwargs):
@@ -26,17 +26,19 @@ def newton_view(request, *args, **kwargs):
     if request.method == 'POST':
         form = NewtonForm(request.POST)
         newt = Newton.Newton()
-        xn = float(form.data['xn'])
+        xi = float(form.data['xi'])
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
         FPrime = form.data['FPrime']
-        res,sol = newt.evaluate(Tol,xn,Iter,F,FPrime)
+
+
+        res,sol = newt.evaluate(Tol,xi,Iter,F,FPrime)
         #print(res)
         return render(request, 'methods/function_roots/newton.html',{'form':form,'res':res,'sol':sol})
     else:
         form = NewtonForm()
-    return render(request, 'methods/function_roots/newton.html', {})
+    return render(request, 'methods/function_roots/newton.html', {'form':form})
 
 def secant_view(request, *args, **kwargs):
     if request.method == 'POST':
@@ -52,4 +54,4 @@ def secant_view(request, *args, **kwargs):
         return render(request, 'methods/function_roots/secant.html',{'form':form,'res':res,'sol':sol})
     else:
         form = SecantForm()
-    return render(request, 'methods/function_roots/secant.html', {})
+    return render(request, 'methods/function_roots/secant.html', {'form':form})
