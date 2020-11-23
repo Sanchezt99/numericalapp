@@ -20,7 +20,7 @@ class Newton:
         if fx == 0:
             return ansTable, str(fx) + " is a root."
         if dfun == 0:
-            return "The derivate can't be 0"
+            return ansTable, "The derivate can't be 0"
 
         counter = 0
         error = tol + 1

@@ -1,8 +1,6 @@
 import math, os, sys
 import sympy as sp
 from sympy.parsing.sympy_parser import parse_expr as pe
-import utils.Functions as fc
-
 
 class FixedPoint:
 
