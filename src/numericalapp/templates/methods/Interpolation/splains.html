@@ -1,0 +1,41 @@
+{% extends 'layouts/master.html' %} {% block content %}
+
+<style>
+  #x_input {
+    width: 30px;
+    border: 0px;
+  }
+  #y_input {
+    width: 30px;
+    border: 0px;
+  }
+  #border {
+    border: 2px solid black;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>
+
+<section class="page-section">
+  <div class="container">
+
+    <div class="text-center">
+      <form method="post">
+        <table class="text-center">
+          <tr id="border">
+            <th scope="row">X</th>
+            <td id="border">{{form.x}}</td>
+          </tr>
+          <tr id="border">
+            <th scope="row">Y</th>
+            <td id="border">{{form.y}}</td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock content %}
