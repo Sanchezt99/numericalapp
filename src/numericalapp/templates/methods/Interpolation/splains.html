@@ -21,17 +21,20 @@
 
 <section class="page-section">
   <div class="container">
-
     <div class="text-center">
       <form method="post">
         <table class="text-center">
           <tr id="border">
             <th scope="row">X</th>
+            {% for i in range %}
             <td id="border">{{form.x}}</td>
+            {% endfor %}
           </tr>
           <tr id="border">
             <th scope="row">Y</th>
+            {% for i in range %}
             <td id="border">{{form.y}}</td>
+            {% endfor %}
           </tr>
         </table>
       </form>
