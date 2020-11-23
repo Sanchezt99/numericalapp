@@ -10,7 +10,7 @@ class Newton:
 
     def evaluate(self, tol, xi, niter, fun, dfun, type_error=0):
         
-        print("Iter","xi", "f(xi)", "E")
+        #print("Iter","xi", "f(xi)", "E")
 
         fx = fun(xi)
         dfx = dfun(xi)
@@ -31,7 +31,7 @@ class Newton:
             fx = fun(xn)
             dfx = dfun(xn)
 
-            print(contador, xi, fun(xi),error)
+            #print(contador, xi, fun(xi),error)
 
             if type_error == 0:
                 error = abs(xn-xi)
@@ -58,5 +58,5 @@ class Newton:
         return self.values
 
 newt = Newton()
-print(newt.evaluate(0.00001,1,100,fc.fPrime,fc.fPrimePrime))
+#print(newt.evaluate(0.00001,1,100,fc.fPrime,fc.fPrimePrime))
 
