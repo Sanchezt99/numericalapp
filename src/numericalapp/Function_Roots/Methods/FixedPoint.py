@@ -1,7 +1,6 @@
 import math, os, sys
 import sympy as sp
 from sympy.parsing.sympy_parser import parse_expr as pe
-from scitools.StringFunction import StringFunction
 import utils.Functions as fc
 
 
