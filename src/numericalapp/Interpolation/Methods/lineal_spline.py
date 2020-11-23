@@ -24,7 +24,7 @@ def splain(x, y):
 
     coefficients = []
     for i in range(0,len(matrix), 2):
-        coefficients.append[f'{float("{:.5f}".format(xact[i]))} <-> {float("{:.5f}".format(xact[i+1]))}']
+        coefficients.append(f'{float("{:.5f}".format(xact[i]))} {float("{:.5f}".format(xact[i+1]))}')
 
     print('\033[96m')
     print('Lineal tracers')
