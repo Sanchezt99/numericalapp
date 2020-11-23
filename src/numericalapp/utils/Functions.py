@@ -23,7 +23,7 @@ def hPrimeTwo(x):
     return np.exp(x)
 
 
-def f(x):
+def f2(x):
     return np.exp(x-0.5) - 0.5 * np.power(x,2) - 0.5*x - 0.625
 
 def fPrime(x):

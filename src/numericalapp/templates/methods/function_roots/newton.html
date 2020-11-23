@@ -2,9 +2,10 @@
 
 <section class="page-section">
   <div class="container">
-    <div class="card">
+    <div>
       <h4>
-        <b>Newton Method</b> <i style="font-size: 24px" class="fa">&#xf059;</i>
+        <b>Newton Method</b> 
+        <i style="font-size: 24px" class="fa">&#xf059;</i>
       </h4>
 
       <p>
@@ -21,44 +22,47 @@
       <p>2. Calculates X1 = g(Xo)</p>
       <p>3. Calculates X2 = g(X1)</p>
       <p>4. Calculates Xn=g(Xn-1)</p>
-      <p>
-        5. The previous step is repeated until reaching an approximation of the
+      <p>5. The previous step is repeated until reaching an approximation of the
         root.
       </p>
       <br /><br />
 
-      <form action="/uploadNewton">
-        <label for="newtonF">Function f</label><br />
-        <input type="text" id="newtonF" name="newtonF" value="x+3" /><br />
+        <div class="row">
+        <div class="col-4">
+          <form method="POST">
+            {% csrf_token %} 
+            {% for input in form %} {{input.label}}:
+            <br />
+            {{input}}
+            <br />
+            {% endfor %}
+            <br />
 
-        <label for="newtonFPrime">Function g</label><br />
-        <input
-          type="text"
-          id="newtonFPrime"
-          name="newtonFPrime"
-          value="1"
-        /><br />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="col-8">
 
-        <label for="newtonx0">Initial value for x (x0)</label><br />
-        <input type="text" id="newtonx0" name="newtonx0" value="1" /><br />
+        <table class="table table-bordered text-center">
+        {% for i in res %} {% comment %} manda arr {% endcomment %}
+        <tr>
+          {% for j in i %} {% comment %} separa cols {% endcomment %}
+            <td> {{j}} </td>
+          {% endfor %}
+        </tr>
+        
+        {% endfor %}
+        </table>
+        <br>
 
-        <label for="newtonTol">Tolerance</label><br />
-        <input type="text" id="newtonTol" name="newtonTol" value="1e-8" /><br />
+        {{sol}}
+        <br>
+        <br>
 
-        <label for="newtinIter">Max iterations</label><br />
-        <input
-          type="text"
-          id="newtinIter"
-          name="newtinIter"
-          value="100"
-        /><br />
-
-        <br />
-        <input type="submit" value="Submit" />
-      </form>
+        </div>
+        </div>
     </div>
   </div>
 </section>
 
-{% include 'layouts/modal.html' with id='miid' text='mitexto'%} {% endblock
-content %}
+{% endblock content %}

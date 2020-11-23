@@ -10,13 +10,19 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
- #me{
-   width: 100px;
- }
+ 
+.matrix{
+  border: 3px;
+  padding: 20px;
+}
+.a{
+  width: 50%;
+  float: left;
+  padding: 20px;
+}
 .matrix{
   margin: auto;
-  max-width: 50%;
+  max-width: 100%;
   /* border-style: solid; */
   /* border-color: red; */
 
