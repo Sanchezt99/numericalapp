@@ -211,14 +211,13 @@ def gaussSimple_view(request):
             
             matrix = elements
             A,b = gauss_enter(matrix,request.session['matrix_size'])
-            # print(f" A {A} \n b {b}")
+            print(f" A {A} \n b {b}")
             message, stages, matrixs = gauss_elimination(A,b)
-            # print("message", message)
+            print("message", message)
 
-    # print(request.session['matrix_size'])
-    # print(matrixs)
+    print(request.session['matrix_size'])
+    print(matrixs)
     return render(request, 'methods/equation_systems/gauss.html', {
             "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "stages":stages, "matrixs": matrixs
     })
-
 

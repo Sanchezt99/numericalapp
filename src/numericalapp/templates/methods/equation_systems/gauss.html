@@ -66,25 +66,14 @@
 
                             {% if matrixs %}
                                 <h5 style="text-align: center;">Simple Gaussian Elimination </h5>
-                                <div class="container">
-                                    
-                                        {%for matrix in matrixs%}
-                                            <div class="row justify-content-center">
-                                                <div class="container">
-                                                    {% for row in matrix %}
-                                                            <div class="row justify-content-center">
-                                                                {% for element in row %}
-                                                                    <div class="row">
-                                                                        <input type="text" value={{element}} disabled>
-                                                                    </div>
-                                                                {%endfor %}
-                                                            </div>
-                                                    {%endfor %}
-                                                </div>
-                                            </div>
-                                        {%endfor%}
-                                </div>
-
+                                {%for matrix in matrixs%}
+                                    {% for row in matrix %}
+                                        {% for element in row %}
+                                            {{ element }}
+                                        {%endfor %}
+                                        <br>
+                                    {%endfor %}
+                                {%endfor%}
                             {% endif %}
 
                             <!-- {% if stages %}

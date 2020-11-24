@@ -64,7 +64,6 @@ def gauss_elimination(a,b):
             # #break
         
         x = sust_reg(ab)
-        matrixs.append(x)
     # file1.write("Después de sustitución regresiva:\n x:\n")
     # file1.write(str(x.T))
     return message, etapas, matrixs
@@ -85,9 +84,9 @@ def sust_reg(ab):
     
 
     for i in range(n-2,-1,-1):
-        # print("\n i",i)
+        print("\n i",i)
         aux = np.array([np.append( 1, x[0,i+1:n+1])])
         aux1 = np.array([np.append(ab[i,n],-1 * ab[i,i+1:n])]).T
         x[0,i] = np.dot(aux,aux1)/ab[i,i]
-        print(x)
+
     return x
