@@ -21,14 +21,12 @@
       type="text/css"
     />
 
-    <link href="{% static 'css/b.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   </head>
 
   <body>
-    {% include 'layouts/nav_bar.html' %} 
-    {% block content %} 
+    {% include 'layouts/nav_bar.html' %} {% block content %}
     {% endblock content%} 
-    {% include 'layouts/footer.html' %}
   </body>
 
   <!-- Bootstrap core JS-->

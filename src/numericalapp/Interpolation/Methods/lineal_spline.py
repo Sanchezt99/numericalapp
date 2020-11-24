@@ -1,10 +1,14 @@
 import numpy as np
 import sympy as sp
+from utils import MatrixUtils as mu
 
 def splain(x, y):
 
     x = np.array(x).astype(np.float)
     y = np.array(y).astype(np.float)
+
+    if not mu.checkUnique(x):
+        return None, None, 'X values must be unique' 
 
     dimension = 2*len(x) - 2
 
@@ -17,25 +21,23 @@ def splain(x, y):
 
     np.set_printoptions(formatter={'float': lambda x: "{0:0.5f}".format(x)})
 
-    print('\033[96m')
-    print('Lineal tracers coefficients')
-    print('\033[0m')
-    xact = np.linalg.solve(matrix, b)
 
+    xact = np.linalg.solve(matrix, b)
     coefficients = []
     for i in range(0,len(matrix), 2):
-        coefficients.append(f'{float("{:.5f}".format(xact[i]))} {float("{:.5f}".format(xact[i+1]))}')
+        expr = f'a{i+1} = {float("{:.5f}".format(xact[i]))}, b{i+1} = {float("{:.5f}".format(xact[i+1]))}'
+        coefficients.append(expr)
 
-    print('\033[96m')
-    print('Lineal tracers')
-    print('\033[0m')
-    x = sp.symbols('x')
+    xv = sp.symbols('x')
     tracers = []
     for i in range(0,len(matrix), 2):
-        expr = xact[i]*x + xact[i+1]
-        tracers.append(sp.pretty(expr))
+        expr = float("{:.5f}".format(xact[i]))*xv + float("{:.5f}".format(xact[i+1]))
+        tracers.append(sp.latex(expr))
 
-    return tracers, coefficients
+    for i in range(len(x)-1):
+        tracers[i] = str(tracers[i]) + f' -----------> {x[i]} <= x <= {x[i+1]} <br />'
+
+    return tracers, coefficients, 'Successful'
 
 
 
