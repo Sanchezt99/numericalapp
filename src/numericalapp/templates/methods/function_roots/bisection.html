@@ -12,7 +12,10 @@
       <p> 2. Afterwards, we seek to find the root with greater accuracy within the interval by dividing in half and observing if the initial conditions are preserved.</p>
       <p> 3. The Xmed is compared with each of the limits of the interval and it`s observed that the product changes sign and a new interval is assigned.</p>
       <p> 4. The process is repeated, and the interval becomes small until it reaches an approximation of the root or the exact root.</p>
-       <br><br>
+      <br><br>
+      <p>Recommendations for entering functions</p>
+      <p>Ln(x) =  log(x),  Sen(x) =  Sin(x),  X^2 =  x**2,  e^x =  e**x </p>
+      <br><br>
 
         <div class="row">
         <div class="col-4">
@@ -42,6 +45,38 @@
         </table>
         <br>
 
+        <table id="table-data" class="display" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Iteraciones</th>
+                  <th>a</th>
+                  <th>xm</th>
+                  <th>b</th>
+                  <th>f(xm)</th>
+                  <th>E</th>
+              </tr>
+          </thead>
+      </table>
+      
+      <script>
+          $(document).ready( function () {
+              fetch('/bisection/data')
+              .then(result => result.json())
+              .then((data) =>{ 
+                  let tabla = document.getElementById('table-data');
+                  data['iter'].forEach((e,index) => {
+                      
+                      var fila="<tr><td>"+data['iter'][index]+"</td><td>"+data['a'][index]+"</td><td>"+data['xm'][index]+"</td><td>"+data['b'][index]+"</td><td>"+data['fxm'][index]+"</td><td>"+data['E'][index]+"</td></tr>";
+                      var fil = document.createElement('tr');
+                      fil.innerHTML=fila;
+                      tabla.appendChild(fil);
+                  });
+                  
+                  
+                  
+              });
+          });
+      </script>
         {{sol}}
         <br>
         <br>
@@ -51,6 +86,7 @@
 
     </div>
   </div>
+  
 </section>
 
 {% include 'layouts/modal.html' with id='miid' text='mitexto'%}
