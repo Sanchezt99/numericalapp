@@ -31,7 +31,8 @@ class Matrix2(forms.Form):
 
 
 class MatrixElement(forms.Form):
-    element = forms.FloatField(label=False)
+    element = forms.FloatField(label=False, widget=forms.NumberInput(attrs={'size': '5'}))
+    element: {'widget': forms.NumberInput(attrs={'class':'form-number'})}
 
 
 
@@ -198,13 +199,15 @@ def graph(request):
     return render(request, "graph.html")
 
 
+matrix_final = []
 def gaussSimple_view(request):
     message = ''
     stages = []
     matrixs = []
+    xs = []
+    ab = []
     if 'matrix_size' not in request.session:
         request.session['matrix_size'] = 2
-        
     if request.method == "POST":
         if "rows_matrix" in request.POST:
             form = Matrix(request.POST)
@@ -217,14 +220,15 @@ def gaussSimple_view(request):
             
             matrix = elements
             A,b = gauss_enter(matrix,request.session['matrix_size'])
-            print(f" A {A} \n b {b}")
-            message, stages, matrixs = gauss_elimination(A,b)
+            # print(f" A {A} \n b {b}")
+            message, matrixs, xs, ab = gauss_elimination(A,b)
             print("message", message)
 
-    print(request.session['matrix_size'])
-    print(matrixs)
+    # print(request.session['matrix_size'])
+    # print(matrixs)
+    print(request.session['matrix_final'])
     return render(request, 'methods/equation_systems/gauss.html', {
-            "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "stages":stages, "matrixs": matrixs
+         "m":ab, "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "matrixs": matrixs, "xs":xs
     })
 
 

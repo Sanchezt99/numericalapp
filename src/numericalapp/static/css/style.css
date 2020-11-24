@@ -10,12 +10,23 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
- 
+.result, .element_matrix{
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.element_matrix {
+  padding: 15px;
+}
 
+ #id_element{
+  width: 70pt !important;
+  }
 
 .matrix{
   border: 3px;
   padding: 20px;
+  /* border-style: solid;
+  border-color: red; */
 }
 
 .a{

@@ -5,9 +5,29 @@
     <section class="page-section" >
         <div class="container">
             <!-- Contact Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">SIMPLE LU</h2>
+            <h4>
+                <b>Gaussian simple elimination</b>
+                <i style="font-size: 24px" class="fa">&#xf059;</i>
+              </h4>
 
                         <div class="grid-container">
+                            <p>
+                                The fundamental idea is to add multiples of one equation to the others in order to eliminate <br>
+                                a variable and to continue this process until only one variable is left. Once this final variable <br>
+                                is determined, its value is substituted back into the other equations in order to evaluate the <br>
+                                remaining unknowns.
+                              </p>
+                              <p>To perform row reduction on a matrix, one uses a sequence of elementary row operations to modify <br>
+                                the matrix until the lower left-hand corner of the matrix is filled with zeros, as much as possible. <br>
+                                There are three types of elementary row operations:
+
+                                <ul>
+                                    <li>Swapping two rows</li>
+                                    <li>Multiplying a row by a nonzero number</li>
+                                    <li>Adding a multiple of one row to another row</li>
+                                </ul>
+                              
+                              
                                     <div class="grid-child purple">
                                         <br>
                                         <h6>Enter matrix size</h6>
@@ -64,26 +84,65 @@
                             {% endif %}
 
 
-                            {% if matrixs %}
+                            {% if m %}
                                 <h5 style="text-align: center;">Simple Gaussian Elimination </h5>
-                                {%for matrix in matrixs%}
-                                    {% for row in matrix %}
-                                        {% for element in row %}
-                                            {{ element }}
+                                
+                                    <h6 style="text-align: center;" > Stage 0 </h6>
+                                    
+                                    <table class="result" align="center">
+                                        {% for row in m %}
+                                            <tr>
+                                            {% for element in row %}
+                                                    <td class="element_matrix">
+                                                            {{ element }}
+                                                    </td>
+                                                
+                                            {%endfor %}
+                                            </tr>
                                         {%endfor %}
-                                        <br>
-                                    {%endfor %}
-                                {%endfor%}
+                            
+                                    </table>
+                                
                             {% endif %}
 
-                            <!-- {% if stages %}
-                                {%for i in stages%}
-                                    <p class="stage" style='text-align: center; font-weight: bold;'>Stage {{ i }} </p>
-                                    <p> matrix {{matrixs.i}}</p>
-                                         {{ matrixs.i|slugify }} 
+                            
+                            {% if matrixs %}
+                                <!-- <h5 style="text-align: center;">Simple Gaussian Elimination </h5> -->
+                                <br>
+                                    {%for matrix in matrixs%}
+                                    <h6 style="text-align: center;" > Stage {{ forloop.counter }} </h6>
+                                    
+                                    <table class="result" align="center">
+                                        {% for row in matrix %}
+                                            <tr>
+                                            {% for element in row %}
+                                                    <td class="element_matrix">
+                                                            {{ element }}
+                                                    </td>
+                                                
+                                            {%endfor %}
+                                            </tr>
+                                        {%endfor %}
+                            
+                                    </table>
                                     <br>
-                                {%endfor%}
-                            {% endif %} -->
+                                    
+
+                                    {%endfor%}
+                                
+                            {% endif %}
+                            
+                            {% if xs %}
+                                <p align="center" style="text-align: center;">
+                                    After backwards substitution we got:
+                                </p>
+                                {% for element in xs%}
+                                    <p align="center">{{element}}</p>
+                                    
+                                {% endfor %}
+
+                            {% endif %}
+
                                
                         </div>
                                 <script src="https://d3js.org/d3.v3.min.js"></script>
