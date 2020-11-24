@@ -13,7 +13,6 @@ def gauss_enter(a,size):
 
 
 def gauss_elimination(a,b):
-    print("enter gauss")
     message = ""
     etapas = []
     matrixs = []
@@ -30,14 +29,19 @@ def gauss_elimination(a,b):
         # return message
     
     if np.linalg.det(a) == 0:
+        print("DET = 0")
         message = "Determinant of A must be different from zero"
         # file1.write("El determinante de A debe ser diferente de 0")
         # file1.close()
         # return message
+    
+    if message:
+        return message, [], [], []
 
     if not message:
         ns = "\n"*2
         ab = np.concatenate((a,b), axis=1)
+        ab_original = np.copy(ab)
         n,p = ab.shape
         # file1.write("Eliminación Gaussiana Simple \n Etapa 0 \n") 
         ab = np.around(ab,6)
@@ -56,8 +60,9 @@ def gauss_elimination(a,b):
             for fila in range(etapa+1,n):
                 ab[fila,etapa::] = (ab[fila,etapa::] -(ab[fila, etapa]/ab[etapa,etapa] * ab[etapa,etapa::]))
             
-            ab = np.around(ab,6)
-            matrixs.append(ab)
+            ab1 = np.around(ab,3)
+            print(ab1)
+            matrixs.append(ab1)
             # file1.write(str(ab))
             
             # file1.write(ns)
@@ -66,7 +71,8 @@ def gauss_elimination(a,b):
         x = sust_reg(ab)
     # file1.write("Después de sustitución regresiva:\n x:\n")
     # file1.write(str(x.T))
-    return message, etapas, matrixs
+    ans = np.round(x.T, 3).tolist()
+    return message, matrixs, ans, ab_original.tolist()
     
 def swap(ab,etapa):
     n, p = ab.shape
@@ -84,7 +90,7 @@ def sust_reg(ab):
     
 
     for i in range(n-2,-1,-1):
-        print("\n i",i)
+        # print("\n i",i)
         aux = np.array([np.append( 1, x[0,i+1:n+1])])
         aux1 = np.array([np.append(ab[i,n],-1 * ab[i,i+1:n])]).T
         x[0,i] = np.dot(aux,aux1)/ab[i,i]

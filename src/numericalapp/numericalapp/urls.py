@@ -1,6 +1,6 @@
 from django.urls import path
 from pages.views import home_view, methods_view, about_view, help_view
-from Equation_Systems.views import doolittle_view, jacobi_view, gaussSeidel_view, gaussSimple_view
+from Equation_Systems.views import doolittle_view, jacobi_view, gaussSeidel_view, gaussSimple_view, pivot_view
 from Function_Roots.views import fixedPoint_view, newton_view, secant_view, incrementalsearch_view,falseposition_view,bisection_view
 from Interpolation.views import splains_view, vandermonde_view, newtondivdif_view, lagrange_view, neville_view
 
@@ -24,4 +24,5 @@ urlpatterns = [
     path("newtondivdif/", newtondivdif_view, name="newtondivdif.index"),
     path("lagrange/", lagrange_view, name="lagrange.index"),
     path("neville/", neville_view, name="neville.index")
+    path("pivot/", pivot_view, name="pivot.index")
 ]

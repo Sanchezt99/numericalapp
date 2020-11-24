@@ -1,4 +1,3 @@
-import math
 import sympy as sp
 from sympy.parsing.sympy_parser import parse_expr as pe
 from math import *
@@ -20,7 +19,7 @@ class Newton:
         if fx == 0:
             return ansTable, str(fx) + " is a root."
         if dfun == 0:
-            return "The derivate can't be 0"
+            return ansTable, "The derivate can't be 0"
 
         counter = 0
         error = tol + 1
@@ -46,7 +45,17 @@ class Newton:
 
             counter = counter + 1
             #self.values.append([counter, str(xn), str("{:.2e}".format(fx)), str(dfx), str("{:.2e}".format(error))])
-        ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
+        if xi != 0 and fx != 0 and error != 0:
+            ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
+        elif xi == 0 and fx != 0 and error != 0:
+            ansTable.append([counter, xi, "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
+        elif counter != 0 and xi == 0 and fx != 0 and error != 0:
+            ansTable.append([counter, "{0:0.9e}".format(xi), fx, "{0:0.2e}".format(error)])
+        elif counter != 0 and xi != 0 and fx != 0 and error == 0:
+            ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), error])
+        else: ansTable.append([counter, xi, fx, error])
+
+
         if fx == 0:
             ansTable.append(xi)
             #return f"{xi} is a root"

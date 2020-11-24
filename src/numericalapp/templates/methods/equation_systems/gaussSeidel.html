@@ -1,16 +1,117 @@
 {% extends 'layouts/master.html' %}
 {% block content %}
 {% load static %}
+<div>
+    <section class="page-section" >
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Gauss Seidel </h2>
+            <br>
+            <br>
+                    <p>
+                    Gauss-Seidel is an iterative method for determining the solution of equations. It is based on generating approximations to the result based on an initial approximation. 
+                    The method first tries to convert the given matrix into a diagonally dominant matrix by permutations of rows and columns. 
+                    Subsequently, each equation is taken and the variable of the diagonal is put in terms of the other variables, after this it is there is the first approximation assigning initial values to the variables using the equations generated previously,
+                     the assigned values are obtained through the calculations carried out in the same cycle. This process is repeated until the dispersion value is less than the tolerance value, or until the number of iterations is exceeded. 
+                    </p>
+                        <div class="grid-container">
+                                    <div class="grid-child purple">
+                                        <br>
+                                        <h6>Enter matrix size</h6>
+                                        <section id="plot">
+                                            <form action= "{% url 'gaussSeidel.index' %}", method="post">
+                                                {% csrf_token %}
+                                                       {{form}}
+                                                {% comment %} <input type=number id="sizeMatriz"  value=2 step=1 min=2> {% endcomment %}
+                                                <br>
+                                                <br>
+                                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button></div>
+                                                
+                                            </form>
 
-<section class="page-section">
-  <div class="container">
-    <div class="card">
-      <h4><b>:(</b></h4>
-      <p>Nothing yet</p>          
-    </div>
+                                        </section>
+                                                                                
+                        
+                        <div class="matrix">
+                            <form action= "{% url 'gaussSeidel.index' %}", method="post" class="ab">
+                                {% csrf_token %}
+                                    {{form2}}
+
+                                <div class="col">
+                                    <h5>A</h5>
+                                    {% with ''|center:size as range %}
+                                    {% for i in range %}
+                                        {% for j in range %}
+                                             <!-- <input id = i,j type=number> -->
+                                             {{element}}
+                                        {% endfor %}
+                                        <br>
+                                    {% endfor %}
+                                    {% endwith %}
+                                
+                                    </div>
+
+                                    <div class="col"> 
+
+                                    <h5>X0</h5>
+                                    {% with ''|center:size as range %}
+                                        {% for i in range %}
+                                             <!-- <input id = i,j type=number> -->
+                                             {{element}}
+                                            <br>
+                                        {% endfor %}
+                                    {% endwith %}
+                                    
+                                    </div>
+
+                                    <div class="col"> 
+
+                                    <h5>b</h5>
+                                    {% with ''|center:size as range %}
+                                        {% for i in range %}
+                                             <!-- <input id = i,j type=number> -->
+                                             {{element}}
+                                            <br>
+                                        {% endfor %}
+                                    {% endwith %}
+                                    
+                                    </div>
+
+                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Enter Rows</button>
+                            </form>
+
+                            {% if message%}
+                               <p style="text-align: center;">{{ message }} </p>
+                            {% endif %}
+
+
+                            {% if matrixs %}
+                                <h5 style="text-align: center;">Gaussian Seidel </h5>
+                                <div class="container">
+                                    
+                                        {%for matrix in matrixs%}
+                                            <div class="row justify-content-center">
+                                                <div class="container">
+                                                    {% for row in matrix %}
+                                                            <div class="row justify-content-center" style = "border: 1px solid black ">
+
+                                                            {{row}}
+                                                                {% comment %} {% for element in row %}
+                                                                    <div class="row">
+                                                                        <input type="text" value={{element}} disabled>
+                                                                    </div>
+                                                                {%endfor %} {% endcomment %}
+                                                            </div>
+                                                    {%endfor %}
+                                                </div>
+                                            </div>
+                                        {%endfor%}
+                                </div>
+
+                            {% endif %}
+          
   </div>
-</section>
-
-{% include 'layouts/modal.html' with id='miid' text='mitexto'%}
-
-{% endblock content %}
+  </div>
+  </div>
+  </div>
+  {% endblock content %}    
