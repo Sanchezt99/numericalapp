@@ -68,27 +68,23 @@
 
 <section class="ç page-section">
   <div>
-    <h4 class="methods-title text-uppercase text-secondary mb-0">Splains</h4>
+    <h4 class="methods-title text-uppercase text-secondary mb-0">Gaussian Pivots</h4>
     <a href="./"><i style="font-size: 24px" class="fa">&#xf059;</i></a>
     <p>
-      The Splains seeks to interpolation of a given data set, this set must be
-      composed by {x,y} pairs for which the method generate a corresponding
-      piecewise function s(x). <br />
-      There are 3 kinds of splain (lineal, cuadratic and cubic) which will
-      determine the degree of the funcions defined in s(x). <br />
-      The set of x values must be unique between them, otherwise the method wont
-      be able to interpolate.
+      Partial and Total pivot are both extendions of the Gaussian-elimination method that seeks the a solution to matrix systems Ax = b. <br/>
+      The Pivots try to avoid an issue in the Gaussian-elimination method where a 0 in the matrix diagonal would couse an indetermination n/0. <br/>
+      Partial pivot swaps rows in the matrix where if in the current sub matrix A<sub>ii</sub> < A<sub>ji</sub> and j/=i then swap A[i] <-> A[j] <br/>
+      Total pivot swaps rows and columns where if in the current sub matrix A<sub>ii</sub> < A<sub>ij</sub> and j/=i then swap A<sub>ii</sub> <-> A<sub>ij</sub> both columns and rows <br/>
     </p>
     <p>
-      1. <strong>Variables</strong>: number of x values you want to set (max=15)
+      1. <strong>Dimension</strong>: Matrix dimension (max=14)
     </p>
-    <p>2. <strong>Splain</strong>: splain method you want to use</p>
+    <p>2. <strong>Pivot method</strong>: Pivot method you want to use</p>
     <p>
-      3. <strong>X</strong>: X values of the data set you want to interpolate
+      3. <strong>A</strong>: Values of matrix A
     </p>
     <p>
-      4. <strong>Y</strong>: Y values of the data set you want to interpolate
-      matching verticaly the corresponding X value
+      4. <strong>B</strong>: Values of matrix b
     </p>
   </div>
 
