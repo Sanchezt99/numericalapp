@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .Forms import *
 from .Methods import FixedPoint,Secant
-from .Methods import Newton
+from .Methods import newton
 
 
 def fixedPoint_view(request, *args, **kwargs):
@@ -26,7 +26,7 @@ def fixedPoint_view(request, *args, **kwargs):
 def newton_view(request, *args, **kwargs):
     if request.method == 'POST':
         form = NewtonForm(request.POST)
-        newt = Newton.Newton()
+        newt = newton.Newton()
         xi = float(form.data['xi'])
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
