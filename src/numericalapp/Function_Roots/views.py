@@ -50,7 +50,6 @@ def secant_view(request, *args, **kwargs):
         Iter = int(form.data['Iter'])
         F = form.data['F']
         res,sol = sec.evaluate(Tol,x0,x1,F,Iter)
-        print(res, '===================================================================')
         return render(request, 'methods/function_roots/secant.html',{'form':form,'res':res,'sol':sol})
     else:
         form = SecantForm()

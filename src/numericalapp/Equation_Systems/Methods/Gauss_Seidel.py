@@ -1,44 +1,58 @@
-import  numpy as np
+import numpy
 
 class GaussSeidel:
 
-    def __init__(self,mat, b, n, error, itera):
-        self.mat=mat
-        self.b = b
-        self.n = n
-        self.error = error
-        self.itera = itera
+    def evaluate(tol, niter, relajacion,matrix,m,indp,x0):
+        matrix = matrix.copy()
+        m = m
+        etapas = []
+        values = []
+        x = numpy.empty(m)
+        indp = indp.copy()
+        x0 = x0.copy()
+        x1 = numpy.empty(m)
+        res = numpy.empty(m)
+        aux = []
+        dispersion = 0
+        cont  = 0
+        dispersion = float(tol + 1)
 
-#A=np.array([[15,-7,2],
-#            [-4,20,-16],
-#            [13,-4,45],])
-#b=np.array([5.,34.,-23.])
+        values.append([cont, x0, dispersion])
 
-    def GaussS(self):
-        mat=self.mat.replace("[","")
-        mat=mat.replace("]","")
-        mat=mat.split(",")
-        mat = np.array(mat)        
-        mat = mat.astype(np.float)
-        err = float(self.error)
-        iterat = int(self.itera)
-        n = int(self.n)
-        mat = mat.reshape(n, n)
+        while (dispersion > tol) and (cont < niter):
+            print("entro while")
 
-        b = self.b.split(",")
+            print([cont, str(x0), dispersion])
 
-        for i in range(len(b)):
-            b[i] = float(b[i])
+            for i in range(m):
+                x1[i] = x0.item(i)
+            for i in range(m):
+                suma = 0
+                for j in range(m):
+                    if j != i:
+                        suma += (matrix.item(i, j)*x1.item(j))
+                
+                if matrix.item(i, i) != 0:
+                    x1[i] = (indp.item(i) - suma)/matrix.item(i, i)
+                else:
+                    print("El sistema posiblemente no tiene solución")
 
-        x=np.zeros_like(b)
+                
+            aux = x0 - x1
+            dispersion = numpy.linalg.norm(aux)/numpy.linalg.norm(x1) 
+            if relajacion != 0:
+                for i in range(m):
+                    x1[i] = (relajacion*x1.item(i))+((1-relajacion)*x0.item(i))
+                
+            x0 = x1
+            cont += 1
 
-        for k in range(iterat):
-            for i in range(len(b)):
-                x[i]=(b[i]-np.sum(mat[i][:i]*x[:i])-np.sum(mat[i][i+1:]*x[i+1:]))/mat[i][i]
-
-            e=np.linalg.norm(mat@x-b)
-            print(k,x,e)
-            if e<err:
-                break
-
-        return x	 
+            print([cont, x0, dispersion])
+            values.append([cont, x0, dispersion])
+        
+        if dispersion < tol:
+            print(f"{x1} es aproximación con una tolerancia = {tol}")
+        else:
+            print(f"Fracasó en {niter} iteraciones")
+        print(values)
+        return values
