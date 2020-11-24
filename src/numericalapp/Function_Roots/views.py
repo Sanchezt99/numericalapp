@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .Forms import *
-from .Methods import FixedPoint,Secant,Newton
+from .Methods import FixedPoint,Secant,Newton,incrementalsearch,falseposition,bisection
 
 
 def fixedPoint_view(request, *args, **kwargs):
@@ -55,3 +55,50 @@ def secant_view(request, *args, **kwargs):
     else:
         form = SecantForm()
     return render(request, 'methods/function_roots/secant.html', {'form':form})
+
+def incrementalsearch_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        form = incrementalsearchForm(request.POST)
+        inc = incrementalsearch.incrementalsearch()
+        x0 = float(form.data['x0'])
+        Delta = float(form.data['Delta'])
+        Iter = int(form.data['Iter'])
+        F = form.data['F']
+        res,sol = inc.evaluate(Tol,x0,Delta,F,Iter)
+        #print(res)
+        return render(request, 'methods/function_roots/incrementalsearch.html',{'form':form,'res':res,'sol':sol})
+    else:
+        form = incrementalsearchForm()
+    return render(request, 'methods/function_roots/incrementalsearch.html', {'form':form})
+
+def bisection_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        form = bisectionForm(request.POST)
+        bisc = bisection.bisection()
+        a = float(form.data['a'])
+        b = float(form.data['b'])
+        Tol = float(form.data['Tol'])
+        Iter = int(form.data['Iter'])
+        F = form.data['F']
+        res,sol = bisc.evaluate(Tol,a,b,F,Iter)
+        #print(res)
+        return render(request, 'methods/function_roots/bisection.html',{'form':form,'res':res,'sol':sol})
+    else:
+        form = bisectionForm()
+    return render(request, 'methods/function_roots/bisection.html', {'form':form})
+
+def falseposition_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        form = falsepositionForm(request.POST)
+        fals = falseposition.falseposition()
+        a = float(form.data['a'])
+        b = float(form.data['b'])
+        Tol = float(form.data['Tol'])
+        Iter = int(form.data['Iter'])
+        F = form.data['F']
+        res,sol = fals.evaluate(Tol,a,b,F,Iter)
+        #print(res)
+        return render(request, 'methods/function_roots/falseposition.html',{'form':form,'res':res,'sol':sol})
+    else:
+        form = falsepositionForm()
+    return render(request, 'methods/function_roots/falseposition.html', {'form':form})

@@ -68,8 +68,14 @@
 </script>
 
 <section class="container page-section">
-  <div class="text-center">
+  <div class="card">
     <div>
+      <h4><b>Neville</b> <i style="font-size:24px" class="fa">&#xf059;</i> </h4>
+      <p>Given a function defined for the points X0, ..., Xn and where the points are not repeated, the interpolating polynomial is of degree n and is unique. Let pi, j be a polynomial of degree j - i that passes through the points (xk, yk) for k = i, i+1,…, j.  Pi, j fulfills the recurrence relation</p>
+      <p>pi, i (x) = yi </p>
+      <p>pi, j (x) = ((xj-x) pi, j-1 (x) + (x-xi) pi + 1, j (x)) / (xj-xi)</p>
+      
+         
       <label for="variables">Variables:</label>
       <input type="number" id="variables" onchange="appendInput()" min="2" />
 
@@ -82,13 +88,8 @@
       >
         {% csrf_token %}
 
-        <label for="method">Splain</label>
-        <select name="method" id="method">
-          <option selected>Lineal</option>
-          <option>Cuadratic</option>
-          <option>Cubic</option>
-        </select>
-
+        <label for="method">Enter the number of data to use</label>
+       
         <br />
         <br />
 
