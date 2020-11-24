@@ -69,6 +69,10 @@ def printmat(x):
         print("= "+str(x[i][len(x)])+"\n")
     print("\n\n\n\n_________________")
 
+
+
+    
+
 def checkUnique(x):
     for i in range(len(x)):
         for j in range(len(x)):
@@ -90,3 +94,16 @@ def swapValues(array, index1, index2):
 def swapCols(matrix, col1, col2):
     for i in range(len(matrix)):
         matrix[i][col1], matrix[i][col2] = matrix[i][col2], matrix[i][col1]
+
+def methodStep(matrix, b):
+    m  = np.copy(matrix)
+    b2 = np.copy(b)
+    n  = np.zeros(len(matrix)+1)
+    for i in range(len(m)):
+        for j in range(len(m)):
+            n[i][j] = m[i][j]
+        n[i][len(m)] = b2[i]
+
+    return np.record.pprint(n)
+
+

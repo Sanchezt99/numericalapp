@@ -228,7 +228,7 @@ def gaussSimple_view(request):
     # print(matrixs)
     print(request.session['matrix_final'])
     return render(request, 'methods/equation_systems/gauss.html', {
-         "m":ab, "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "matrixs": matrixs, "xs":xs
+        "m":ab, "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "matrixs": matrixs, "xs":xs
     })
 
 
@@ -244,6 +244,20 @@ def gaussSimple_view(request):
 
 
 def pivot_view(request, *args, **kwargs):
-    """
-    """
+    if request.method == 'POST':
+        method = request.POST['method']
+        a = request.POST.getlist('a')
+        b = request.POST.getlist('b')
+        request.session['a'] = a
+        request.session['b'] = b
+
+        steps =[]
+        solution = []
+        message = ''
+        if method == 'Lineal':
+            steps, solution, message = partial_pivot(a,b)
+        elif method == 'Quadratic':
+            steps, solution, message = total_pivot(a,b)
+        return render(request, 'methods/Equation_Systems/pivot.html',
+        {'steps': steps, 'solution': solution, 'aMatrix': request.session['a'], 'bMatrix': request.session['b'], 'message': message})
     return render(request, 'methods/Equation_Systems/pivot.html')

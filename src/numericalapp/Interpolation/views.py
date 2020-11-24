@@ -1,7 +1,5 @@
 from pydoc import html
 from django.shortcuts import render
-import django.utils.html
-
 from .Methods import lineal_spline, cuadratic_splain, cubic_spline
 
 # Create your views here.
@@ -19,11 +17,11 @@ def splains_view(request, *args, **kwargs):
         message = ''
         if method == 'Lineal':
             tracers, coefficients, message = lineal_spline.splain(x,y)
-        elif method == 'Cuadratic':
+        elif method == 'Quadratic':
             tracers, coefficients, message = cuadratic_splain.splain(x,y)
         else:
             tracers, coefficients, message = cubic_spline.splain(x,y)
 
         return render(request, 'methods/interpolation/splains.html',
-        {'range': range(10), 'tracers': tracers, 'coefficients': coefficients, 'xSplain': request.session['x'], 'ySplain': request.session['y'], 'message': message})
-    return render(request, 'methods/interpolation/splains.html', {'range': range(10), 'default': True})
+        {'tracers': tracers, 'coefficients': coefficients, 'xSplain': request.session['x'], 'ySplain': request.session['y'], 'message': message})
+    return render(request, 'methods/interpolation/splains.html', {'default': True})
