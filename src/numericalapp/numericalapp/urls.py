@@ -23,6 +23,6 @@ urlpatterns = [
     path("vandermonde/", vandermonde_view, name="vandermonde.index"),
     path("newtondivdif/", newtondivdif_view, name="newtondivdif.index"),
     path("lagrange/", lagrange_view, name="lagrange.index"),
-    path("neville/", neville_view, name="neville.index")
+    path("neville/", neville_view, name="neville.index"),
     path("pivot/", pivot_view, name="pivot.index")
 ]

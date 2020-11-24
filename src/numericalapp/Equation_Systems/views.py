@@ -4,6 +4,7 @@ from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from numpy.lib.function_base import append
+from numpy.linalg.linalg import solve
 
 from .Methods.Doolittle import *
 from .Methods.Gauss_Seidel import *
@@ -237,16 +238,14 @@ def gaussSimple_view(request):
 
 
 
-
-
-
-
-
-
 def pivot_view(request, *args, **kwargs):
+    default = True
+    a = [[2,-1,0,3],[1,0.5,3,8],[0,13,-2,11],[14,5,-2,3]]
+    b = [1,1,1,1]
     if request.method == 'POST':
         method = request.POST['method']
-        a = request.POST.getlist('a')
+        dim = int(request.POST['dim'])
+        a = toMatrix(request.POST.getlist('a'), dim)
         b = request.POST.getlist('b')
         request.session['a'] = a
         request.session['b'] = b
@@ -254,10 +253,25 @@ def pivot_view(request, *args, **kwargs):
         steps =[]
         solution = []
         message = ''
-        if method == 'Lineal':
-            steps, solution, message = partial_pivot(a,b)
-        elif method == 'Quadratic':
-            steps, solution, message = total_pivot(a,b)
+        if method == 'Partial':
+            steps, solution, message = partial_pivot.gauss(a,b)
+        elif method == 'Total':
+            steps, solution, message = total_pivot.gauss(a,b)
+        
+        solved = False
+        if np.any(steps):
+            if np.any(solution):
+                solved = True
+
         return render(request, 'methods/Equation_Systems/pivot.html',
-        {'steps': steps, 'solution': solution, 'aMatrix': request.session['a'], 'bMatrix': request.session['b'], 'message': message})
-    return render(request, 'methods/Equation_Systems/pivot.html')
+        {'steps': steps, 'solution': solution, 'aMatrix': request.session['a'], 'bMatrix': request.session['b'], 'message': message, 'solved':solved})
+    return render(request, 'methods/Equation_Systems/pivot.html', {'default': default, 'a': a, 'b':b})
+
+def toMatrix(matrix, rows):
+    m = []
+    for i in range(0,len(matrix),rows):
+        n = []
+        for j in range(i,i+rows):
+            n.append(matrix[j])
+        m.append(n)
+    return m

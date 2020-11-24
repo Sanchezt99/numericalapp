@@ -6,7 +6,6 @@ def gauss(matrix, b):
     matrix = np.array(matrix).astype(np.float)
     b      = np.array(b).astype(np.float)
     
-
     if np.linalg.det(matrix) == 0:
         return None, None, 'Matrix determinant is 0'
 

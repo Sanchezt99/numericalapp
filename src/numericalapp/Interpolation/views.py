@@ -25,7 +25,6 @@ def splains_view(request, *args, **kwargs):
             tracers, coefficients, message = cubic_spline.splain(x,y)
 
         return render(request, 'methods/interpolation/splains.html',
-
         {'tracers': tracers, 'coefficients': coefficients, 'xSplain': request.session['x'], 'ySplain': request.session['y'], 'message': message})
     return render(request, 'methods/interpolation/splains.html', {'default': True})
 

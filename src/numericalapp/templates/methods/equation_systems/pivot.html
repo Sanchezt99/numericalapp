@@ -1,12 +1,7 @@
 {% extends 'layouts/master.html' %} {% block content %}
 
 <style>
-  #x_input {
-    width: 70px;
-    border: 0px;
-    font-size: 13px;
-  }
-  #y_input {
+  #input {
     width: 70px;
     border: 0px;
     font-size: 13px;
@@ -23,7 +18,44 @@
 </style>
 
 <script>
-  function appendInput() {}
+  function appendInput() {
+    let a = document.getElementById("a");
+    let b = document.getElementById("b");
+    a.innerHTML = "";
+    b.innerHTML = "";
+    let inputValue = document.getElementById("dimension").value;
+
+    for (let i = 0; i < inputValue; i++) {
+      let tr = document.createElement("tr");
+      for (let j = 0; j < inputValue; j++) {
+        let input = document.createElement("input");
+        let td = document.createElement("td");
+        input.type = "number";
+        input.id = "input";
+        input.name = "a";
+        input.setAttribute("step", "any");
+        input.setAttribute("required", "");
+        td.appendChild(input);
+        tr.appendChild(td);
+      }
+      a.appendChild(tr);
+    }
+    for (let i = 0; i < inputValue; i++) {
+      let tr = document.createElement("tr");
+      let td = document.createElement("td");
+      let input = document.createElement("input");
+      input.type = "number";
+      input.id = "input";
+      input.name = "b";
+      input.setAttribute("step", "any");
+      input.setAttribute("required", "");
+      td.appendChild(input);
+      tr.appendChild(td);
+      b.appendChild(tr);
+    }
+    let input = document.getElementById("dim");
+    input.value = inputValue;
+  }
 </script>
 
 <section class="container page-section">
@@ -54,12 +86,18 @@
 
   <div class="text-center">
     <div>
-      <label for="variables">Dimension:</label>
-      <input type="number" id="variables" onchange="appendInput()" />
+      <label for="dimension">Dimension:</label>
+      <input
+        type="number"
+        id="dimension"
+        onchange="appendInput()"
+        name="dimension"
+      />
 
       <br />
       <br />
-      <form method="post" class="text-center" action="./">
+
+      <form method="post" class="text-center" action="./" id="form">
         {% csrf_token %}
 
         <label for="method">Pivot method:</label>
@@ -70,145 +108,116 @@
 
         <br />
         <br />
-
-        <table align="center">
-          <tr id="x_row">
-            <th scope="row">X</th>
-            {% if default %}
-            <td>
-              <input
-                name="x"
-                type="number"
-                id="x_input"
-                step="any"
-                value="-1"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="0"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="3"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="4"
-              />
-            </td>
-            {% elif xSplain %} {% for i in xSplain %}
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="{{i}}"
-              />
-            </td>
-            {% endfor %} {% endif %}
-          </tr>
-          <tr id="y_row">
-            <th scope="row">Y</th>
-            {% if default %}
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="15.5"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="3"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="8"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="1"
-              />
-            </td>
-            {% elif ySplain %} {% for i in ySplain %}
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="{{i}}"
-              />
-            </td>
-            {% endfor %} {% endif %}
-          </tr>
-        </table>
+        <div class="row">
+          <div class="col-6">
+            <table align="center" id="a">
+              {% if default %} {% for i in a %}
+              <tr>
+                {% for j in i %}
+                <td>
+                  <input
+                    name="a"
+                    id="input"
+                    type="number"
+                    step="any"
+                    value="{{j}}"
+                    required
+                  />
+                </td>
+                {% endfor %}
+              </tr>
+              {% endfor %} {% endif %} {% if aMatrix %} {% for i in aMatrix %}
+              <tr>
+                {% for j in i %}
+                <td>
+                  <input
+                    name="a"
+                    id="input"
+                    type="number"
+                    step="any"
+                    value="{{j}}"
+                    required
+                  />
+                </td>
+                {% endfor %}
+              </tr>
+              {% endfor %} {% endif %}
+            </table>
+          </div>
+          <div class="col-6">
+            <table align="center" id="b">
+              {% if default %} {% for i in b %}
+              <tr>
+                <td>
+                  <input
+                    name="b"
+                    id="input"
+                    type="number"
+                    step="any"
+                    value="{{i}}"
+                    required
+                  />
+                </td>
+              </tr>
+              {% endfor %} {% endif %} {% if bMatrix %} {% for i in bMatrix %}
+              <tr>
+                <td>
+                  <input
+                    name="b"
+                    id="input"
+                    type="number"
+                    step="any"
+                    value="{{i}}"
+                    required
+                  />
+                </td>
+              </tr>
+              {% endfor %} {% endif %}
+            </table>
+          </div>
+        </div>
         <br />
-        <button type="btn submit">Interpolate</button>
+
+        <input type="hidden" id="dim" name="dim" value="4" />
+        <button type="btn submit">Solve</button>
       </form>
     </div>
-    <div>
-      {% if coefficients and tracers %}
-      <h4 class="methods-title text-uppercase text-secondary mb-0">
-        COEFFICIENTS
-      </h4>
-      <br />
-      {% for i in coefficients %} {{ i }}
-      <br />
-      {% endfor %}
-      <br />
-      <br />
 
-      <h4 class="methods-title text-uppercase text-secondary mb-0">
-        TRACERS s(x)
-      </h4>
+    <div>
+      {% if solved %}
+      <h4 class="methods-title text-uppercase text-secondary mb-0">Steps</h4>
       <br />
-      {% for i in tracers %} {{ i }}
       <br />
-      {% endfor %} {% endif %}
+        {% for i in steps %}
+          <h6>Step {{forloop.counter0}}</h6>
+          <table align="center" class="text-center">
+            {% for j in i %}
+              <tr>
+              {% for k in j %}
+                <td>
+                
+                  {{ k }}
+                
+                </td>
+              {% endfor %}
+              </tr>
+            {% endfor %}
+          </table>
+          <br />
+        {% endfor %}
+        <br />
+        <br />
+
+      <h4 class="methods-title text-uppercase text-secondary mb-0">Solution</h4>
+      <br />
+      {% for i in solution %}
+        x<sub>{{ forloop.counter0 }}</sub> = {{ i }} 
+        <br/>
+      {% endfor %}
+      
+      {% endif %}
     </div>
-    {% if message %}
+    {% if messafe %}
     <h4 class="methods-title text-uppercase text-secondary mb-0">Output</h4>
     <br />
     {{ message }}

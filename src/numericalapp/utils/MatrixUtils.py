@@ -98,12 +98,12 @@ def swapCols(matrix, col1, col2):
 def methodStep(matrix, b):
     m  = np.copy(matrix)
     b2 = np.copy(b)
-    n  = np.zeros(len(matrix)+1)
+    n  = np.zeros((len(m),len(m)+1))
     for i in range(len(m)):
         for j in range(len(m)):
-            n[i][j] = m[i][j]
-        n[i][len(m)] = b2[i]
+            n[i][j] = "{0:0.5e}".format(m[i][j])
+        n[i][len(m)] = "{0:0.5e}".format(b2[i])
 
-    return np.record.pprint(n)
+    return n
 
 
