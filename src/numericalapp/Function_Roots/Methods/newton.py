@@ -1,7 +1,6 @@
 import math
-import utils.Functions as fc
-
-from scitools.StringFunction import StringFunction
+import sympy as sp
+from sympy.parsing.sympy_parser import parse_expr as pe
 from math import *
 
 class Newton:
@@ -10,28 +9,33 @@ class Newton:
 
     def evaluate(self, tol, xi, niter, fun, dfun, type_error=0):
         
-        #print("Iter","xi", "f(xi)", "E")
-
-        fx = fun(xi)
-        dfx = dfun(xi)
+        ansTable = [] 
+        ansTable.append(["i", "xi", "f(xi)", "E"])
+        x = sp.symbols('x')
+        function = pe(fun)
+        dfunction = pe(dfun)
+        fx = function.subs(x,xi)
+        dfx = dfunction.subs(x,xi) 
 
         if fx == 0:
-            return str(fx) + " is a root."
+            return ansTable, str(fx) + " is a root."
         if dfun == 0:
-            return "The derivate can't be 0"
+            return ansTable, "The derivate can't be 0"
 
-        contador = 0
+        counter = 0
         error = tol + 1
 
-        self.values.append([contador, str(xi), str(
+        self.values.append([counter, str(xi), str(
             "{:.2e}".format(fx)), str(dfx), None])
 
-        while error > tol and fx != 0 and dfx != 0 and contador < niter:
-            xn = xi - (fx/dfx)
-            fx = fun(xn)
-            dfx = dfun(xn)
 
-            #print(contador, xi, fun(xi),error)
+        xn = 0
+        while error > tol and fx != 0 and dfx != 0 and counter - 1 < niter:
+            xn = xi - (fx.subs(x,xi)/dfx.subs(x,xi))
+            fx = function.subs(x,xn)
+            dfx = dfunction.subs(x,xn)
+            ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
+            #print(counter, xi, fun(xi),error)
 
             if type_error == 0:
                 error = abs(xn-xi)
@@ -40,19 +44,21 @@ class Newton:
 
             xi = xn
 
-            contador = contador + 1
-            self.values.append([contador, str(xn), str(
-                "{:.2e}".format(fx)), str(dfx), str("{:.2e}".format(error))])
-
+            counter = counter + 1
+            #self.values.append([counter, str(xn), str("{:.2e}".format(fx)), str(dfx), str("{:.2e}".format(error))])
+        ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
         if fx == 0:
-            return f"{xi} is a root"
+            ansTable.append(xi)
+            #return f"{xi} is a root"
+            return ansTable , xi
             
         elif error < tol:
-            return f"{xn} its an aproximation to a root with a tolerance of {tol}"
+            #return f"{xi} its an aproximation to a root with a tolerance of {tol}"
+            return ansTable , f'The root is an approximation of {xi} with a tolerance of {tol}'
         elif dfx == 0:
-            return f"{xn} Possible multiple root"
+            return ansTable, f"{xi} Possible multiple root"
         else:
-            return f"Failed after {niter} iterations"
+            return ansTable, f"Failed after {niter} iterations"
 
     def tabla_values(self):
         return self.values
