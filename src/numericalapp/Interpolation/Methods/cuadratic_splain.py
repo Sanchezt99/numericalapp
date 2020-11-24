@@ -1,8 +1,16 @@
 import numpy as np
 import sympy as sp
+from utils import MatrixUtils as mu
 
 
 def splain(x, y):
+
+    x = np.array(x).astype(np.float)
+    y = np.array(y).astype(np.float)
+
+    if not mu.checkUnique(x):
+        return None, None, 'X values must be unique' 
+
     dimension = 3*len(x) - 3
 
     matrix = np.zeros((dimension, dimension))
@@ -17,21 +25,23 @@ def splain(x, y):
 
     np.set_printoptions(formatter={'float': lambda x: "{0:0.5f}".format(x)})
 
-    print('\033[96m')
-    print('Cuadratic tracers coefficients')
-    print('\033[0m')
     xact = np.linalg.solve(matrix, b)
+    coefficients = []
+    count = 0
     for i in range(0,len(matrix), 3):
-        expr = f'{float("{:.5f}".format(xact[i]))} <-> {float("{:.5f}".format(xact[i+1]))} <-> {float("{:.5f}".format(xact[i+2]))}'
-        print(expr)
+        expr = f'a{count} = {float("{:.5f}".format(xact[i]))}, b{count} = {float("{:.5f}".format(xact[i+1]))}, c{count} = {float("{:.5f}".format(xact[i+2]))}'
+        coefficients.append(expr)
 
-    print('\033[96m')
-    print('Cuadratic tracers')
-    print('\033[0m')
-    x = sp.symbols('x')
+    xv = sp.symbols('x')
+    tracers = []
     for i in range(0,len(matrix), 3):
-        expr = xact[i]*x*x + xact[i+1]*x + xact[i+2]
-        print(expr)
+        expr = float("{:.5f}".format(xact[i]))*xv*xv + float("{:.5f}".format(xact[i+1]))*xv + float("{:.5f}".format(xact[i+2]))
+        tracers.append(sp.latex(expr))
+    
+    for i in range(len(x)-1):
+        tracers[i] = str(tracers[i]) + f' -----------> {x[i]} <= x <= {x[i+1]}'
+        
+    return tracers, coefficients, 'Successful'
 
 
 def interpolation(x, matrix):

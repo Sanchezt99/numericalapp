@@ -1,7 +1,5 @@
+from re import T
 import numpy as np
-import pprint
-import scipy
-import scipy.linalg
 
 def dispersion(x,deltaX):
     resultado=list(range(len(x)))
@@ -70,3 +68,10 @@ def printmat(x):
             print(str(x[i][j])+", ",end = "")
         print("= "+str(x[i][len(x)])+"\n")
     print("\n\n\n\n_________________")
+
+def checkUnique(x):
+    for i in range(len(x)):
+        for j in range(len(x)):
+            if x[i] == x[j] and i != j:
+                return False
+    return True
