@@ -25,6 +25,14 @@
     b.innerHTML = "";
     let inputValue = document.getElementById("dimension").value;
 
+    if (inputValue < 2) {
+      alert("Array dimension must be greater than 1");
+      inputValue = 2;
+    } else if (inputValue > 14) {
+      alert("Max dimension admitted by the aplication is 14");
+      inputValue = 14;
+    }
+
     for (let i = 0; i < inputValue; i++) {
       let tr = document.createElement("tr");
       for (let j = 0; j < inputValue; j++) {
@@ -58,7 +66,7 @@
   }
 </script>
 
-<section class="container page-section">
+<section class="ç page-section">
   <div>
     <h4 class="methods-title text-uppercase text-secondary mb-0">Splains</h4>
     <a href="./"><i style="font-size: 24px" class="fa">&#xf059;</i></a>
@@ -110,6 +118,7 @@
         <br />
         <div class="row">
           <div class="col-6">
+            <h4 class="methods-title text-uppercase text-secondary mb-0">a</h4>
             <table align="center" id="a">
               {% if default %} {% for i in a %}
               <tr>
@@ -145,6 +154,7 @@
             </table>
           </div>
           <div class="col-6">
+            <h4 class="methods-title text-secondary mb-0">b</h4>
             <table align="center" id="b">
               {% if default %} {% for i in b %}
               <tr>
