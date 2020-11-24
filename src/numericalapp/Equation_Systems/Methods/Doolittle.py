@@ -1,69 +1,91 @@
-import numpy as np
-import utils.MatrixUtils
-from tabulate import tabulate
-class Doolittlee:
-    #[[45,-3,-7,8,100],[-12,36,9,-5,-50],[-6,4,57,-8,300],[-3,-5,-10,78,53]]
-    #1,1.5,5;2,3.7,13
-    def __init__(self,mat):
+import numpy
 
-        self.mat=mat
+class Doolittle:
 
 
-    def doolittle(self):
-        pr=""
-        mat=self.mat.replace("[","")
-        mat=mat.replace("]","")
-        mat=mat.split(",")
-        mat = np.array(mat)        
-        mat = mat.astype(np.float)
-        print(mat)
-        if len(mat) ==6:
-            mat=mat.reshape(2,3)
-        elif len(mat) ==12:
-            mat = mat.reshape(3,4)
-        elif len(mat) ==20:
-            mat = mat.reshape(4,5)
-        elif len(mat) ==30:
-            mat = mat.reshape(5,6)
-        elif len(mat) ==42:
-            mat = mat.reshape(6,7)
+
+    def evaluate(matrix,m,indp):
+        U =  numpy.identity(m)
+        L =  numpy.identity(m)
+        x = numpy.empty(m)
+        z = numpy.empty(m)
+        matrixs = []
+        
+        # print(U)
+        # print(L)
+        # print(matrix)
+
+        for fila in range(m):
+            suma1 = 0
+            for columna in range(fila):
+                suma1 += L.item(fila, columna)*U.item(columna, fila)
+            
+            #L.[fila,fila] = 1
+
+            U[fila, fila] = matrix.item(fila, fila) - suma1
+
+            #etapas.append(matrix.copy())
+
+            #for s in range(m -1):
+            #    print(etapas[s])
 
 
-        l=np.zeros((len(mat),len(mat[0])))
-        u=np.zeros((len(mat),len(mat[0])))
-        for k in range(len(mat)):
-            sum1=0
-            for p in range(k):
-                sum1+= l[k][p]*u[p][k]
-            u[k][k]= mat[k][k]-sum1
-            for i in range(k,len(mat)):
-                sum2=0
-                for p in range(k):
-                    sum2+=l[i][p]*u[p][k]
-                l[i][k]=(mat[i][k]-sum2)/u[k][k]
-            for j in range(k+1,len(mat)):
-                sum3=0
-                for p in range(k):
-                    sum3+=l[k][p]*u[p][j]
-                u[k][j]=(mat[k][j]-sum3)/(l[k][k])
+            for i in range(fila+1, m):
+                suma2 = 0
+                
+                for columna in range(fila):
+                    suma2 += L.item(i, columna)*U.item(columna, fila)
+                if L.item(fila, fila)!=0:
+                    L[i, fila] = float(matrix.item(i, fila) - suma2)/U.item(fila,fila)
+                    matrixs.append(L.copy()) 
+                    print(len(matrixs))
+                else:
+                    return("Possibly there is no solution for this problem")
+                
+            for j in range(fila+1,m):
+                suma3 = 0
+                for columna in range(fila):
+                    suma3 += L.item(fila, columna)*U.item(columna, j)
 
-        for x in range(len(mat)):
-            l[x][len(mat[0])-1]=mat[x][len(mat[0])-1]
-        zx=MatrixUtils.suslu(l)
-        for x in range(len(mat)):
-            u[x][len(l[0])-1]=zx[x]
+                if L.item(fila, fila)!=0:  
+                    
+                    U[fila, j] = float(matrix.item(fila, j) - suma3)
+                    matrixs.append(U.copy())
+                else:
+                    return("Possibly there is no solution for this problem")
+                    
+                
+        
+       
 
-        pr+= "                  MATRIZ L:\n"
-        pr+= (tabulate(l, stralign='decimal'))
-        pr+= "\n"
-        pr+= "                  MATRIZ U:\n"
-        pr+= (tabulate(u, stralign='decimal'))
-        pr+= "\n"
-        pr+= "|        ZX1        |      ZX2         |         ZX3         |       ZX4        |\n"
-        pr+= str(MatrixUtils.susre(l))+"\n"
-        pr+= "|         X1        |       X2         |          X3         |        X4        |\n"
-        pr+=  str(MatrixUtils.susre(u))
-        pr+= "\n"
+        detU = 1
+        detL=1
+        for each in U.diagonal(0,0):
+            detU*= each
+        
+        prod = detU * detL
+        if prod != 0:
+            for i in range(m):
+                suma = 0
+                for p in range(i):
+                    suma+= (L.item(i,p)*z.item(p))
+                z[i] = (indp.item(i)-suma)/L.item(i,i)
 
-        return pr
-
+            for i in range(m-1,-1,-1):
+	            suma=0
+	            for p in range(i+1,m):
+		            suma=suma+(U.item(i,p)*x.item(p))
+	            x[i]=float((z.item(i)-suma)/U.item(i,i))
+            
+        else:
+            print("The Det is equal to 0, so there can be none solutions or infinite ones.")
+            return
+        print(matrixs)
+        # print(f"L:\n {L}\n\nU:\n{U}\n")
+        matrixs.append((L))
+        matrixs.append(U)
+        matrixs.append(x)
+        # for each in range(m):
+        #     print(f"x{each} = {x[each]}")
+    
+        return matrixs

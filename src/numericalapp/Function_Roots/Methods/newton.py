@@ -46,7 +46,17 @@ class Newton:
 
             counter = counter + 1
             #self.values.append([counter, str(xn), str("{:.2e}".format(fx)), str(dfx), str("{:.2e}".format(error))])
-        ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
+        if xi != 0 and fx != 0 and error != 0:
+            ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
+        elif xi == 0 and fx != 0 and error != 0:
+            ansTable.append([counter, xi, "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
+        elif counter != 0 and xi == 0 and fx != 0 and error != 0:
+            ansTable.append([counter, "{0:0.9e}".format(xi), fx, "{0:0.2e}".format(error)])
+        elif counter != 0 and xi != 0 and fx != 0 and error == 0:
+            ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), error])
+        else: ansTable.append([counter, xi, fx, error])
+
+
         if fx == 0:
             ansTable.append(xi)
             #return f"{xi} is a root"

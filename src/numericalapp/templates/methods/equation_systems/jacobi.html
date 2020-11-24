@@ -1,16 +1,110 @@
 {% extends 'layouts/master.html' %}
 {% block content %}
 {% load static %}
+<div>
+    <section class="page-section" >
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Jacobi </h2>
 
-<section class="page-section">
-  <div class="container">
-    <div class="card">
-      <h4><b>:(</b></h4>
-      <p>Nothing yet</p>          
-    </div>
+                        <div class="grid-container">
+                                    <div class="grid-child purple">
+                                        <br>
+                                        <h6>Enter matrix size</h6>
+                                        <section id="plot">
+                                            <form action= "{% url 'jacobi.index' %}", method="post">
+                                                {% csrf_token %}
+                                                       {{form}}
+                                                {% comment %} <input type=number id="sizeMatriz"  value=2 step=1 min=2> {% endcomment %}
+                                                <br>
+                                                <br>
+                                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button></div>
+                                                
+                                            </form>
+
+                                        </section>
+                                                                                
+                        
+                        <div class="matrix">
+                            <form action= "{% url 'jacobi.index' %}", method="post" class="ab">
+                                {% csrf_token %}
+                                    {{form2}}
+
+                                <div class="col">
+                                    <h5>A</h5>
+                                    {% with ''|center:size as range %}
+                                    {% for i in range %}
+                                        {% for j in range %}
+                                             <!-- <input id = i,j type=number> -->
+                                             {{element}}
+                                        {% endfor %}
+                                        <br>
+                                    {% endfor %}
+                                    {% endwith %}
+                                
+                                    </div>
+
+                                    <div class="col"> 
+
+                                    <h5>X0</h5>
+                                    {% with ''|center:size as range %}
+                                        {% for i in range %}
+                                             <!-- <input id = i,j type=number> -->
+                                             {{element}}
+                                            <br>
+                                        {% endfor %}
+                                    {% endwith %}
+                                    
+                                    </div>
+
+                                    <div class="col"> 
+
+                                    <h5>b</h5>
+                                    {% with ''|center:size as range %}
+                                        {% for i in range %}
+                                             <!-- <input id = i,j type=number> -->
+                                             {{element}}
+                                            <br>
+                                        {% endfor %}
+                                    {% endwith %}
+                                    
+                                    </div>
+
+                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Enter Rows</button>
+                            </form>
+
+                            {% if message%}
+                               <p style="text-align: center;">{{ message }} </p>
+                            {% endif %}
+
+
+                            {% if matrixs %}
+                                <h5 style="text-align: center;">Jacobi </h5>
+                                <div class="container">
+                                    
+                                        {%for matrix in matrixs%}
+                                            <div class="row justify-content-center">
+                                                <div class="container">
+                                                    {% for row in matrix %}
+                                                            <div class="row justify-content-center" style = "border: 1px solid black ">
+
+                                                            {{row}}
+                                                                {% comment %} {% for element in row %}
+                                                                    <div class="row">
+                                                                        <input type="text" value={{element}} disabled>
+                                                                    </div>
+                                                                {%endfor %} {% endcomment %}
+                                                            </div>
+                                                    {%endfor %}
+                                                </div>
+                                            </div>
+                                        {%endfor%}
+                                </div>
+
+                            {% endif %}
+          
   </div>
-</section>
-
-{% include 'layouts/modal.html' with id='miid' text='mitexto'%}
-
-{% endblock content %}
+  </div>
+  </div>
+  </div>
+  {% endblock content %}    
