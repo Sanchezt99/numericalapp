@@ -9,6 +9,12 @@ from .Methods.Doolittle import *
 from .Methods.Gauss_Seidel import *
 from .Methods.Jacobi import *
 from .Methods.gaussSimple import gauss_enter, gauss_elimination
+
+
+from .Methods import partial_pivot, total_pivot
+
+
+
 import numpy as np
 # Create your views here.
 
@@ -221,3 +227,19 @@ def gaussSimple_view(request):
             "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "stages":stages, "matrixs": matrixs
     })
 
+
+
+
+
+
+
+
+
+
+
+
+
+def pivot_view(request, *args, **kwargs):
+    """
+    """
+    return render(request, 'methods/Equation_Systems/pivot.html')

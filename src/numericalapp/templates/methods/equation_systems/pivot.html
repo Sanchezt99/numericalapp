@@ -23,88 +23,49 @@
 </style>
 
 <script>
-  function appendInput() {
-    let x_row = document.querySelector("#x_row");
-    let y_row = document.querySelector("#y_row");
-    x_row.innerHTML = "";
-    y_row.innerHTML = "";
-
-    let th_x = document.createElement("th_x");
-    th_x.setAttribute("scope", "row");
-    th_x.innerText = "X";
-    x_row.appendChild(th_x);
-    let th_y = document.createElement("th_y");
-    th_y.setAttribute("scope", "row");
-    th_y.innerText = "Y";
-    y_row.appendChild(th_y);
-
-    let inputValue = document.getElementById("variables").value;
-    if (inputValue < 2) {
-      alert("Number of variables must be greater than 1");
-      inputValue = 2;
-    } else if (inputValue > 15) {
-      alert("Max number of variables admitted by the aplication is 15");
-      inputValue = 15;
-    }
-    for (let i = 0; i < inputValue; i++) {
-      let x_input = document.createElement("input");
-      let y_input = document.createElement("input");
-      let td_x = document.createElement("td");
-      td_x.appendChild(x_input);
-      x_input.type = "number";
-      x_input.id = "x_input";
-      x_input.name = "x";
-      x_input.setAttribute("step", "any");
-      x_row.appendChild(td_x);
-      let td_y = document.createElement("td");
-      td_y.appendChild(y_input);
-      y_input.type = "number";
-      y_input.id = "y_input";
-      y_input.name = "y";
-      y_input.setAttribute("step", "any");
-      y_row.appendChild(td_y);
-    }
-  }
+  function appendInput() {}
 </script>
 
 <section class="container page-section">
   <div>
-    <h4 class="methods-title text-uppercase text-secondary mb-0">
-        Splains
-    </h4>
+    <h4 class="methods-title text-uppercase text-secondary mb-0">Splains</h4>
     <a href="./"><i style="font-size: 24px" class="fa">&#xf059;</i></a>
     <p>
-      The Splains seeks to interpolation of a given data set, this set must be composed by {x,y} pairs for which the method generate a corresponding piecewise function s(x). <br/>
-      There are 3 kinds of splain (lineal, cuadratic and cubic) which will determine the degree of the funcions defined in s(x). <br/>
-      The set of x values must be unique between them, otherwise the method wont be able to interpolate.
+      The Splains seeks to interpolation of a given data set, this set must be
+      composed by {x,y} pairs for which the method generate a corresponding
+      piecewise function s(x). <br />
+      There are 3 kinds of splain (lineal, cuadratic and cubic) which will
+      determine the degree of the funcions defined in s(x). <br />
+      The set of x values must be unique between them, otherwise the method wont
+      be able to interpolate.
     </p>
     <p>
       1. <strong>Variables</strong>: number of x values you want to set (max=15)
     </p>
     <p>2. <strong>Splain</strong>: splain method you want to use</p>
-    <p>3. <strong>X</strong>: X values of the data set you want to interpolate</p>
-    <p>4. <strong>Y</strong>: Y values of the data set you want to interpolate matching verticaly the corresponding X value</p>
+    <p>
+      3. <strong>X</strong>: X values of the data set you want to interpolate
+    </p>
+    <p>
+      4. <strong>Y</strong>: Y values of the data set you want to interpolate
+      matching verticaly the corresponding X value
+    </p>
   </div>
 
   <div class="text-center">
     <div>
-      <label for="variables">Variables:</label>
-      <input type="number" id="variables" onchange="appendInput()" min="2" />
+      <label for="variables">Dimension:</label>
+      <input type="number" id="variables" onchange="appendInput()" />
 
       <br />
       <br />
-      <form
-        method="post"
-        class="text-center justify-content-center"
-        action="./"
-      >
+      <form method="post" class="text-center" action="./">
         {% csrf_token %}
 
-        <label for="method">Splain</label>
+        <label for="method">Pivot method:</label>
         <select name="method" id="method">
-          <option selected>Lineal</option>
-          <option>Cuadratic</option>
-          <option>Cubic</option>
+          <option selected>Partial</option>
+          <option>Total</option>
         </select>
 
         <br />
@@ -118,7 +79,6 @@
               <input
                 name="x"
                 type="number"
-                ,
                 id="x_input"
                 step="any"
                 value="-1"
@@ -240,7 +200,9 @@
       <br />
       <br />
 
-      <h4 class="methods-title text-uppercase text-secondary mb-0">TRACERS s(x)</h4>
+      <h4 class="methods-title text-uppercase text-secondary mb-0">
+        TRACERS s(x)
+      </h4>
       <br />
       {% for i in tracers %} {{ i }}
       <br />

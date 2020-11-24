@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .Forms import *
-from .Methods import FixedPoint,Secant,Newton
+from .Methods import FixedPoint,Secant, newton
 
 
 def fixedPoint_view(request, *args, **kwargs):
