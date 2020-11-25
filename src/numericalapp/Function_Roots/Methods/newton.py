@@ -24,16 +24,12 @@ class Newton:
         counter = 0
         error = tol + 1
 
-        self.values.append([counter, str(xi), str(
-            "{:.2e}".format(fx)), str(dfx), None])
-
-
         xn = 0
         while error > tol and fx != 0 and dfx != 0 and counter - 1 < niter:
             xn = xi - (fx.subs(x,xi)/dfx.subs(x,xi))
             fx = function.subs(x,xn)
-            dfx = dfunction.subs(x,xn)
-            ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
+            dfx = dfunction.subs(x,xn) 
+            ansTable.append([counter, xi, fx, error])
             #print(counter, xi, fun(xi),error)
 
             if type_error == 0:
@@ -44,7 +40,6 @@ class Newton:
             xi = xn
 
             counter = counter + 1
-            #self.values.append([counter, str(xn), str("{:.2e}".format(fx)), str(dfx), str("{:.2e}".format(error))])
         if xi != 0 and fx != 0 and error != 0:
             ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
         elif xi == 0 and fx != 0 and error != 0:
@@ -57,7 +52,7 @@ class Newton:
 
 
         if fx == 0:
-            ansTable.append(xi)
+            #ansTable.append(xi)
             #return f"{xi} is a root"
             return ansTable , xi
             
@@ -69,8 +64,7 @@ class Newton:
         else:
             return ansTable, f"Failed after {niter} iterations"
 
-    def tabla_values(self):
-        return self.values
+
 
 newt = Newton()
 #print(newt.evaluate(0.00001,1,100,fc.fPrime,fc.fPrimePrime))
