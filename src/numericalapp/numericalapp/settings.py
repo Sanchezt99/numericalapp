@@ -16,6 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -25,7 +26,8 @@ SECRET_KEY = '!rtjj0=#cef^9@8(_0=#x(0rq!5wl!@hm5+lg=t+^*l1!#*sv#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['numericalviews.sebasmd.com',
+'127.0.0.1']
 
 
 # Application definition
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 
+
     #custom apps
     'pages',
 
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'Function_Roots',
     'Equation_Systems',
     'Factorization',
+    'mathfilters'
 ]
 
 MIDDLEWARE = [
