@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .Forms import *
-from .Methods import FixedPoint,Secant
+from .Methods import FixedPoint,Secant, multipleRoots
+from .Methods.multipleRoots import multiple_roots
+
+
 
 
 def fixedPoint_view(request, *args, **kwargs):
@@ -54,3 +57,21 @@ def secant_view(request, *args, **kwargs):
     else:
         form = SecantForm()
     return render(request, 'methods/function_roots/secant.html', {'form':form})
+
+
+def multipleRoots_view(request):
+    if request.method == 'POST':
+        form = MultipleRootsForm(request.POST)
+        F = form.data['F']
+        FP = form.data['FP']
+        F2P = form.data['F2P']
+
+        x0 = float(form.data['x0'])
+        Tol = float(form.data['Tol'])
+        Iter = int(form.data['Iter'])
+
+        res, sol = multiple_roots(F,FP, F2P ,Tol,Iter,x0)
+        return render(request, 'methods/function_roots/multipleRoots.html',{'form':form,'res':res,'sol':sol})
+    else:
+        form = MultipleRootsForm()
+    return render(request, 'methods/function_roots/multipleRoots.html', {'form':form})
