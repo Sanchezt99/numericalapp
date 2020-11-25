@@ -94,12 +94,12 @@
                                                     {% for row in matrix %}
                                                             <div class="row justify-content-center" style = "border: 1px solid black ">
 
-                                                            
-                                                                {% for element in row %}
+                                                            {{row}}
+                                                                {% comment %} {% for element in row %}
                                                                     <div class="row">
                                                                         <input type="text" value={{element}} disabled>
                                                                     </div>
-                                                                {%endfor %} 
+                                                                {%endfor %}  {% endcomment %}
                                                             </div>
                                                     {%endfor %}
                                                 </div>

@@ -18,7 +18,7 @@ class Jacobi:
         cont  = 0
         dispersion = float(tol + 1)
 
-        # values.append(["Step: " + str(cont), x0, dispersion])
+        values.append(["Step: " + str(cont), x0,  "Err :" +str(dispersion)])
 
         while (dispersion > tol) and (cont < niter):
             print("entro while")
@@ -47,7 +47,7 @@ class Jacobi:
             cont += 1
 
         
-            values.append([x0])
+            values.append(["Step : " + str(cont), x0, "Err :" +str(dispersion)])
             print(values)
 
         if dispersion < tol:

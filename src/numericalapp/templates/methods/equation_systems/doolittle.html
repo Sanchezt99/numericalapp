@@ -1,134 +1,146 @@
-{% extends 'layouts/master.html' %}
-{% block content %}
-{% load static %}
-{% load mathfilters %}
+{% extends 'layouts/master.html' %} {% block content %} {% load static %} {%
+load mathfilters %}
 
 <div>
-    <section class="page-section" >
-        <div class="container">
-            <!-- Contact Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Doolittle</h2>
-            <br>
-            <br>
-                    <p>
-                        This method is part of the LU methods for matrix factorization, where a matrix A is factored into L (Upper Triangular) and U (Lower Triangular).
-                        Given Ax = b, we would have LUx = b and if Ux = z, then Lz = b. In this specific method, The diagonal of L and U are equal L [i] [i] = 1. 
-                        After we have the factorized matrix, progressive substitution is made with the L matrix and the results b to find the values of z, then backward substitution is used to find the values of x, which would be the solution of the system . 
-                    </p>
-                        <div class="grid-container">
-                                    <div class="grid-child purple">
-                                        <br>
-                                        <h6>Enter matrix size</h6>
-                                        <section id="plot">
-                                            <form action= "{% url 'doolittle.index' %}", method="post">
-                                                {% csrf_token %}
-                                                {{ form}}
-                                                <!-- <input type=number id="sizeMatriz"  value=2 step=1 min=2> -->
-                                                <br>
-                                                <br>
-                                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button></div>
-                                                
-                                            </form>
-
-                                        </section>
-                                                                                
-                        
-                        <div class="matrix row ml-4">
-                            <form action= "{% url 'doolittle.index' %}", method="post" class="ab">
-                                {% csrf_token %}
-                                <h5>A</h5>
-                                
-                                    
-                                    {% with ''|center:size as range %}
-                                    
-                                    {% for i in range %}
-                                    
-                                        {% for j in range %}
-                                        
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                        
-                                        {% endfor %}
-                                        
-                                        <br>
-                                    {% endfor %}
-                                    {% endwith %}
-                                
-                        </div>
-                        <div class="ml-5">
-                                    <h5>b</h5>
-                                    {% with ''|center:size as range %}
-                                        {% for i in range %}
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                            <br>
-                                        {% endfor %}
-                                        <br>
-                                    {% endwith %}
-                                    
-                        </div> 
-
-                                <button class="btn btn-primary btn-xl ml-5" id="sendMessageButton" type="submit" name='method' >Run</button>
-                            </form>
-                      
-                            {% if message%}
-                               <p style="text-align: center;">{{ message }} </p>
-                            {% endif %}
-
-
-                            {% if matrixs %}
-                            <h1>Paso 1</h1>
-                                <h5 style="text-align: center;"class="mt-4">Doolittle Method </h5>
-                                
-                                
-                                {%for matrix in matrixs%}
-                               
-                                 {% if forloop.counter|add:1|divisibleby:2 and forloop.counter0 > 0%}
-                                   
-                                     <h1>Paso {{ forloop.counter|add:1|div:2}}</h1>
-                                 {%endif%}
-                                    <div class="container mt-5" style ="border: 1px solid black">
-                                    {% for row in matrix %}
-
-         
-
-                                       <div class = "row justify-content-center mb-3 array_div " width= "200px" >
-                                       
-                                        {% for element in row %}
-                                        
-                                       
-                                            <input type="text" class="col" style="border-top-style: hidden; border-right-style: hidden; border-left-style: hidden; border-bottom-style: groove; background-color: #eee;"disabled value={{element}}>
-                                          
-                                        </input>
-                                        {%endfor %} 
-   
-                                    <br>
-                                    </div>
-                                    {%endfor %}
-                                    <br>
-                                     </div>
-                                {%endfor%}
-                               
-                            {% endif %}
-                            
-                        {%if ans.any%}
-                        <h1 class= " mt-4">Resultado:</h1>
-                        <div class="container" style="border: 1px solid black">
-                        {%for element in ans%}
-                        <div class="row justify-content-center " >
-                            <input type="text" class="col" style="text-align:center" disabled value={{element}}>
-                            
-                        </div>
-                        {% endfor %}
-                        </div>
-                        {%endif%}
-                         
-                            
-                        <div id="success"></div>
-                        <!-- <button onclick="plot()">Click Here</button> -->
-                        
-            
+  <section class="page-section">
+    <div class="container">
+      <!-- Contact Section Heading-->
+      <h2
+        class="page-section-heading text-center text-uppercase text-secondary mb-0"
+      >
+        Doolittle
+      </h2>
+      <br />
+      <br />
+      <p>
+        This method is part of the LU methods for matrix factorization, where a
+        matrix A is factored into L (Upper Triangular) and U (Lower Triangular).
+        Given Ax = b, we would have LUx = b and if Ux = z, then Lz = b. In this
+        specific method, The diagonal of L and U are equal L [i] [i] = 1. After
+        we have the factorized matrix, progressive substitution is made with the
+        L matrix and the results b to find the values of z, then backward
+        substitution is used to find the values of x, which would be the
+        solution of the system .
+      </p>
+      <div class="grid-container">
+        <div class="grid-child purple">
+          <br />
+          <h6>Enter matrix size</h6>
+          <section id="plot">
+            <form action="{% url 'doolittle.index' %}" , method="post">
+              {% csrf_token %} {{ form}}
+              <!-- <input type=number id="sizeMatriz"  value=2 step=1 min=2> -->
+              <br />
+              <br />
+              <button
+                class="btn btn-primary btn-xl"
+                id="sendMessageButton"
+                type="submit"
+                name="rows_matrix"
+              >
+                Enter Rows
+              </button>
+            </form>
+          </section>
         </div>
-  </div>
-  </div>
-  {% endblock content %}    
+
+          <form action="{% url 'doolittle.index' %}" , method="post" class="ab">
+        		<div class="row">
+							{% csrf_token %}
+							<div class="col-8 text-center">
+							<h5>A</h5>
+
+							{% with ''|center:size as range %}
+							{% for i in range %} 
+							{% for j in range %}
+							{{element}} 
+							{% endfor %}
+							<br/>
+							{% endfor %} 
+							{% endwith %}
+							</div>
+							<div class="col-4 text-center">
+							<h5>b</h5>
+							{% with ''|center:size as range %} 
+							{% for i in range %}
+							{{element}}
+							<br />
+							{% endfor %}
+							<br />
+							{% endwith %}
+							</div>
+        		</div>
+						<div class='row'>
+							<div class='col-12 text-center'>
+								<button
+									class="btn btn-primary btn-xl ml-5"
+									id="sendMessageButton"
+									type="submit"
+									name="method"
+								>
+									Run
+								</button>
+							</div>
+						</div>
+          </form>
+
+        {% if message%}
+        <p style="text-align: center">{{ message }}</p>
+        {% endif %} {% if matrixs %}
+        <h5 style="text-align: center" class="mt-4">Doolittle Method</h5>
+
+        {%for matrix in matrixs%} 
+
+
+        <h1>Paso {{ forloop.counter}}</h1>
+        <div class="container mt-5" style="border: 1px solid black">
+          {% for row in matrix %}
+
+          <div class="row justify-content-center mb-3 array_div" width="200px">
+            {% for element in row %}
+
+            <input
+              type="text"
+              class="col"
+              style="
+                border-top-style: hidden;
+                border-right-style: hidden;
+                border-left-style: hidden;
+                border-bottom-style: groove;
+                background-color: #eee;
+              "
+              disabled
+              value="{{element}}"
+            />
+
+            {%endfor %}
+
+            <br />
+          </div>
+          {%endfor %}
+          <br />
+        </div>
+        {%endfor%} {% endif %} {%if ans.any%}
+        <h1 class="mt-4">Resultado:</h1>
+        <div class="container" style="border: 1px solid black">
+          {%for element in ans%}
+          <div class="row justify-content-center">
+            <input
+              type="text"
+              class="col"
+              style="text-align: center"
+              disabled
+              value="{{element}}"
+            />
+          </div>
+          {% endfor %}
+        </div>
+        {%endif%}
+
+        <div id="success"></div>
+        <!-- <button onclick="plot()">Click Here</button> -->
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

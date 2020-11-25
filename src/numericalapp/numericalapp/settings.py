@@ -26,7 +26,8 @@ SECRET_KEY = '!rtjj0=#cef^9@8(_0=#x(0rq!5wl!@hm5+lg=t+^*l1!#*sv#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['numericalviews.sebasmd.com',
+'127.0.0.1']
 
 
 # Application definition
