@@ -3,10 +3,9 @@ from django.http import HttpResponse
 from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from numpy.lib.function_base import append
 import numpy as np
 
-from .methods.lusimple import LU_simple
+from .Methods.lusimple import LU_simple
 
 # Create your views here.
 class Matrix(forms.Form):

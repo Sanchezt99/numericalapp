@@ -57,8 +57,6 @@ def secant_view(request, *args, **kwargs):
         form = SecantForm()
     return render(request, 'methods/function_roots/secant.html', {'form':form})
 
-<<<<<<< HEAD
-
 def multipleRoots_view(request):
     if request.method == 'POST':
         form = MultipleRootsForm(request.POST)
@@ -75,7 +73,7 @@ def multipleRoots_view(request):
     else:
         form = MultipleRootsForm()
     return render(request, 'methods/function_roots/multipleRoots.html', {'form':form})
-=======
+
 def incrementalsearch_view(request, *args, **kwargs):
     if request.method == 'POST':
         form = incrementalsearchForm(request.POST)
@@ -122,4 +120,3 @@ def falseposition_view(request, *args, **kwargs):
     else:
         form = falsepositionForm()
     return render(request, 'methods/function_roots/falseposition.html', {'form':form})
->>>>>>> edc304d5ebd37f11d7a757f24e4d68774690d183
