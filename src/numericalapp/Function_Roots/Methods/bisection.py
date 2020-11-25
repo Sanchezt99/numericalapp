@@ -71,6 +71,7 @@ def Bisection(limitlower,upperanger,funtion,iterations,tolerance):
                     cont = cont + 1
                 if funm() == 0:
                         print ("\n\n",c,"is root")
+                        x = c
                 else:
                         if error < tol:
                                 x = c

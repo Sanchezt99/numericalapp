@@ -7,6 +7,9 @@ def FalseRule(limitlower,upperanger,funtion,iterations,tolerance):
    i=iterations
    tol=tolerance
    control = 1
+   message = ""
+   ansTable = []
+   x = 0
 
    def fun1():
         x = a
@@ -24,15 +27,19 @@ def FalseRule(limitlower,upperanger,funtion,iterations,tolerance):
         return yc
     
    if fun1 == 0:
+        message = str(a) + " is root"
         print (a,"is root")
    else:
-  
         if fun2==0:
-            print (b,"is root")
+            message = str(b) + " is root"
         else:
             if (fun1()*fun2())>0:
+                message = "inappropriate interval"
                 print ("inappropriate interval")
             else:
+                if message:
+                        return message, [], x
+                    
                 c = a-((fun1()*(b-a))/(fun2()-fun1()))
                 funm()
                 error = tol + 1
@@ -57,14 +64,20 @@ def FalseRule(limitlower,upperanger,funtion,iterations,tolerance):
                     float(error)
                     error = abs(c-xaux)
                     print ("|","{:5.1f}".format(cont),"|","{:14.11f}".format(a),"|","{:14.11f}".format(c),"|","{:14.11f}".format(b),"|","{:14.11f}".format(fm),"|","{:14.11f}".format(error),"|")
+                    ansTable.append([str(cont), str(a), str(c), str(b), str(fm), str(error)])
                     cont = cont + 1
                 if funm() == 0:
                         print ("\n\n",c,"is root")
+                        x = c
                 else:
                         if error < tol:
                                 print ("\n\n",c,"is root with tol:",error)
+                                x = c
                         else:
                                 print ("failure")
+                                message = "failure"
+                
+                return message, ansTable, x
                                 
                                 
                                 

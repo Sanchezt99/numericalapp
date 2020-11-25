@@ -59,3 +59,41 @@ def LUSimple_view(request):
         "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "x":x, "sol": a,
     })
 
+def LUPartial_view(request):
+    message = ''
+    stages = []
+    matrixs = []
+    xs = []
+    ab = []
+    a = []
+    x = []
+    A = []
+    L =[]
+    U =[]
+
+    if 'matrix_size' not in request.session:
+        request.session['matrix_size'] = 2
+    if request.method == "POST":
+        
+        if "rows_matrix" in request.POST:
+            form = Matrix(request.POST)
+            if form.is_valid():
+                row = form.cleaned_data["rows"]
+                request.session['matrix_size'] = row
+
+        if "method" in request.POST:
+            elements = request.POST.getlist('element')
+            
+            matrix = elements
+            message, A, L, U, x, a = LU_simple(matrix,request.session['matrix_size'])
+            print("message", message)
+
+    # print(request.session['matrix_size'])
+    # print(matrixs)
+    print(f"A {A}, \n L {L} \n U \n x {x}")
+    print("a",a)    
+        
+    return render(request, 'methods/factorization/lupartial.html', { "A": A, "L": L, "U":U,
+        "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "x":x, "sol": a,
+    })
+
