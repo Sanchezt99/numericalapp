@@ -17,7 +17,7 @@ class GaussSeidel:
         cont  = 0
         dispersion = float(tol + 1)
 
-        values.append([cont, x0, dispersion])
+        values.append(["Step: " + str(cont), x0,  "Err :" +str(dispersion)])
 
         while (dispersion > tol) and (cont < niter):
             print("entro while")
@@ -48,7 +48,7 @@ class GaussSeidel:
             cont += 1
 
             print([cont, x0, dispersion])
-            values.append([cont, x0, dispersion])
+            values.append(["Step: " + str(cont), x0,  "Err :" +str(dispersion)])
         
         if dispersion < tol:
             print(f"{x1} es aproximación con una tolerancia = {tol}")
