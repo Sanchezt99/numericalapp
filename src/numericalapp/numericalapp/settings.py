@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 
+
     #custom apps
     'pages',
 
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'Function_Roots',
     'Equation_Systems',
     'Factorization',
+    'mathfilters'
 ]
 
 MIDDLEWARE = [

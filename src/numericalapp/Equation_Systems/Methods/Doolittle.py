@@ -10,7 +10,7 @@ class Doolittle:
         x = numpy.empty(m)
         z = numpy.empty(m)
         matrixs = []
-        
+        ans= []
         # print(U)
         # print(L)
         # print(matrix)
@@ -36,7 +36,7 @@ class Doolittle:
                 for columna in range(fila):
                     suma2 += L.item(i, columna)*U.item(columna, fila)
                 if L.item(fila, fila)!=0:
-                    L[i, fila] = float(matrix.item(i, fila) - suma2)/U.item(fila,fila)
+                    L[i, fila] = str((matrix.item(i, fila) - suma2)/U.item(fila,fila))
                     matrixs.append(L.copy()) 
                     print(len(matrixs))
                 else:
@@ -49,7 +49,7 @@ class Doolittle:
 
                 if L.item(fila, fila)!=0:  
                     
-                    U[fila, j] = float(matrix.item(fila, j) - suma3)
+                    U[fila, j] = str(matrix.item(fila, j) - suma3)
                     matrixs.append(U.copy())
                 else:
                     return("Possibly there is no solution for this problem")
@@ -75,17 +75,17 @@ class Doolittle:
 	            suma=0
 	            for p in range(i+1,m):
 		            suma=suma+(U.item(i,p)*x.item(p))
-	            x[i]=float((z.item(i)-suma)/U.item(i,i))
+	            x[i]=str((z.item(i)-suma)/U.item(i,i))
             
         else:
             print("The Det is equal to 0, so there can be none solutions or infinite ones.")
             return
-        print(matrixs)
+        # print(matrixs)
         # print(f"L:\n {L}\n\nU:\n{U}\n")
         matrixs.append((L))
         matrixs.append(U)
-        matrixs.append(x)
+        
         # for each in range(m):
         #     print(f"x{each} = {x[each]}")
     
-        return matrixs
+        return matrixs,x

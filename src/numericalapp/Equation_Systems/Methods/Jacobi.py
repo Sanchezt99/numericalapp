@@ -6,7 +6,7 @@ class Jacobi:
     def evaluate(tol, niter, relajacion,matrix,m,indp,x0):
         matrix = matrix.copy()
         m = m
-        etapas = []
+        ans = []
         values = []
         x = numpy.empty(m)
         indp = indp.copy()
@@ -18,7 +18,7 @@ class Jacobi:
         cont  = 0
         dispersion = float(tol + 1)
 
-        values.append(["Step: " + str(cont), x0, dispersion])
+        # values.append(["Step: " + str(cont), x0, dispersion])
 
         while (dispersion > tol) and (cont < niter):
             print("entro while")
@@ -39,7 +39,6 @@ class Jacobi:
                 
             aux = x1 - x0
             dispersion = numpy.linalg.norm(aux)/numpy.linalg.norm(x1)
-     
             if relajacion != 0:
                 for i in range(len(x0)):
                     x1[i] = (relajacion*x1.item(i))+((1-relajacion)*x0.item(i))
@@ -47,9 +46,10 @@ class Jacobi:
             x0 = x1
             cont += 1
 
-            print([cont, str(x0), dispersion])
-            values.append(["Step: "+ str(cont), x0, dispersion])
         
+            values.append([x0])
+            print(values)
+
         if dispersion < tol:
             print(f"{x1} es aproximación con una tolerancia = {tol}")
         else:

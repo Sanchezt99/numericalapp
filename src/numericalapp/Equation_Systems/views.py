@@ -32,7 +32,7 @@ class Matrix2(forms.Form):
 
 class MatrixElement(forms.Form):
     element = forms.FloatField(label=False, widget=forms.NumberInput(attrs={'size': '5'}))
-    element: {'widget': forms.NumberInput(attrs={'class':'form-number'})}
+  
 
 
 
@@ -40,6 +40,7 @@ def doolittle_view(request, *args, **kwargs):
     message = ''
 
     matrixs = []
+    ans=[]
     if 'matrix_size' not in request.session:
         request.session['matrix_size'] = 2
         
@@ -70,15 +71,15 @@ def doolittle_view(request, *args, **kwargs):
                 matriEntr2[0][j] = elementsb[j]
 
             # print(matriEntr)
-            matrixs = Doolittle.evaluate(matriEntr,len(elementsb),matriEntr2)
+            matrixs,ans = Doolittle.evaluate(matriEntr,len(elementsb),matriEntr2)
     #         print(matrixs)
     #         print("message", message)
 
     # print(request.session['matrix_size'])
-    print(matrixs)
+    print(ans)
     
     return render(request, 'methods/equation_systems/doolittle.html', {
-            "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(),"elementb": MatrixElement(), "matrixs": matrixs
+            "size":request.session['matrix_size'], "form": Matrix(),"size":request.session['matrix_size'], 'ans':ans,"element": MatrixElement(),"elementb": MatrixElement(), "matrixs": matrixs
     })
 
 

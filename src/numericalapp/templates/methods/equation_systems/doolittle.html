@@ -1,6 +1,8 @@
 {% extends 'layouts/master.html' %}
 {% block content %}
 {% load static %}
+{% load mathfilters %}
+
 <div>
     <section class="page-section" >
         <div class="container">
@@ -31,26 +33,29 @@
                                         </section>
                                                                                 
                         
-                        <div class="matrix">
+                        <div class="matrix row ml-4">
                             <form action= "{% url 'doolittle.index' %}", method="post" class="ab">
                                 {% csrf_token %}
-
-                                <div class="a">
-                                    <h5>A</h5>
+                                <h5>A</h5>
+                                
+                                    
                                     {% with ''|center:size as range %}
+                                    
                                     {% for i in range %}
+                                    
                                         {% for j in range %}
+                                        
                                              <!-- <input id = i,j type=number> -->
                                              {{element}}
+                                        
                                         {% endfor %}
+                                        
                                         <br>
                                     {% endfor %}
                                     {% endwith %}
                                 
-                                    </div>
-
-                                    <div class="a"> 
-
+                        </div>
+                        <div class="ml-5">
                                     <h5>b</h5>
                                     {% with ''|center:size as range %}
                                         {% for i in range %}
@@ -58,60 +63,71 @@
                                              {{element}}
                                             <br>
                                         {% endfor %}
+                                        <br>
                                     {% endwith %}
                                     
-                                    </div>
+                        </div> 
 
-                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Enter Rows</button>
+                                <button class="btn btn-primary btn-xl ml-5" id="sendMessageButton" type="submit" name='method' >Run</button>
                             </form>
-
+                      
                             {% if message%}
                                <p style="text-align: center;">{{ message }} </p>
                             {% endif %}
 
 
                             {% if matrixs %}
-                                <h5 style="text-align: center;">Doolittle Method </h5>
-                                <div class="container">
+                            <h1>Paso 1</h1>
+                                <h5 style="text-align: center;"class="mt-4">Doolittle Method </h5>
+                                
                                 
                                 {%for matrix in matrixs%}
-                                 <p> vueltita {{forloop.counter}}</p>
-                                    <div class = "row justify-content-center mb-3 array_div " width= "200px" style ="border: 1px solid black;">
-                                     {% for row in matrix %}
+                               
+                                 {% if forloop.counter|add:1|divisibleby:2 and forloop.counter0 > 0%}
+                                   
+                                     <h1>Paso {{ forloop.counter|add:1|div:2}}</h1>
+                                 {%endif%}
+                                    <div class="container mt-5" style ="border: 1px solid black">
+                                    {% for row in matrix %}
+
+         
+
+                                       <div class = "row justify-content-center mb-3 array_div " width= "200px" >
+                                       
+                                        {% for element in row %}
                                         
                                        
-                                        
-                                        {% comment %} {% for element in row %}
-                                          <input type="text" value = {{element}} disabled>
-                                        {%endfor %} {% endcomment %}
-                                        {{row}}
-                                        <br>
-                                     
-                                    {%endfor %}
-                                    </div>
-                                {%endfor%}
-                                </div>
-                            {% endif %}
-
-                            <!-- {% if stages %}
-                                {%for i in stages%}
-                                    <p class="stage" style='text-align: center; font-weight: bold;'>Stage {{ i }} </p>
-                                    <p> matrix {{matrixs.i}}</p>
-                                         {{ matrixs.i|slugify }} 
+                                            <input type="text" class="col" style="border-top-style: hidden; border-right-style: hidden; border-left-style: hidden; border-bottom-style: groove; background-color: #eee;"disabled value={{element}}>
+                                          
+                                        </input>
+                                        {%endfor %} 
+   
                                     <br>
+                                    </div>
+                                    {%endfor %}
+                                    <br>
+                                     </div>
                                 {%endfor%}
-                            {% endif %} -->
                                
-                        
-                                {% comment %} <script src="https://d3js.org/d3.v3.min.js"></script>
-                                <script src="https://mauriciopoppe.github.io/function-plot/js/function-plot.js"></script>
-                                <script src="{% static 'assets/js/graph.js' %}"></script> {% endcomment %}
+                            {% endif %}
+                            
+                        {%if ans.any%}
+                        <h1 class= " mt-4">Resultado:</h1>
+                        <div class="container" style="border: 1px solid black">
+                        {%for element in ans%}
+                        <div class="row justify-content-center " >
+                            <input type="text" class="col" style="text-align:center" disabled value={{element}}>
+                            
+                        </div>
+                        {% endfor %}
+                        </div>
+                        {%endif%}
                          
                             
                         <div id="success"></div>
                         <!-- <button onclick="plot()">Click Here</button> -->
                         
-            </div>
+            
         </div>
   </div>
   </div>

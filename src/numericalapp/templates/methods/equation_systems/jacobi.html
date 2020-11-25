@@ -76,7 +76,7 @@
                                     
                                     </div>
 
-                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Enter Rows</button>
+                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Run</button>
                             </form>
 
                             {% if message%}
@@ -94,12 +94,12 @@
                                                     {% for row in matrix %}
                                                             <div class="row justify-content-center" style = "border: 1px solid black ">
 
-                                                            {{row}}
-                                                                {% comment %} {% for element in row %}
+                                                            
+                                                                {% for element in row %}
                                                                     <div class="row">
                                                                         <input type="text" value={{element}} disabled>
                                                                     </div>
-                                                                {%endfor %} {% endcomment %}
+                                                                {%endfor %} 
                                                             </div>
                                                     {%endfor %}
                                                 </div>
