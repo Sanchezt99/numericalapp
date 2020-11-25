@@ -63,6 +63,6 @@ class incrementalsearch:
     def tabla_values(self):
         return self.values
 
-inc = incrementalsearch()
+# inc = incrementalsearch()
 #print(inc.evaluate(0.00001,1,100,fc.fPrime,fc.fPrimePrime))
 

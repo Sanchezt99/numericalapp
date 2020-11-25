@@ -2,9 +2,9 @@
 from django.urls import path
 from pages.views import home_view, methods_view, about_view, help_view
 from Equation_Systems.views import doolittle_view, jacobi_view, gaussSeidel_view, gaussSimple_view, pivot_view
-from Function_Roots.views import fixedPoint_view, newton_view, secant_view, multipleRoots_view, incrementalsearch_view, bisection_view
+from Function_Roots.views import fixedPoint_view, newton_view, secant_view, multipleRoots_view, incrementalsearch_view, bisection_view, falseposition_view
 from Interpolation.views import splains_view, vandermonde_view, newtondivdif_view, lagrange_view, neville_view
-from Factorization.views import LUSimple_view
+from Factorization.views import LUSimple_view, LUPartial_view
 
 urlpatterns = [
     path("", home_view, name = "index.index"),
@@ -28,5 +28,6 @@ urlpatterns = [
     path("help/", help_view, name='help.index'),
     path("incrementalsearch/", incrementalsearch_view, name='incrementalsearch.index'),
     path("bisection/", bisection_view, name='bisection.index'),
-    path("falseposition/", bisection_view, name='falseposition.index'),
+    path("falseposition/", falseposition_view, name='falseposition.index'),
+    path("luPartial/", LUPartial_view, name="partialLU.index"),
 ]

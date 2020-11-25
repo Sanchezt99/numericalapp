@@ -4,7 +4,7 @@ from .Forms import *
 from .Methods import FixedPoint,Secant,newton,incrementalsearch,falseposition,bisection
 from .Methods.multipleRoots import multiple_roots
 from .Methods.bisection import Bisection
-
+from .Methods.falseposition import FalseRule
 
 
 def fixedPoint_view(request, *args, **kwargs):
@@ -83,7 +83,7 @@ def incrementalsearch_view(request, *args, **kwargs):
         Delta = float(form.data['Delta'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        res,sol = inc.evaluate(Tol,x0,Delta,F,Iter)
+        res,sol = inc.evaluate(Tol,x0,Iter, F, )
         #print(res)
         return render(request, 'methods/function_roots/incrementalsearch.html',{'form':form,'res':res,'sol':sol})
     else:
@@ -111,15 +111,14 @@ def bisection_view(request, *args, **kwargs):
 def falseposition_view(request, *args, **kwargs):
     if request.method == 'POST':
         form = falsepositionForm(request.POST)
-        fals = falseposition.falseposition()
         a = float(form.data['a'])
         b = float(form.data['b'])
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        res,sol = fals.evaluate(Tol,a,b,F,Iter)
+        message, ansTable, x = FalseRule(a,b,F,Iter,Tol)
         #print(res)
-        return render(request, 'methods/function_roots/falseposition.html',{'form':form,'res':res,'sol':sol})
+        return render(request, 'methods/function_roots/falseposition.html',{'form':form,'message':message,'res':ansTable, 'sol':x})
     else:
         form = falsepositionForm()
     return render(request, 'methods/function_roots/falseposition.html', {'form':form})
