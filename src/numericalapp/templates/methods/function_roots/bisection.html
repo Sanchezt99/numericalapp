@@ -1,0 +1,61 @@
+{% extends 'layouts/master.html' %}
+{% block content %}
+{% load static %}
+
+<section class="page-section">
+  <div class="container">
+    <div>
+      <h4><b>Bisection Method</b> <i style="font-size:24px" class="fa">&#xf059;</i> </h4>
+      
+      <p>The objective of the method is to find the root of a function, taking an initial interval and gradually halving this, until an approximation or the root that satisfies the function is found.</p>
+      <p> 1. Choose an initial interval for function f (x)</p>
+      <p> 2. Afterwards, we seek to find the root with greater accuracy within the interval by dividing in half and observing if the initial conditions are preserved.</p>
+      <p> 3. The Xmed is compared with each of the limits of the interval and it`s observed that the product changes sign and a new interval is assigned.</p>
+      <p> 4. The process is repeated, and the interval becomes small until it reaches an approximation of the root or the exact root.</p>
+      <br><br>
+      <p>Recommendations for entering functions</p>
+      <p>Ln(x) =  log(x),  Sen(x) =  Sin(x),  X^2 =  x**2,  e^x =  e**x </p>
+      <br><br>
+
+      <div class="row">
+        <div class="col-4">
+          <form method="POST">
+            {% csrf_token %} 
+            {% for input in form %} {{input.label}}:
+            <br />
+            {{input}}
+            <br />
+            {% endfor %}
+            <br />
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="col-8">
+
+        <table class="table table-bordered text-center">
+        {% for i in res %} {% comment %} manda arr {% endcomment %}
+        <tr>
+          {% for j in i %} {% comment %} separa cols {% endcomment %}
+            <td> {{j}} </td>
+          {% endfor %}
+        </tr>
+        
+        {% endfor %}
+        </table>
+        <br>
+
+        Root found at {{sol}}
+        <br>
+        <br>
+
+        </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+{% include 'layouts/modal.html' with id='miid' text='mitexto'%}
+
+{% endblock content %}

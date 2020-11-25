@@ -1,0 +1,62 @@
+{% extends 'layouts/master.html' %}
+{% block content %}
+{% load static %}
+
+<section class="page-section">
+  <div class="container">
+    <div>
+      <h4><b>FalsePosition</b> <i style="font-size:24px" class="fa">&#xf059;</i> </h4>
+      
+        <p>The objective of this method is to find the intersection of a straight formed by points a and b with the x-axis, and to obtain new smaller intervals, which allows an approximation to a root.</p>
+        <p>This method preserves all the characteristics and conditions that the bisection method has, except for the way to calculate the intermediate point of the interval</p>
+        <p>The procedure to follow for applying the method is as follows:</p>
+        <p> 1. If you have two points (a, f (a)) and (b, f (b)) and draw the line that joins these two points, you can see that one point is below the x-axis and another above this, and an intermediate point (Xm, 0), with this intermediate point you can compare the limits and obtain a new interval</p>
+        <p>2. If f (A) and f (B) < 0, then the root is on the left side of the interval.</p>
+        <p>3. If f (A) and f (B) > 0, then the root is on the right side of the interval.</p>
+        <p>4. To find the intersection of the line with the X axis we use the following formula: Xm= a - ((f(a)*(b - a))/(f(b) - f(a)))</p>
+        <p>"The False position method converges more quickly than the bisection method because when one of its initial values ​​remains fixed, the number of calculations is reduced while the other initial value converges towards the root.</p>
+
+       <br><br>
+
+        <div class="row">
+        <div class="col-4">
+          <form method="POST">
+            {% csrf_token %} 
+            {% for input in form %} {{input.label}}:
+            <br />
+            {{input}}
+            <br />
+            {% endfor %}
+            <br />
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="col-8">
+
+        <table class="table table-bordered text-center">
+        {% for i in res %} {% comment %} manda arr {% endcomment %}
+        <tr>
+          {% for j in i %} {% comment %} separa cols {% endcomment %}
+            <td> {{j}} </td>
+          {% endfor %}
+        </tr>
+        
+        {% endfor %}
+        </table>
+        <br>
+
+        {{sol}}
+        <br>
+        <br>
+
+        </div>
+        </div>
+
+    </div>
+  </div>
+</section>
+
+{% include 'layouts/modal.html' with id='miid' text='mitexto'%}
+
+{% endblock content %}

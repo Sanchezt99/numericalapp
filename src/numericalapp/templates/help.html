@@ -1,0 +1,22 @@
+{% extends 'layouts/master.html' %}
+{% block content %}
+{% load static %}
+
+<section class="page-section">
+  <div class="container">
+    <div class="card">
+      <h4><b>Help:</b></h4>
+      <ul>
+        <li> <p>In the root function methods, follow the following recommendations: Ln(x) =  log(x),  Sen(x) =  Sin(x),  X^2 =  x**2,  e^x =  e**x </p> 
+        <p>EXAMPLE: log(sin(x)**2+1)-1/2</p> </li>
+        <li> If you have identified an error or a bug that is worth reporting, please create an issue on the <a href="https://github.com/Sanchezt99/numericalapp" target="_blank" rel="noopener noreferrer">GitHub project.</a> </li>
+        <li>  </li>
+        <li>  </li>        
+      </ul>
+     </div>
+  </div>
+</section>
+
+{% include 'layouts/modal.html' with id='miid' text='mitexto'%}
+
+{% endblock content %}
