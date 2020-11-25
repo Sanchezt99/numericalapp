@@ -4,11 +4,18 @@ from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from numpy.lib.function_base import append
+from numpy.linalg.linalg import solve
 
 from .Methods.Doolittle import *
 from .Methods.Gauss_Seidel import *
 from .Methods.Jacobi import *
 from .Methods.gaussSimple import gauss_enter, gauss_elimination
+
+
+from .Methods import partial_pivot, total_pivot
+
+
+
 import numpy as np
 # Create your views here.
 
@@ -26,7 +33,7 @@ class Matrix2(forms.Form):
 
 class MatrixElement(forms.Form):
     element = forms.FloatField(label=False, widget=forms.NumberInput(attrs={'size': '5'}))
-    element: {'widget': forms.NumberInput(attrs={'class':'form-number'})}
+  
 
 
 
@@ -34,6 +41,7 @@ def doolittle_view(request, *args, **kwargs):
     message = ''
 
     matrixs = []
+    ans=[]
     if 'matrix_size' not in request.session:
         request.session['matrix_size'] = 2
         
@@ -64,15 +72,15 @@ def doolittle_view(request, *args, **kwargs):
                 matriEntr2[0][j] = elementsb[j]
 
             # print(matriEntr)
-            matrixs = Doolittle.evaluate(matriEntr,len(elementsb),matriEntr2)
+            matrixs,ans = Doolittle.evaluate(matriEntr,len(elementsb),matriEntr2)
     #         print(matrixs)
     #         print("message", message)
 
     # print(request.session['matrix_size'])
-    print(matrixs)
+    print(ans)
     
     return render(request, 'methods/equation_systems/doolittle.html', {
-            "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(),"elementb": MatrixElement(), "matrixs": matrixs
+            "size":request.session['matrix_size'], "form": Matrix(),"size":request.session['matrix_size'], 'ans':ans,"element": MatrixElement(),"elementb": MatrixElement(), "matrixs": matrixs
     })
 
 
@@ -222,6 +230,49 @@ def gaussSimple_view(request):
     # print(matrixs)
     print(request.session['matrix_final'])
     return render(request, 'methods/equation_systems/gauss.html', {
-         "m":ab, "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "matrixs": matrixs, "xs":xs
+        "m":ab, "size":request.session['matrix_size'], "form": Matrix(), "element": MatrixElement(), "message": message, "matrixs": matrixs, "xs":xs
     })
 
+
+
+
+
+
+
+def pivot_view(request, *args, **kwargs):
+    default = True
+    a = [[2,-1,0,3],[1,0.5,3,8],[0,13,-2,11],[14,5,-2,3]]
+    b = [1,1,1,1]
+    if request.method == 'POST':
+        method = request.POST['method']
+        dim = int(request.POST['dim'])
+        a = toMatrix(request.POST.getlist('a'), dim)
+        b = request.POST.getlist('b')
+        request.session['a'] = a
+        request.session['b'] = b
+
+        steps =[]
+        solution = []
+        message = ''
+        if method == 'Partial':
+            steps, solution, message = partial_pivot.gauss(a,b)
+        elif method == 'Total':
+            steps, solution, message = total_pivot.gauss(a,b)
+        
+        solved = False
+        if np.any(steps):
+            if np.any(solution):
+                solved = True
+
+        return render(request, 'methods/Equation_Systems/pivot.html',
+        {'steps': steps, 'solution': solution, 'aMatrix': request.session['a'], 'bMatrix': request.session['b'], 'message': message, 'solved':solved})
+    return render(request, 'methods/Equation_Systems/pivot.html', {'default': default, 'a': a, 'b':b})
+
+def toMatrix(matrix, rows):
+    m = []
+    for i in range(0,len(matrix),rows):
+        n = []
+        for j in range(i,i+rows):
+            n.append(matrix[j])
+        m.append(n)
+    return m

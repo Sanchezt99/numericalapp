@@ -11,4 +11,7 @@ def methods_view(request,*args,**kwargs):
 
 def about_view(request, *args, **kwargs):
     return render(request, 'about.html',{})
+    
+def help_view(request, *args, **kwargs):
+    return render(request, 'help.html',{})
 
