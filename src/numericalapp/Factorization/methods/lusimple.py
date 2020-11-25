@@ -90,9 +90,11 @@ def LU_simple(A,size):
     final = []
     if A_lista:
         for i in range(len(A_lista)-1):
-            final.append(A_lista[i])
-            final.append(L_lista[i])
-            final.append(U_lista[i])
+            m = []
+            m.append(A_lista[i])
+            m.append(L_lista[i])
+            m.append(U_lista[i])
+            final.append(m)
 
     return message, A_lista, L_lista , U_lista, x, final
    
