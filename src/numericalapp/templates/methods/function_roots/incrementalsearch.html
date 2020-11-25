@@ -1,0 +1,65 @@
+{% extends 'layouts/master.html' %}
+{% block content %}
+{% load static %}
+
+<section class="page-section">
+  <div class="container">
+    <div>
+      <h4><b>Incremental Search Method</b> <i style="font-size:24px" class="fa">&#xf059;</i> </h4>
+      <p>
+        The objective of this method is to find an interval that contains at least one root, 
+        and is based on the intermediate value theorem.\n\nTo apply this method the function f(x) must be 
+        real and continue, in addition, care must be taken when choosing the increment (Delta) at which 
+        the function will be evaluated, if the increment is very small there is a risk of returning the 
+        process very expensive, and if it is very large there is a risk of not detecting the root.</p>
+       <p>The procedure to follow for applying the method is as follows:</p>
+       <p> 1. A domain of the function of interest is determined</p>
+       <p> 2. The function is evaluated by taking a small increment and an initial value (Xo) selected 
+           arbitrarily from the domain.</p>
+       <p> 3. Analyze the sign of the product of the evolution of a current value with the previous
+            one and deduce with it whether or not the root exists. If the sign of the product is negative, 
+            an interval containing the root can be confirmed as confirmed, otherwise the interval doesn´t exist.</p>
+       <br><br>
+
+        <div class="row">
+        <div class="col-4">
+          <form method="POST">
+            {% csrf_token %} 
+            {% for input in form %} {{input.label}}:
+            <br />
+            {{input}}
+            <br />
+            {% endfor %}
+            <br />
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="col-8">
+
+        <table class="table table-bordered text-center">
+        {% for i in res %} {% comment %} manda arr {% endcomment %}
+        <tr>
+          {% for j in i %} {% comment %} separa cols {% endcomment %}
+            <td> {{j}} </td>
+          {% endfor %}
+        </tr>
+        
+        {% endfor %}
+        </table>
+        <br>
+
+        {{sol}}
+        <br>
+        <br>
+
+        </div>
+        </div>
+
+    </div>
+  </div>
+</section>
+
+{% include 'layouts/modal.html' with id='miid' text='mitexto'%}
+
+{% endblock content %}

@@ -5,16 +5,25 @@ def gauss(matrix, b):
 
     matrix = np.array(matrix).astype(np.float)
     b      = np.array(b).astype(np.float)
+    
+    if np.linalg.det(matrix) == 0:
+        return None, None, 'Matrix determinant is 0'
 
-
+    m = []
 
     for i in range(len(matrix)):
+
+        m.append(mu.methodStep(matrix, b))
+
         pivot(matrix, i, b)
+
 
         for j in range(i+1,len(matrix)):
             multiplicand = matrix[j][i] / matrix[i][i]
             elimination(i, j, multiplicand, matrix, b)
-    return backwardSubstitution(matrix, b)
+
+    n = np.linalg.solve(matrix,b)
+    return m, n, 'Successful'
 
 
 def pivot(matrix, index, b):
@@ -26,14 +35,6 @@ def pivot(matrix, index, b):
     if champion != index:    
         mu.swapRows(matrix, champion, index)
         mu.swapValues(b, champion, index)
-
-
-a = [   [ 2,  -1, 0, 3],
-        [ 1, 0.5, 3, 8],
-        [0,   13, -2, 11],
-        [14,   5, -2, 3]
-    ]
-
 
 def elimination(row1, row2, multiplicand, matrix, b):
     for i in range(len(matrix[row2])):
@@ -60,7 +61,7 @@ def backwardSolve(left, xValues, right):
     else:
         newRight = right - left[0]*xValues[len(xValues)-1]
         newLeft = np.copy(left)
-        newLeft = np.delete(newLeft,0)
+        newLeft = np.delete(newLeft, 0)
         newXValues = np.copy(xValues)
         newXValues = np.delete(newXValues,len(xValues)-1)
         return backwardSolve(left=newLeft, xValues=newXValues, right=newRight)

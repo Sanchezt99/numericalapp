@@ -1,12 +1,7 @@
 {% extends 'layouts/master.html' %} {% block content %}
 
 <style>
-  #x_input {
-    width: 70px;
-    border: 0px;
-    font-size: 13px;
-  }
-  #y_input {
+  #input {
     width: 70px;
     border: 0px;
     font-size: 13px;
@@ -23,43 +18,90 @@
 </style>
 
 <script>
-  function appendInput() {}
+  function appendInput() {
+    let a = document.getElementById("a");
+    let b = document.getElementById("b");
+    a.innerHTML = "";
+    b.innerHTML = "";
+    let inputValue = document.getElementById("dimension").value;
+
+    if (inputValue < 2) {
+      alert("Array dimension must be greater than 1");
+      inputValue = 2;
+    } else if (inputValue > 14) {
+      alert("Max dimension admitted by the aplication is 14");
+      inputValue = 14;
+    }
+
+    for (let i = 0; i < inputValue; i++) {
+      let tr = document.createElement("tr");
+      for (let j = 0; j < inputValue; j++) {
+        let input = document.createElement("input");
+        let td = document.createElement("td");
+        input.type = "number";
+        input.id = "input";
+        input.name = "a";
+        input.setAttribute("step", "any");
+        input.setAttribute("required", "");
+        td.appendChild(input);
+        tr.appendChild(td);
+      }
+      a.appendChild(tr);
+    }
+    for (let i = 0; i < inputValue; i++) {
+      let tr = document.createElement("tr");
+      let td = document.createElement("td");
+      let input = document.createElement("input");
+      input.type = "number";
+      input.id = "input";
+      input.name = "b";
+      input.setAttribute("step", "any");
+      input.setAttribute("required", "");
+      td.appendChild(input);
+      tr.appendChild(td);
+      b.appendChild(tr);
+    }
+    let input = document.getElementById("dim");
+    input.value = inputValue;
+  }
 </script>
 
-<section class="container page-section">
+<section class="ç page-section">
   <div>
-    <h4 class="methods-title text-uppercase text-secondary mb-0">Splains</h4>
+    <h4 class="methods-title text-uppercase text-secondary mb-0">Gaussian Pivots</h4>
     <a href="./"><i style="font-size: 24px" class="fa">&#xf059;</i></a>
     <p>
-      The Splains seeks to interpolation of a given data set, this set must be
-      composed by {x,y} pairs for which the method generate a corresponding
-      piecewise function s(x). <br />
-      There are 3 kinds of splain (lineal, cuadratic and cubic) which will
-      determine the degree of the funcions defined in s(x). <br />
-      The set of x values must be unique between them, otherwise the method wont
-      be able to interpolate.
+      Partial and Total pivot are both extendions of the Gaussian-elimination method that seeks the a solution to matrix systems Ax = b. <br/>
+      The Pivots try to avoid an issue in the Gaussian-elimination method where a 0 in the matrix diagonal would couse an indetermination n/0. <br/>
+      Partial pivot swaps rows in the matrix where if in the current sub matrix A<sub>ii</sub> < A<sub>ji</sub> and j/=i then swap A[i] <-> A[j] <br/>
+      Total pivot swaps rows and columns where if in the current sub matrix A<sub>ii</sub> < A<sub>ij</sub> and j/=i then swap A<sub>ii</sub> <-> A<sub>ij</sub> both columns and rows <br/>
     </p>
     <p>
-      1. <strong>Variables</strong>: number of x values you want to set (max=15)
+      1. <strong>Dimension</strong>: Matrix dimension (max=14)
     </p>
-    <p>2. <strong>Splain</strong>: splain method you want to use</p>
+    <p>2. <strong>Pivot method</strong>: Pivot method you want to use</p>
     <p>
-      3. <strong>X</strong>: X values of the data set you want to interpolate
+      3. <strong>A</strong>: Values of matrix A
     </p>
     <p>
-      4. <strong>Y</strong>: Y values of the data set you want to interpolate
-      matching verticaly the corresponding X value
+      4. <strong>B</strong>: Values of matrix b
     </p>
   </div>
 
   <div class="text-center">
     <div>
-      <label for="variables">Dimension:</label>
-      <input type="number" id="variables" onchange="appendInput()" />
+      <label for="dimension">Dimension:</label>
+      <input
+        type="number"
+        id="dimension"
+        onchange="appendInput()"
+        name="dimension"
+      />
 
       <br />
       <br />
-      <form method="post" class="text-center" action="./">
+
+      <form method="post" class="text-center" action="./" id="form">
         {% csrf_token %}
 
         <label for="method">Pivot method:</label>
@@ -70,145 +112,118 @@
 
         <br />
         <br />
-
-        <table align="center">
-          <tr id="x_row">
-            <th scope="row">X</th>
-            {% if default %}
-            <td>
-              <input
-                name="x"
-                type="number"
-                id="x_input"
-                step="any"
-                value="-1"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="0"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="3"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="4"
-              />
-            </td>
-            {% elif xSplain %} {% for i in xSplain %}
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="{{i}}"
-              />
-            </td>
-            {% endfor %} {% endif %}
-          </tr>
-          <tr id="y_row">
-            <th scope="row">Y</th>
-            {% if default %}
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="15.5"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="3"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="8"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="1"
-              />
-            </td>
-            {% elif ySplain %} {% for i in ySplain %}
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="{{i}}"
-              />
-            </td>
-            {% endfor %} {% endif %}
-          </tr>
-        </table>
+        <div class="row">
+          <div class="col-6">
+            <h4 class="methods-title text-uppercase text-secondary mb-0">a</h4>
+            <table align="center" id="a">
+              {% if default %} {% for i in a %}
+              <tr>
+                {% for j in i %}
+                <td>
+                  <input
+                    name="a"
+                    id="input"
+                    type="number"
+                    step="any"
+                    value="{{j}}"
+                    required
+                  />
+                </td>
+                {% endfor %}
+              </tr>
+              {% endfor %} {% endif %} {% if aMatrix %} {% for i in aMatrix %}
+              <tr>
+                {% for j in i %}
+                <td>
+                  <input
+                    name="a"
+                    id="input"
+                    type="number"
+                    step="any"
+                    value="{{j}}"
+                    required
+                  />
+                </td>
+                {% endfor %}
+              </tr>
+              {% endfor %} {% endif %}
+            </table>
+          </div>
+          <div class="col-6">
+            <h4 class="methods-title text-secondary mb-0">b</h4>
+            <table align="center" id="b">
+              {% if default %} {% for i in b %}
+              <tr>
+                <td>
+                  <input
+                    name="b"
+                    id="input"
+                    type="number"
+                    step="any"
+                    value="{{i}}"
+                    required
+                  />
+                </td>
+              </tr>
+              {% endfor %} {% endif %} {% if bMatrix %} {% for i in bMatrix %}
+              <tr>
+                <td>
+                  <input
+                    name="b"
+                    id="input"
+                    type="number"
+                    step="any"
+                    value="{{i}}"
+                    required
+                  />
+                </td>
+              </tr>
+              {% endfor %} {% endif %}
+            </table>
+          </div>
+        </div>
         <br />
-        <button type="btn submit">Interpolate</button>
+
+        <input type="hidden" id="dim" name="dim" value="4" />
+        <button type="btn submit">Solve</button>
       </form>
     </div>
-    <div>
-      {% if coefficients and tracers %}
-      <h4 class="methods-title text-uppercase text-secondary mb-0">
-        COEFFICIENTS
-      </h4>
-      <br />
-      {% for i in coefficients %} {{ i }}
-      <br />
-      {% endfor %}
-      <br />
-      <br />
 
-      <h4 class="methods-title text-uppercase text-secondary mb-0">
-        TRACERS s(x)
-      </h4>
+    <div>
+      {% if solved %}
+      <h4 class="methods-title text-uppercase text-secondary mb-0">Steps</h4>
       <br />
-      {% for i in tracers %} {{ i }}
       <br />
-      {% endfor %} {% endif %}
+        {% for i in steps %}
+          <h6>Step {{forloop.counter0}}</h6>
+          <table align="center" class="text-center">
+            {% for j in i %}
+              <tr>
+              {% for k in j %}
+                <td>
+                
+                  {{ k }}
+                
+                </td>
+              {% endfor %}
+              </tr>
+            {% endfor %}
+          </table>
+          <br />
+        {% endfor %}
+        <br />
+        <br />
+
+      <h4 class="methods-title text-uppercase text-secondary mb-0">Solution</h4>
+      <br />
+      {% for i in solution %}
+        x<sub>{{ forloop.counter0 }}</sub> = {{ i }} 
+        <br/>
+      {% endfor %}
+      
+      {% endif %}
     </div>
-    {% if message %}
+    {% if messafe %}
     <h4 class="methods-title text-uppercase text-secondary mb-0">Output</h4>
     <br />
     {{ message }}

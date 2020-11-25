@@ -1,8 +1,8 @@
 from pydoc import html
 from django.shortcuts import render
-import django.utils.html
-
+from .Forms import splainForm, vandermonde, newtondivdif, lagrange, neville
 from .Methods import lineal_spline, cuadratic_splain, cubic_spline
+
 
 # Create your views here.
 
@@ -19,11 +19,25 @@ def splains_view(request, *args, **kwargs):
         message = ''
         if method == 'Lineal':
             tracers, coefficients, message = lineal_spline.splain(x,y)
-        elif method == 'Cuadratic':
+        elif method == 'Quadratic':
             tracers, coefficients, message = cuadratic_splain.splain(x,y)
         else:
             tracers, coefficients, message = cubic_spline.splain(x,y)
 
         return render(request, 'methods/interpolation/splains.html',
-        {'range': range(10), 'tracers': tracers, 'coefficients': coefficients, 'xSplain': request.session['x'], 'ySplain': request.session['y'], 'message': message})
-    return render(request, 'methods/interpolation/splains.html', {'range': range(10), 'default': True})
+        {'tracers': tracers, 'coefficients': coefficients, 'xSplain': request.session['x'], 'ySplain': request.session['y'], 'message': message})
+    return render(request, 'methods/interpolation/splains.html', {'default': True})
+
+def vandermonde_view(request, *args, **kwargs):
+    form = splainForm()
+    return render(request, 'methods/interpolation/vandermonde.html', {'form': form, 'range': range(10)})
+def newtondivdif_view(request, *args, **kwargs):
+    form = splainForm()
+    return render(request, 'methods/interpolation/newtondivdif.html', {'form': form, 'range': range(10)})
+def lagrange_view(request, *args, **kwargs):
+    form = splainForm()
+    return render(request, 'methods/interpolation/lagrange.html', {'form': form, 'range': range(10)})
+def neville_view(request, *args, **kwargs):
+    form = splainForm()
+    return render(request, 'methods/interpolation/neville.html', {'form': form, 'range': range(10)})
+

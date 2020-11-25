@@ -55,7 +55,6 @@
       x_input.id = "x_input";
       x_input.name = "x";
       x_input.setAttribute("step", "any");
-      x_input.setAttribute("required", "");
       x_row.appendChild(td_x);
       let td_y = document.createElement("td");
       td_y.appendChild(y_input);
@@ -63,35 +62,22 @@
       y_input.id = "y_input";
       y_input.name = "y";
       y_input.setAttribute("step", "any");
-      y_input.setAttribute("required", "");
       y_row.appendChild(td_y);
     }
   }
 </script>
 
 <section class="container page-section">
-  <div>
-    <h4 class="methods-title text-uppercase text-secondary mb-0">
-        Splains
-    </h4>
-    <a href="./"><i style="font-size: 24px" class="fa">&#xf059;</i></a>
-    <p>
-      The Splains seeks to interpolation of a given data set, this set must be composed by {x,y} pairs for which the method generate a corresponding piecewise function s(x). <br/>
-      There are 3 kinds of splain (lineal, cuadratic and cubic) which will determine the degree of the funcions defined in s(x). <br/>
-      The set of x values must be unique between them, otherwise the method wont be able to interpolate.
-    </p>
-    <p>
-      1. <strong>Variables</strong>: number of x values you want to set (max=15)
-    </p>
-    <p>2. <strong>Splain</strong>: splain method you want to use</p>
-    <p>3. <strong>X</strong>: X values of the data set you want to interpolate</p>
-    <p>4. <strong>Y</strong>: Y values of the data set you want to interpolate matching verticaly the corresponding X value</p>
-  </div>
-
-
-  <div class="text-center">
+  <div class="card">
     <div>
-      <label for="variables">Variables:</label>
+      <h4><b>Lagrange</b> <i style="font-size:24px" class="fa">&#xf059;</i> </h4>
+      <p>The objective of this method is to find an interpolating polynomial that represents a function or a problem without exact definition, that passes through a set of given points.</p>
+      <p> 1. We consider n the given points x of the function, with their respective value of y; given these points there is a single polynomial of degree at most n-1 that passes through them.</p>
+      <p> 2. In order to define the polynomial, find the values ​​of each Li (x) with i from 1 to n. </p>
+      <p> 3. Once the values ​​of L have been calculated, we can confirm the polynomial and then some additional calculations.</p>
+      <p> 4. The values ​​of L can be calculated from the following structure, additionally the structure of the Lagrange polynomial can be observed.</p>
+         
+      <label for="variables">Enter the number of data to use:</label>
       <input type="number" id="variables" onchange="appendInput()" min="2" />
 
       <br />
@@ -103,13 +89,8 @@
       >
         {% csrf_token %}
 
-        <label for="method">Splain</label>
-        <select name="method" id="method">
-          <option selected>Lineal</option>
-          <option>Cuadratic</option>
-          <option>Cubic</option>
-        </select>
-
+        <label for="method">Lagrange</label>
+       
         <br />
         <br />
 
@@ -228,7 +209,7 @@
           </tr>
         </table>
         <br />
-        <button type="btn submit">Interpolate</button>
+        <button type="btn submit">sub</button>
       </form>
     </div>
     <div>
@@ -242,7 +223,8 @@
       {% endfor %}
       <br />
       <br />
-      <h4 class="methods-title text-uppercase text-secondary mb-0">TRACERS s(x)</h4>
+
+      <h4 class="methods-title text-uppercase text-secondary mb-0">TRACERS</h4>
       <br />
       {% for i in tracers %} {{ i }}
       <br />
