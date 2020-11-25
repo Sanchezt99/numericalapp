@@ -17,7 +17,7 @@
       <p>Ln(x) =  log(x),  Sen(x) =  Sin(x),  X^2 =  x**2,  e^x =  e**x </p>
       <br><br>
 
-        <div class="row">
+      <div class="row">
         <div class="col-4">
           <form method="POST">
             {% csrf_token %} 
@@ -45,49 +45,16 @@
         </table>
         <br>
 
-        <table id="table-data" class="display" style="width:100%">
-          <thead>
-              <tr>
-                  <th>Iteraciones</th>
-                  <th>a</th>
-                  <th>xm</th>
-                  <th>b</th>
-                  <th>f(xm)</th>
-                  <th>E</th>
-              </tr>
-          </thead>
-      </table>
-      
-      <script>
-          $(document).ready( function () {
-              fetch('/bisection/data')
-              .then(result => result.json())
-              .then((data) =>{ 
-                  let tabla = document.getElementById('table-data');
-                  data['iter'].forEach((e,index) => {
-                      
-                      var fila="<tr><td>"+data['iter'][index]+"</td><td>"+data['a'][index]+"</td><td>"+data['xm'][index]+"</td><td>"+data['b'][index]+"</td><td>"+data['fxm'][index]+"</td><td>"+data['E'][index]+"</td></tr>";
-                      var fil = document.createElement('tr');
-                      fil.innerHTML=fila;
-                      tabla.appendChild(fil);
-                  });
-                  
-                  
-                  
-              });
-          });
-      </script>
-        {{sol}}
+        Root found at {{sol}}
         <br>
         <br>
 
         </div>
         </div>
-
     </div>
   </div>
-  
 </section>
+
 
 {% include 'layouts/modal.html' with id='miid' text='mitexto'%}
 

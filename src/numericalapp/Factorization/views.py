@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 import numpy as np
 
-from .Methods.lusimple import LU_simple
+from .methods.lusimple import LU_simple
 
 # Create your views here.
 class Matrix(forms.Form):

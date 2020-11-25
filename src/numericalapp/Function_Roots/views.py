@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .Forms import *
 from .Methods import FixedPoint,Secant,newton,incrementalsearch,falseposition,bisection
 from .Methods.multipleRoots import multiple_roots
+from .Methods.bisection import Bisection
 
 
 
@@ -90,20 +91,22 @@ def incrementalsearch_view(request, *args, **kwargs):
     return render(request, 'methods/function_roots/incrementalsearch.html', {'form':form})
 
 def bisection_view(request, *args, **kwargs):
+    message, ansTable, x =[], [] ,0
     if request.method == 'POST':
         form = bisectionForm(request.POST)
-        bisc = bisection.bisection()
         a = float(form.data['a'])
         b = float(form.data['b'])
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        res,sol = bisc.evaluate(Tol,a,b,F,Iter)
+        menssage, ansTable, x = Bisection(a,b,F,Iter,Tol)
         #print(res)
-        return render(request, 'methods/function_roots/bisection.html',{'form':form,'res':res,'sol':sol})
+        return render(request, 'methods/function_roots/bisection.html',{'form':form,'message':message,'res':ansTable, 'sol':x})
     else:
         form = bisectionForm()
     return render(request, 'methods/function_roots/bisection.html', {'form':form})
+
+
 
 def falseposition_view(request, *args, **kwargs):
     if request.method == 'POST':
