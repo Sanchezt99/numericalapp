@@ -264,9 +264,9 @@ def pivot_view(request, *args, **kwargs):
             if np.any(solution):
                 solved = True
 
-        return render(request, 'methods/Equation_Systems/pivot.html',
+        return render(request, 'methods/equation_systems/pivot.html',
         {'steps': steps, 'solution': solution, 'aMatrix': request.session['a'], 'bMatrix': request.session['b'], 'message': message, 'solved':solved})
-    return render(request, 'methods/Equation_Systems/pivot.html', {'default': default, 'a': a, 'b':b})
+    return render(request, 'methods/equation_systems/pivot.html', {'default': default, 'a': a, 'b':b})
 
 def toMatrix(matrix, rows):
     m = []
