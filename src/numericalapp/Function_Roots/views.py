@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .Forms import *
-from .Methods import FixedPoint,Secant,newton,incrementalsearch,falseposition,bisection
+from .Methods import FixedPoint,Secant,newton,falseposition,bisection
 from .Methods.multipleRoots import multiple_roots
 from .Methods.bisection import Bisection
 from .Methods.falseposition import FalseRule
+from .Methods.incrementalsearch import Incrementalsearches
 
 
 def fixedPoint_view(request, *args, **kwargs):
@@ -76,16 +77,20 @@ def multipleRoots_view(request):
     return render(request, 'methods/function_roots/multipleRoots.html', {'form':form})
 
 def incrementalsearch_view(request, *args, **kwargs):
+    message = ""
+    ansTable = []
+
     if request.method == 'POST':
         form = incrementalsearchForm(request.POST)
-        inc = incrementalsearch.incrementalsearch()
         x0 = float(form.data['x0'])
         Delta = float(form.data['Delta'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        res,sol = inc.evaluate(Tol,x0,Iter, F, )
+        print(f" f: {F}, \n x0: {x0} , tol: {Delta} , Iter: {Iter}")
+        print('\n'*10)
+        message, ansTable = Incrementalsearches(F,x0,Delta,Iter )
         #print(res)
-        return render(request, 'methods/function_roots/incrementalsearch.html',{'form':form,'res':res,'sol':sol})
+        return render(request, 'methods/function_roots/incrementalsearch.html',{'form':form,'message':message,'res':ansTable})
     else:
         form = incrementalsearchForm()
     return render(request, 'methods/function_roots/incrementalsearch.html', {'form':form})

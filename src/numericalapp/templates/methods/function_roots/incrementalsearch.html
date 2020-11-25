@@ -21,7 +21,7 @@
             an interval containing the root can be confirmed as confirmed, otherwise the interval doesn´t exist.</p>
        <br><br>
 
-        <div class="row">
+       <div class="row">
         <div class="col-4">
           <form method="POST">
             {% csrf_token %} 
@@ -35,29 +35,19 @@
             <input type="submit" value="Submit" />
           </form>
         </div>
-        <div class="col-8">
+        {% if message %}
+          <h6>{{message}}</h6>
+        {% endif %}
+<!-- 
 
-        <table class="table table-bordered text-center">
-        {% for i in res %} {% comment %} manda arr {% endcomment %}
-        <tr>
-          {% for j in i %} {% comment %} separa cols {% endcomment %}
-            <td> {{j}} </td>
+        {% if ansTable %}
+          {% for m in ansTable %}
+           <ul>{{ m }}</ul>
           {% endfor %}
-        </tr>
-        
-        {% endfor %}
-        </table>
-        <br>
-
-        {{sol}}
-        <br>
-        <br>
+        {% endif %} -->
 
         </div>
         </div>
-
-    </div>
-  </div>
 </section>
 
 {% include 'layouts/modal.html' with id='miid' text='mitexto'%}

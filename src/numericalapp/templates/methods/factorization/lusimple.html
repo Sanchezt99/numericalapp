@@ -1,148 +1,142 @@
-{% extends 'layouts/master.html' %}
-{% block content %}
-{% load static %}
+{% extends 'layouts/master.html' %} {% block content %} {% load static %}
 <div>
-    <section class="page-section" >
-        <div class="container">
-            <!-- Contact Section Heading-->
-            <h4>
-                <b>Lu Simple</b>
-                <i style="font-size: 24px" class="fa">&#xf059;</i>
-              </h4>
+  <section class="page-section">
+    <div class="container">
+      <h4>
+        <b>Lu Simple</b>
+        <i style="font-size: 24px" class="fa">&#xf059;</i>
+      </h4>
 
-                        <div class="grid-container">
-                            <p>
-                                The fundamental idea is to add multiples of one equation to the others in order to eliminate <br>
-                                a variable and to continue this process until only one variable is left. Once this final variable <br>
-                                is determined, its value is substituted back into the other equations in order to evaluate the <br>
-                                remaining unknowns.
-                              </p>
-                              <p>To perform row reduction on a matrix, one uses a sequence of elementary row operations to modify <br>
-                                the matrix until the lower left-hand corner of the matrix is filled with zeros, as much as possible. <br>
-                                There are three types of elementary row operations:
+      <div class="grid-container">
+        <p>
+          The fundamental idea is to add multiples of one equation to the others
+          in order to eliminate <br />
+          a variable and to continue this process until only one variable is
+          left. Once this final variable <br />
+          is determined, its value is substituted back into the other equations
+          in order to evaluate the <br />
+          remaining unknowns.
+        </p>
+        <p>
+          To perform row reduction on a matrix, one uses a sequence of
+          elementary row operations to modify <br />
+          the matrix until the lower left-hand corner of the matrix is filled
+          with zeros, as much as possible. <br />
+          There are three types of elementary row operations:
+        </p>
 
-                                <ul>
-                                    <li>Swapping two rows</li>
-                                    <li>Multiplying a row by a nonzero number</li>
-                                    <li>Adding a multiple of one row to another row</li>
-                                </ul>
-                              
-                              
-                                    <div class="grid-child purple">
-                                        <br>
-                                        <h6>Enter matrix size</h6>
-                                        <section id="plot">
-                                            <form action= "{% url 'simplelu.index' %}", method="post">
-                                                {% csrf_token %}
-                                                {{ form}}
-                                                <!-- <input type=number id="sizeMatriz"  value=2 step=1 min=2> -->
-                                                <br>
-                                                <br>
-                                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button></div>
-                                                
-                                            </form>
+        <ul>
+          <li>Swapping two rows</li>
+          <li>Multiplying a row by a nonzero number</li>
+          <li>Adding a multiple of one row to another row</li>
+        </ul>
+        <div class="grid-child purple">
+          <br />
+          <section id="plot">
+            <form action="{% url 'simplelu.index' %}" , method="post">
+              <div class="row">
+                <div class="col-12 text-center">
+                  <h6>Enter matrix size</h6>
+                  {% csrf_token %} {{ form}}
+                  <br />
+                  <br />
+                  <button
+                    class="btn btn-primary"
+                    id="sendMessageButton"
+                    type="submit"
+                    name="rows_matrix"
+                  >
+                    Enter Rows
+                  </button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
 
-                                        </section>
-                                                                                
-                        
-                        <div class="matrix">
-                            <form action= "{% url 'simplelu.index' %}", method="post" class="ab">
-                                {% csrf_token %}
+        <form action="{% url 'simplelu.index' %}" , method="post" class="ab">
+          <div class="row">
+            {% csrf_token %}
 
-                                <div class="a">
-                                    <h5>A</h5>
-                                    {% with ''|center:size as range %}
-                                    {% for i in range %}
-                                        {% for j in range %}
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                        {% endfor %}
-                                        <br>
-                                    {% endfor %}
-                                    {% endwith %}
-                                
-                                    </div>
+            <div class="col-12 text-center">
+              <h5>A</h5>
+              {% with ''|center:size as range %} {% for i in range %} {% for j in range %} {{element}} {% endfor %}
+              <br />
+              {% endfor %} {% endwith %}
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-12 text-center">
+              <h5>b</h5>
+              {% with ''|center:size as range %} {% for i in range %}
+              {{element}}
+              <br />
+              {% endfor %} {% endwith %}
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-12 text-center">
+              <button
+                class="btn btn-primary"
+                id="sendMessageButton"
+                type="submit"
+                name="method"
+              >
+                Enter Rows
+              </button>
+            </div>
+          </div>
+        </form>
+        {% if message%}
+        <p style="text-align: center">{{ message }}</p>
+        {% endif %} {% if x %}
+        <br />
+        {%for step in sol %}
+        <div class="row">
+          <div class="col-12 text-center">
+            <h4 class="text-center text-secondary">
+              step {{ forloop.counter0 }}
+            </h4>
+          </div>
+        </div>
+        {% for matrix in step %}
+        <div class="row" style="align-items: center; justify-content: center">
+          <div class="col-2 text-center">
+            <h4 class="text-center text-secondary">
+              {% if forloop.last %}
+              U =
+              {% elif forloop.first %} 
+              M =
+              {% else %}
+              L =
+              {% endif %} 
+            </h4>
+          </div>
+          <div class="col-10 text-center">
+            <table class="result" align="center">
+              {% for row in matrix %}
+              <tr>
+                {% for i in row %}
+                <td class="element_matrix">{{ i }}</td>
+                {% endfor %}
+              </tr>
+              {%endfor %}
+            </table>
+            <br />
+          </div>
+        </div>
+        {%endfor %}
+        <br />
+        {%endfor%} {% endif %}
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="https://mauriciopoppe.github.io/function-plot/js/function-plot.js"></script>
+        <script src="{% static 'assets/js/graph.js' %}"></script>
 
-                                    <div class="a"> 
-
-                                    <h5>b</h5>
-                                    {% with ''|center:size as range %}
-                                        {% for i in range %}
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                            <br>
-                                        {% endfor %}
-                                    {% endwith %}
-                                    
-                                    </div>
-
-                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Enter Rows</button>
-                            </form>
-
-                            {% if message%}
-                               <p style="text-align: center;">{{ message }} </p>
-                            {% endif %}
-
-
-                            <!-- {% if m %}
-                                <h5 style="text-align: center;">Simple Gaussian Elimination </h5>
-                                
-                                    <h6 style="text-align: center;" > Stage 0 </h6>
-                                    
-                                    <table class="result" align="center">
-                                        {% for row in m %}
-                                            <tr>
-                                            {% for element in row %}
-                                                    <td class="element_matrix">
-                                                            {{ element }}
-                                                    </td>
-                                                
-                                            {%endfor %}
-                                            </tr>
-                                        {%endfor %}
-                            
-                                    </table>
-                                
-                            {% endif %} -->
-
-                            
-                           
-                            {% if x %}
-                                <!-- <h5 style="text-align: center;">Simple Gaussian Elimination </h5> -->
-                                <br>
-                                    {%for matrix in sol %}
-                                    <!-- <h6 style="text-align: center;" > Stage {{ forloop.counter }} </h6> -->
-                                    
-                                    <table class="result" align="center">
-                                        {% for row in matrix %}
-                                            <tr>
-                                            {% for element in row %}
-                                                    <td class="element_matrix">
-                                                            {{ element }}
-                                                    </td>
-                                                
-                                            {%endfor %}
-                                            </tr>
-                                        {%endfor %}
-                            
-                                    </table>
-                                    <br>
-                                    
-
-                                    {%endfor%}
-                                
-                            {% endif %}
-
-
-                               
-                        </div>
-                                <script src="https://d3js.org/d3.v3.min.js"></script>
-                                <script src="https://mauriciopoppe.github.io/function-plot/js/function-plot.js"></script>
-                                <script src="{% static 'assets/js/graph.js' %}"></script>
-                         
-                            
-                        <div id="success"></div>
-                        <!-- <button onclick="plot()">Click Here</button> -->
-                        
-  </div>
-  {% endblock content %}    
+        <div id="success"></div>
+      </div>
+      {% endblock content %}
+    </div>
+  </section>
+</div>
