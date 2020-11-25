@@ -34,8 +34,8 @@ def pivot(matrix, index, b, positionStamp):
     row = index
     col = index
 
-    for i in range(row, len(matrix)):
-        for j in range(col, len(matrix)):
+    for i in range(index, len(matrix)):
+        for j in range(index, len(matrix)):
             if abs(matrix[j][i]) > abs(matrix[row][col]):
                 row = j
                 col = i

@@ -1,0 +1,68 @@
+{% extends 'layouts/master.html' %} {% block content %} {% load static %}
+
+<section class="page-section">
+  <div class="container">
+    <div>
+      <h4>
+        <b>Multiple Roots</b> 
+        <i style="font-size: 24px" class="fa">&#xf059;</i>
+      </h4>
+
+      <p>
+        The objective of this method is to find a root of a function from an
+        initial value, a tolerance and a number of iterations, in this case it
+        is not necessary to have an interval. The Newton method due to its speed
+        and effectiveness, it is one of the most used methods; this method is a
+        variable of the fixed point method, so a function g must be calculated,
+        this function g can be calculated in the form: g (X) = X - (f (X) / f
+        '(x) ) Once the function g is defined, the following steps must be
+        performed, as in the fixed point method.
+      </p>
+      <p>1. You must choose an initial approximation Xo</p>
+      <p>2. Calculates X1 = g(Xo)</p>
+      <p>3. Calculates X2 = g(X1)</p>
+      <p>4. Calculates Xn=g(Xn-1)</p>
+      <p>5. The previous step is repeated until reaching an approximation of the
+        root.
+      </p>
+      <br /><br />
+
+      <div class="row">
+        <div class="col-4">
+          <form method="POST">
+            {% csrf_token %} 
+            {% for input in form %} {{input.label}}:
+            <br />
+            {{input}}
+            <br />
+            {% endfor %}
+            <br />
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="col-8">
+
+        <table class="table table-bordered text-center">
+        {% for i in res %} {% comment %} manda arr {% endcomment %}
+        <tr>
+          {% for j in i %} {% comment %} separa cols {% endcomment %}
+            <td> {{j}} </td>
+          {% endfor %}
+        </tr>
+        
+        {% endfor %}
+        </table>
+        <br>
+
+        {{sol}}
+        <br>
+        <br>
+
+        </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

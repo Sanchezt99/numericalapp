@@ -29,7 +29,7 @@ def gauss(matrix, b):
 def pivot(matrix, index, b):
 
     champion = index
-    for i in range(len(matrix)):
+    for i in range(index,len(matrix)):
         if abs(matrix[i][index]) > abs(matrix[champion][index]):
             champion = i
     if champion != index:    
