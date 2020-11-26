@@ -29,37 +29,35 @@ class FixedPoint:
         self.values.append([0, str(x0), str(fx), None])
         counter = 0
         error = tol + 0.1
-        
-        while fx != 0 and error > tol and counter < iter:
+        xn = 0
+        while not isinstance(fx, sp.core.numbers.ComplexInfinity) and not isinstance(xn, sp.core.numbers.ComplexInfinity) and fx != 0 and error > tol and counter < iter:
             xn = g_function.subs(x,x0)
             fi = function.subs(x,xn)
             fn = function.subs(x,x0)
-            if x0 != 0 and xn != 0 and fn != 0 and error != 0:
-                ansTable.append([counter, "{0:0.9e}".format(x0), "{0:0.9e}".format(xn), "{0:0.9e}".format(fn), "{0:0.9e}".format(error)])
-            elif x0 == 0 and xn != 0 and fn != 0 and error != 0:
-                ansTable.append([counter, x0, "{0:0.9e}".format(xn), "{0:0.9e}".format(fn), "{0:0.9e}".format(error)])
-            elif x0 != 0 and xn == 0 and fn != 0 and error != 0:
-                ansTable.append([counter, "{0:0.9e}".format(x0), xn, "{0:0.9e}".format(fn), "{0:0.9e}".format(error)])
-            elif x0 != 0 and xn != 0 and fn == 0 and error != 0:
-                ansTable.append([counter, "{0:0.9e}".format(x0), "{0:0.9e}".format(xn), fn, "{0:0.9e}".format(error)])
-            elif x0 != 0 and xn != 0 and fn != 0 and error == 0:
-                ansTable.append([counter, "{0:0.9e}".format(x0), "{0:0.9e}".format(xn), "{0:0.9e}".format(fn), error])
-            else: ansTable.append([counter, x0, xn, fn, error])
+            ansTable.append([counter, x0, xn, fn, error])
 
-
-            if type_error == 0:
-                error = abs(xn-x0)
+            if not isinstance(xn, sp.core.numbers.ComplexInfinity):
+                if type_error == 0:
+                    error = abs(xn-x0)
+                else:
+                    error = abs((xn-x0)/xn)
             else:
-                error = abs((xn-x0)/xn)
+                return
 
             x0 = xn
 
             counter = counter + 1
 
+            print(fx, xn, error)
             self.values.append([counter, str(xn), str(fi), str(error)])
-        
 
-        if fx == 0:
+        if isinstance(xn, sp.core.numbers.ComplexInfinity) and isinstance(fx, sp.core.numbers.ComplexInfinity):
+            return ansTable , f'Check both functions f(x) = {function} and g(x) = {g_function} continuity'
+        elif isinstance(xn, sp.core.numbers.ComplexInfinity):
+            return ansTable , f'Check function g(x) = {g_function} continuity'
+        elif isinstance(fx, sp.core.numbers.ComplexInfinity):
+            return ansTable , f'Check function f(x) = {function} continuity'
+        elif fx == 0:
             ansTable.append(x0)
             return ansTable , x0
         elif error < tol:
