@@ -27,7 +27,7 @@ class Matrix(forms.Form):
 
 class Matrix2(forms.Form):
     iter = forms.IntegerField(min_value=1, max_value=100)
-    tol = forms.FloatField(required=True)
+    tol = forms.FloatField(required=True, min_value=1e-15)
 
 
 
@@ -130,7 +130,7 @@ def gaussSeidel_view(request, *args, **kwargs):
             for j in range(0,n2):
                 matrixx0[j][0] = elementsx0[j]
 
-            matrixs,error,T,C = Jacobi.evaluate(matrixa,matrixb,matrixx0,Tol,Iter)
+            matrixs,error,T,C = GaussSeidel.evaluate(matrixa,matrixb,matrixx0,Tol,Iter)
 
     return render(request, 'methods/equation_systems/gaussSeidel.html', {
             "size":request.session['matrix_size'],'T':T,'C':C, "form2":Matrix2(),"form": Matrix(),'matrix1':matrixa,'matrixb':matrixb,'matrixx0':matrixx0, "element": MatrixElement(),"error":error ,"message": message, "stages":stages, "matrixs": matrixs

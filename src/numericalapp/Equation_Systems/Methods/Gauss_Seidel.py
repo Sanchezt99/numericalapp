@@ -12,8 +12,8 @@ class GaussSeidel:
         L=np.tril(A,-1)
         B= L + U
         LD = L+D
-        T=(np.dot(-D1,B))
-        C=(np.dot(D1,b))
+        T= GaussSeidel.duoTC(np.dot(-D1,B))
+        C= GaussSeidel.duoTC(np.dot(D1,b))
 
         x = x0
 
@@ -23,12 +23,31 @@ class GaussSeidel:
             D_inv = np.linalg.inv(LD)
             xtemp = x
             x = np.dot(D_inv, b-np.dot(U,x))
-            ans.append(x)
+            ans.append(GaussSeidel.duoarr(x))
             error = np.linalg.norm(x-xtemp)
-            errorma.append(error)
+            errorma.append(format(error,",.2e"))
             
             if np.linalg.norm(x-xtemp)<tol:
                 
                 return ans,errorma,T,C
         
         return ans,errorma,T,C
+
+    def duoarr(x):
+        n=[]
+        for i in x:
+            for j in i:
+                n.append(round(j,7))
+        return n
+
+    def duoTC(x):
+        n=[]
+        for i in x:
+            m=[]
+            for j in i:
+                m.append(round(j,5))
+            n.append(m)
+        n=np.array(n)
+        return n
+
+    
