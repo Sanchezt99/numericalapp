@@ -43,31 +43,99 @@ load mathfilters %}
             </form>
           </section>
         </div>
+        {% if message %}
+          <h1>{{message}}</h1>
+        {%endif%}
 
+
+        <div class="row">
+          
+        </div>
           <form action="{% url 'doolittle.index' %}" , method="post" class="ab">
         		<div class="row">
 							{% csrf_token %}
 							<div class="col-8 text-center">
 							<h5>A</h5>
 
-							{% with ''|center:size as range %}
-							{% for i in range %} 
-							{% for j in range %}
-							{{element}} 
-							{% endfor %}
-							<br/>
-							{% endfor %} 
-							{% endwith %}
-							</div>
+
+              {%if matrix1.any%}
+              {%for row in matrix1%}
+              <div class="row mr-3" style = "border: 1px solid black mr-3">
+                {%for element in row%}
+                  <input
+                  id= "element"
+                  name ="element"
+                  type="text"
+                  class="col"
+                  style="
+                    border-top-style: hidden;
+                    border-right-style: hidden;
+                    border-left-style: hidden;
+                    border-bottom-style: groove;
+                    border: 1px solid black;
+                    background-color: #eee;
+                  "
+                  value="{{element}}"
+                />
+    
+                {%endfor%}
+              </div>
+    
+              {%endfor%}
+              
+
+              {%else%}
+              {% with ''|center:size as range %}
+							{% for i in range %}
+              {% for j in range %}
+              {{element}}
+              {%endfor%}
+              <br>
+              {%endfor%}
+              {% endwith %}
+						 {%endif%}
+
+							
+              </div>
+              <br>
 							<div class="col-4 text-center">
 							<h5>b</h5>
-							{% with ''|center:size as range %} 
-							{% for i in range %}
-							{{element}}
-							<br />
-							{% endfor %}
-							<br />
-							{% endwith %}
+              {%if matrix2.any%}
+              {%for row in matrix2%}
+             
+                {%for element in row%}
+                <div class="row" style = "border: 1px solid black ml-3">
+                  <input
+                  id= "element"
+                  name ="element"
+                  type="text"
+                  class="col"
+                  style="
+                    border-top-style: hidden;
+                    border-right-style: hidden;
+                    border-left-style: hidden;
+                    border-bottom-style: groove;
+                    border: 1px solid black;
+                    background-color: #eee;
+                  "
+                  value="{{element}}"
+                />
+            </div>
+    
+                {%endfor%}
+              
+    
+              {%endfor%}
+              
+
+              {%else%}
+              {% with ''|center:size as range %}
+              {% for j in range %}
+              {{element}}
+              <br>
+              {%endfor%}
+              {% endwith %}
+						 {%endif%}
 							</div>
         		</div>
 						<div class='row'>
@@ -84,34 +152,30 @@ load mathfilters %}
 						</div>
           </form>
 
-        {% if message%}
-        <p style="text-align: center">{{ message }}</p>
-        {% endif %} {% if matrixs %}
-        <h5 style="text-align: center" class="mt-4">Doolittle Method</h5>
 
+
+
+
+
+        <h5 style="text-align: center" class="mt-4">Doolittle Method</h5>
+        <h1>Paso 1</h1>
         {%for matrix in matrixs%} 
 
-
-        <h1>Paso {{ forloop.counter}}</h1>
-        <div class="container mt-5" style="border: 1px solid black">
+       
+        {% if forloop.counter|add:1|divisibleby:2 and forloop.counter0 > 0 %}	
+          {%with a=forloop.counter|add:1%}
+        <h1>Paso {% widthratio a 2 1 %}</h1>	
+        {%endwith%}
+       {%endif%}
+        <div class="container mt-5">
           {% for row in matrix %}
 
-          <div class="row justify-content-center mb-3 array_div" width="200px">
+          <div class="row justify-content-center array_div" >
             {% for element in row %}
 
-            <input
-              type="text"
-              class="col"
-              style="
-                border-top-style: hidden;
-                border-right-style: hidden;
-                border-left-style: hidden;
-                border-bottom-style: groove;
-                background-color: #eee;
-              "
-              disabled
-              value="{{element}}"
-            />
+            <div class="col-3" style= "border: 1px solid black">
+              {{element}}
+            </div>
 
             {%endfor %}
 
@@ -120,18 +184,13 @@ load mathfilters %}
           {%endfor %}
           <br />
         </div>
-        {%endfor%} {% endif %} {%if ans.any%}
+        {%endfor%} {%if ans.any%}
+
         <h1 class="mt-4">Resultado:</h1>
         <div class="container" style="border: 1px solid black">
           {%for element in ans%}
-          <div class="row justify-content-center">
-            <input
-              type="text"
-              class="col"
-              style="text-align: center"
-              disabled
-              value="{{element}}"
-            />
+          <div class="row justify-content-center" style="border:1px solid black">
+            {{element}}
           </div>
           {% endfor %}
         </div>

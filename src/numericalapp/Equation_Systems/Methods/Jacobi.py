@@ -1,57 +1,34 @@
-import numpy
+import numpy as np
 
 class Jacobi:
 
 
-    def evaluate(tol, niter, relajacion,matrix,m,indp,x0):
-        matrix = matrix.copy()
-        m = m
+    def evaluate(A, b, x0,tol,interaciones):
         ans = []
-        values = []
-        x = numpy.empty(m)
-        indp = indp.copy()
-        x0 = x0.copy()
-        x1 = numpy.empty(m)
-        res = numpy.empty(m)
-        aux = []
-        dispersion = 0
-        cont  = 0
-        dispersion = float(tol + 1)
+        errorma = []
+        D= np.diag(np.diag(A))
+        D1 = np.diag(1/np.diag(A))
+        U=np.triu(A,1)
+        L=np.tril(A,-1)
+        B= L + U
+        LU = A-D
+        T=(np.dot(-D1,B))
+        C=(np.dot(D1,b))
 
-        values.append(["Step: " + str(cont), x0,  "Err :" +str(dispersion)])
+        x = x0
 
-        while (dispersion > tol) and (cont < niter):
-            print("entro while")
-
-            for i in range(m):
-                x1[i] = x0.item(i)
-            for i in range(m):
-                suma = 0
-                for j in range(m):
-                    if j != i:
-                        suma += (matrix.item(i, j)*x0.item(j))
+        # print(x0)
+        error = tol + 1
+        for i in range(interaciones):
+            D_inv = np.linalg.inv(D)
+            xtemp = x
+            x = np.dot(D_inv, np.dot(-(LU),x) + b)
+            ans.append(x)
+            error = np.linalg.norm(x-xtemp)
+            errorma.append(error)
+            
+            if np.linalg.norm(x-xtemp)<tol:
                 
-                if matrix.item(i, i) != 0:
-                    x1[i] = (indp.item(i) - suma)/matrix.item(i, i)
-                else:
-                    print("El sistema posiblemente no tiene solución")
-
-                
-            aux = x1 - x0
-            dispersion = numpy.linalg.norm(aux)/numpy.linalg.norm(x1)
-            if relajacion != 0:
-                for i in range(len(x0)):
-                    x1[i] = (relajacion*x1.item(i))+((1-relajacion)*x0.item(i))
-                
-            x0 = x1
-            cont += 1
-
+                return ans,errorma,T,C
         
-            values.append(["Step : " + str(cont), x0, "Err :" +str(dispersion)])
-            print(values)
-
-        if dispersion < tol:
-            print(f"{x1} es aproximación con una tolerancia = {tol}")
-        else:
-            print(f"Fracasó en {niter} iteraciones")
-        return values
+        return ans,errorma,T,C

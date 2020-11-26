@@ -23,104 +23,254 @@
         process is repeated until the dispersion value is less than the
         tolerance value, or until the number of iterations is exceeded.
       </p>
-      <div class="grid-child purple text-center">
-        <br />
+      <div class="grid-child purple">
+        <br>
         <h6>Enter matrix size</h6>
         <section id="plot">
-          <form action="{% url 'gaussSeidel.index' %}" , method="post">
-            {% csrf_token %} {{form}} {% comment %}
-            <input type="number" id="sizeMatriz" value="2" step="1" min="2" />
-            {% endcomment %}
-            <br />
-            <br />
-            <button
-              class="btn btn-primary"
-              id="sendMessageButton"
-              type="submit"
-              name="rows_matrix"
-            >
-              Enter Rows
-            </button>
-          </form>
+            <form action= "{% url 'gaussSeidel.index' %}", method="post">
+                {% csrf_token %}
+                       {{form}}
+                {% comment %} <input type=number id="sizeMatriz"  value=2 step=1 min=2> {% endcomment %}
+                <br>
+                <br>
+                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button>
+        </div>
+                
+            </form>
+
         </section>
-      </div>
+                                                
 
-      <div class="d-flex justify-content-center">
-        <form action="{% url 'gaussSeidel.index' %}" , method="post" class="ab">
-          {% csrf_token %} 
-          <div class="row">
-            <div class="col-12 text-center">
-            {{form2}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 text-center">
-              <h5>A</h5>
-              {% with ''|center:size as range %} {% for i in range %} 
-              {% for j in range %}
-              <!-- <input id = i,j type=number> -->
-              {{element}} {% endfor %}
-              <br />
-              {% endfor %} {% endwith %}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6 text-center">
-              <h5>X0</h5>
-              {% with ''|center:size as range %} {% for i in range %}
-              <!-- <input id = i,j type=number> -->
-              {{element}}
-              <br />
-              {% endfor %} {% endwith %}
-            </div>
+<div class="matrix container">
+<form action= "{% url 'gaussSeidel.index' %}", method="post" class="ab">
+{% csrf_token %}
+    {{form2}}
+<div class="row">
+    <div class="col">
+        <h5>A</h5>
+        {%if matrix1.any%}
+        {%for row in matrix1%}
+        <div class="row mr-3" style = "border: 1px solid black mr-3">
+          {%for element in row%}
+            <input
+            id= "element"
+            name ="element"
+            type="text"
+            class="col-3"
+            style="
+              border-top-style: hidden;
+              border-right-style: hidden;
+              border-left-style: hidden;
+              border-bottom-style: groove;
+              border: 1px solid black;
+              background-color: #FFF;
+            "
+            value="{{element}}"
+          />
 
-            <div class="col-6 text-center">
-              <h5>b</h5>
-              {% with ''|center:size as range %} {% for i in range %}
-              <!-- <input id = i,j type=number> -->
-              {{element}}
-              <br />
-              {% endfor %} {% endwith %}
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12 text-center"> 
-              <button
-                class="btn mt-4 btn-primary"
-                id="sendMessageButton"
-                type="submit"
-                name="method"
-              >
-                Run
-              </button>
-            </div>
-          </div>
-        </form>
-
-        {% if message%}
-        <p style="text-align: center">{{ message }}</p>
-        {% endif %} {% if matrixs %}
-        <h5 style="text-align: center">Gaussian Seidel</h5>
-        <div class="container">
-          {%for matrix in matrixs%}
-          <div class="row justify-content-center">
-            <div class="container">
-              {% for row in matrix %}
-              <div
-                class="row justify-content-center"
-                style="border: 1px solid black"
-              >
-                {{row}}
-              </div>
-              {%endfor %}
-            </div>
-          </div>
           {%endfor%}
         </div>
 
-        {% endif %}
-      </div>
+        {%endfor%}
+        
+
+        {%else%}
+        {% with ''|center:size as range %}
+                      {% for i in range %}
+        {% for j in range %}
+        {{element}}
+        {%endfor%}
+        <br>
+        {%endfor%}
+        {% endwith %}
+                   {%endif%}
+        </div>
+
+        <div class="col"> 
+
+        <h5>X0</h5>
+        {%if matrixx0.any%}
+        {%for row in matrixx0%}
+        {%for element in row%}
+        <div class="row">
+            <input
+            id= "element"
+            name ="element"
+            type="text"
+            class="col-3"
+            style="
+              border-top-style: hidden;
+              border-right-style: hidden;
+              border-left-style: hidden;
+              border-bottom-style: groove;
+              border: 1px solid black;
+              background-color: #FFF;
+            "
+            value="{{element}}"
+          />
+        </div>
+
+
+      {%endfor%}
+        {%endfor%}
+        {%else%}
+        {% with ''|center:size as range %}
+            {% for i in range %}
+                 <!-- <input id = i,j type=number> -->
+                 {{element}}
+                <br>
+            {% endfor %}
+        {% endwith %}
+        {%endif%}
+        </div>
+
+        <div class="col"> 
+
+        <h5>b</h5>
+        {%if matrixb.any%}
+        {%for row in matrixb%}
+        {%for element in row%}
+        <div class="row">
+            <input
+            id= "element"
+            name ="element"
+            type="text"
+            class="col-3"
+            style="
+              border-top-style: hidden;
+              border-right-style: hidden;
+              border-left-style: hidden;
+              border-bottom-style: groove;
+              border: 1px solid black;
+              background-color: #FFF;
+            "
+            value="{{element}}"
+          />
+        </div>
+
+
+      {%endfor%}
+        {%endfor%}
+        {%else%}
+        {% with ''|center:size as range %}
+            {% for i in range %}
+                 <!-- <input id = i,j type=number> -->
+                 {{element}}
+                <br>
+            {% endfor %}
+        {% endwith %}
+        {%endif%}
+        </div>
+</div>
+
+
+<button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Run</button>
+</form>
+
+{% if message%}
+<p style="text-align: center;">{{ message }} </p>
+{% endif %}
+
+
+
+</div>
+
+<h5 style="text-align: center;">GaussSeidel </h5>
+
+        
+        <div class="container"><div class="row">
+            <div class="col-1">
+              {% if matrixs %}
+                <div class="row" style = "border:1px solid black; background:#00899b">
+                    Iteracion #
+                </div>
+                {%for row in matrixs%}
+                <div class="row" style = "border:1px solid black; background:#00899b">
+                    {{forloop.counter}}
+                </div>
+                {%endfor%}
+                {%endif%}
+            </div>
+
+            {%if error%}
+            <div class="col">
+            <div class="row" style = "border:1px solid black;  background:#00899b">
+                Error
+            </div>
+            {%for element in error%}
+            
+            <div class="row " style = "border:1px solid black">{{element}}</div>
+         
+            {%endfor%}
+            </div>
+            {%endif%}
+            {% if matrixs %}
+            <div class="col">
+                <div class="row" style = "border:1px solid black;  background:#00899b">
+                    Vector
+                </div>
+                {% for row in matrixs %}
+                <div class="row">
+                    
+                    
+                    
+                    {%for element in row%}
+                        <div class="col" style ="border:1px solid black">
+                            {{element}}
+                        </div>
+                    {%endfor%}
+                </div>
+                
+            {%endfor %} 
+            {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+            
+    <div class="container TC mt-5">
+        <div class="row">
+            {%if T.any%}
+            <div class="col-1">
+                <h3>T=</h3>
+            </div>
+            <div class="col-3">
+                {%for row in T%}
+                <div class="row" >
+                    {%for element in row%}
+                        <div class="col" style = "border: 1px solid black">
+                            {{element}}
+                        </div>
+                    {%endfor%}
+                </div>
+                
+                
+            {%endfor%}
+            </div>
+
+        {%endif%}
+        {%if C.any%}
+        <div class="col-1 ml-5">
+            <h3>C=</h3>
+        </div>
+        
+        {%endif%}
+        <div class="col-3">
+            {%for row in C%}
+           
+                {%for element in row%}
+                <div class="col" style = "border: 1px solid black">
+                {{element}}
+                </div>
+                {%endfor%}
+           
+            {%endfor%}
+        </div>
+
+        </div>
+
+    </div>
     </div>
   </section>
 </div>

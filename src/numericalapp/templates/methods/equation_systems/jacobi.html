@@ -13,7 +13,7 @@
                     The method first tries to convert the given matrix into a diagonally dominant matrix by permutations of rows and columns. Subsequently, each equation is taken and the variable of the diagonal is put in terms of the other variables, after this it is there is the first approximation assigning initial values to the variables using the equations generated previously, the assigned values are obtained through the calculations carried out in the same cycle. 
                     This process is repeated until the dispersion value is less than the tolerance value, or until the number of iterations is exceeded. 
                     </p>
-                        <div class="grid-container">
+                        
                                     <div class="grid-child purple">
                                         <br>
                                         <h6>Enter matrix size</h6>
@@ -24,57 +24,136 @@
                                                 {% comment %} <input type=number id="sizeMatriz"  value=2 step=1 min=2> {% endcomment %}
                                                 <br>
                                                 <br>
-                                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button></div>
+                                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button>
+                                        </div>
                                                 
                                             </form>
 
                                         </section>
                                                                                 
                         
-                        <div class="matrix">
+                        <div class="matrix container">
                             <form action= "{% url 'jacobi.index' %}", method="post" class="ab">
                                 {% csrf_token %}
                                     {{form2}}
-
-                                <div class="col">
-                                    <h5>A</h5>
-                                    {% with ''|center:size as range %}
-                                    {% for i in range %}
+                                <div class="row">
+                                    <div class="col">
+                                        <h5>A</h5>
+                                        {%if matrix1.any%}
+                                        {%for row in matrix1%}
+                                        <div class="row mr-3" style = "border: 1px solid black mr-3">
+                                          {%for element in row%}
+                                            <input
+                                            id= "element"
+                                            name ="element"
+                                            type="text"
+                                            class="col-3"
+                                            style="
+                                              border-top-style: hidden;
+                                              border-right-style: hidden;
+                                              border-left-style: hidden;
+                                              border-bottom-style: groove;
+                                              border: 1px solid black;
+                                              background-color: #FFF;
+                                            "
+                                            value="{{element}}"
+                                          />
+                              
+                                          {%endfor%}
+                                        </div>
+                              
+                                        {%endfor%}
+                                        
+                          
+                                        {%else%}
+                                        {% with ''|center:size as range %}
+                                                      {% for i in range %}
                                         {% for j in range %}
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                        {% endfor %}
+                                        {{element}}
+                                        {%endfor%}
                                         <br>
-                                    {% endfor %}
-                                    {% endwith %}
+                                        {%endfor%}
+                                        {% endwith %}
+                                                   {%endif%}
+                                        </div>
+    
+                                        <div class="col"> 
+    
+                                        <h5>X0</h5>
+                                        {%if matrixx0.any%}
+                                        {%for row in matrixx0%}
+                                        {%for element in row%}
+                                        <div class="row">
+                                            <input
+                                            id= "element"
+                                            name ="element"
+                                            type="text"
+                                            class="col-3"
+                                            style="
+                                              border-top-style: hidden;
+                                              border-right-style: hidden;
+                                              border-left-style: hidden;
+                                              border-bottom-style: groove;
+                                              border: 1px solid black;
+                                              background-color: #FFF;
+                                            "
+                                            value="{{element}}"
+                                          />
+                                        </div>
+     
+                          
+                                      {%endfor%}
+                                        {%endfor%}
+                                        {%else%}
+                                        {% with ''|center:size as range %}
+                                            {% for i in range %}
+                                                 <!-- <input id = i,j type=number> -->
+                                                 {{element}}
+                                                <br>
+                                            {% endfor %}
+                                        {% endwith %}
+                                        {%endif%}
+                                        </div>
+    
+                                        <div class="col"> 
+    
+                                        <h5>b</h5>
+                                        {%if matrixb.any%}
+                                        {%for row in matrixb%}
+                                        {%for element in row%}
+                                        <div class="row">
+                                            <input
+                                            id= "element"
+                                            name ="element"
+                                            type="text"
+                                            class="col-3"
+                                            style="
+                                              border-top-style: hidden;
+                                              border-right-style: hidden;
+                                              border-left-style: hidden;
+                                              border-bottom-style: groove;
+                                              border: 1px solid black;
+                                              background-color: #FFF;
+                                            "
+                                            value="{{element}}"
+                                          />
+                                        </div>
+     
+                          
+                                      {%endfor%}
+                                        {%endfor%}
+                                        {%else%}
+                                        {% with ''|center:size as range %}
+                                            {% for i in range %}
+                                                 <!-- <input id = i,j type=number> -->
+                                                 {{element}}
+                                                <br>
+                                            {% endfor %}
+                                        {% endwith %}
+                                        {%endif%}
+                                        </div>
+                                </div>
                                 
-                                    </div>
-
-                                    <div class="col"> 
-
-                                    <h5>X0</h5>
-                                    {% with ''|center:size as range %}
-                                        {% for i in range %}
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                            <br>
-                                        {% endfor %}
-                                    {% endwith %}
-                                    
-                                    </div>
-
-                                    <div class="col"> 
-
-                                    <h5>b</h5>
-                                    {% with ''|center:size as range %}
-                                        {% for i in range %}
-                                             <!-- <input id = i,j type=number> -->
-                                             {{element}}
-                                            <br>
-                                        {% endfor %}
-                                    {% endwith %}
-                                    
-                                    </div>
 
                                 <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Run</button>
                             </form>
@@ -84,33 +163,110 @@
                             {% endif %}
 
 
-                            {% if matrixs %}
-                                <h5 style="text-align: center;">Jacobi </h5>
-                                <div class="container">
-                                    
-                                        {%for matrix in matrixs%}
-                                            <div class="row justify-content-center">
-                                                <div class="container">
-                                                    {% for row in matrix %}
-                                                            <div class="row justify-content-center" style = "border: 1px solid black ">
 
-                                                            {{row}}
-                                                                {% comment %} {% for element in row %}
-                                                                    <div class="row">
-                                                                        <input type="text" value={{element}} disabled>
-                                                                    </div>
-                                                                {%endfor %}  {% endcomment %}
-                                                            </div>
-                                                    {%endfor %}
+                        </div>
+                        
+                        <h5 style="text-align: center;">Jacobi </h5>
+
+                                        
+                                        <div class="container"><div class="row">
+                                            <div class="col-1">
+                                                {% if matrixs %}
+                                                <div class="row" style = "border:1px solid black; background:#00899b">
+                                                    Iteracion #
                                                 </div>
+                                                {%for row in matrixs%}
+                                                <div class="row" style = "border:1px solid black; background:#00899b">
+                                                    {{forloop.counter}}
+                                                </div>
+                                                {%endfor%}
+                                                {%endif%}
                                             </div>
-                                        {%endfor%}
-                                </div>
 
-                            {% endif %}
+                                            {%if error%}
+                                            <div class="col">
+                                            <div class="row" style = "border:1px solid black;  background:#00899b">
+                                                Error
+                                            </div>
+                                            {%for element in error%}
+                                            
+                                            <div class="row " style = "border:1px solid black">{{element}}</div>
+                                         
+                                            {%endfor%}
+                                            </div>
+                                            {%endif%}
+                                            {% if matrixs %}
+                                            <div class="col">
+                                                <div class="row" style = "border:1px solid black;  background:#00899b">
+                                                    Vector
+                                                </div>
+                                                {% for row in matrixs %}
+                                                <div class="row">
+                                                    
+                                                    
+                                                    
+                                                    {%for element in row%}
+                                                        <div class="col" style ="border:1px solid black">
+                                                            {{element}}
+                                                        </div>
+                                                    {%endfor%}
+                                                </div>
+                                                
+                                            {%endfor %} 
+                                            {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                            
+                                    <div class="container TC mt-5">
+                                        <div class="row">
+                                            {%if T.any%}
+                                            <div class="col-1">
+                                                <h3>T=</h3>
+                                            </div>
+                                            <div class="col-3">
+                                                {%for row in T%}
+                                                <div class="row" >
+                                                    {%for element in row%}
+                                                        <div class="col" style = "border: 1px solid black">
+                                                            {{element}}
+                                                        </div>
+                                                    {%endfor%}
+                                                </div>
+                                                
+                                                
+                                            {%endfor%}
+                                            </div>
+
+                                        {%endif%}
+                                        {%if C.any%}
+                                        <div class="col-1 ml-5">
+                                            <h3>C=</h3>
+                                        </div>
+                                        
+                                        {%endif%}
+                                        <div class="col-3">
+                                            {%for row in C%}
+                                           
+                                                {%for element in row%}
+                                                <div class="col" style = "border: 1px solid black">
+                                                {{element}}
+                                                </div>
+                                                {%endfor%}
+                                           
+                                            {%endfor%}
+                                        </div>
+
+                                        </div>
+
+                                    </div>
+                                
+                       
+
+                    
           
   </div>
-  </div>
-  </div>
-  </div>
+  
   {% endblock content %}    
