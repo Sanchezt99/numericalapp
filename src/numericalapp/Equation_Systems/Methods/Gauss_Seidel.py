@@ -1,58 +1,34 @@
-import numpy
+import numpy as np
 
 class GaussSeidel:
 
-    def evaluate(tol, niter, relajacion,matrix,m,indp,x0):
-        matrix = matrix.copy()
-        m = m
-        etapas = []
-        values = []
-        x = numpy.empty(m)
-        indp = indp.copy()
-        x0 = x0.copy()
-        x1 = numpy.empty(m)
-        res = numpy.empty(m)
-        aux = []
-        dispersion = 0
-        cont  = 0
-        dispersion = float(tol + 1)
 
-        values.append(["Step: " + str(cont), x0,  "Err :" +str(dispersion)])
+    def evaluate(A, b, x0,tol,interaciones):
+        ans = []
+        errorma = []
+        D= np.diag(np.diag(A))
+        D1 = np.diag(1/np.diag(A))
+        U=np.triu(A,1)
+        L=np.tril(A,-1)
+        B= L + U
+        LD = L+D
+        T=(np.dot(-D1,B))
+        C=(np.dot(D1,b))
 
-        while (dispersion > tol) and (cont < niter):
-            print("entro while")
+        x = x0
 
-            print([cont, str(x0), dispersion])
-
-            for i in range(m):
-                x1[i] = x0.item(i)
-            for i in range(m):
-                suma = 0
-                for j in range(m):
-                    if j != i:
-                        suma += (matrix.item(i, j)*x1.item(j))
+        # print(x0)
+        error = tol + 1
+        for i in range(interaciones):
+            D_inv = np.linalg.inv(LD)
+            xtemp = x
+            x = np.dot(D_inv, b-np.dot(U,x))
+            ans.append(x)
+            error = np.linalg.norm(x-xtemp)
+            errorma.append(error)
+            
+            if np.linalg.norm(x-xtemp)<tol:
                 
-                if matrix.item(i, i) != 0:
-                    x1[i] = (indp.item(i) - suma)/matrix.item(i, i)
-                else:
-                    print("El sistema posiblemente no tiene solución")
-
-                
-            aux = x0 - x1
-            dispersion = numpy.linalg.norm(aux)/numpy.linalg.norm(x1) 
-            if relajacion != 0:
-                for i in range(m):
-                    x1[i] = (relajacion*x1.item(i))+((1-relajacion)*x0.item(i))
-                
-            x0 = x1
-            cont += 1
-
-            print([cont, x0, dispersion])
-            values.append(["Step: " + str(cont), x0,  "Err :" +str(dispersion)])
+                return ans,errorma,T,C
         
-        if dispersion < tol:
-            print(f"{x1} es aproximación con una tolerancia = {tol}")
-        else:
-            print(f"Fracasó en {niter} iteraciones")
-        print(values)
-        return values
+        return ans,errorma,T,C
