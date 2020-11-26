@@ -48,7 +48,7 @@ class FixedPoint:
 
             counter = counter + 1
 
-            print(fx, xn, error)
+
             self.values.append([counter, str(xn), str(fi), str(error)])
 
         if isinstance(xn, sp.core.numbers.ComplexInfinity) and isinstance(fx, sp.core.numbers.ComplexInfinity):
