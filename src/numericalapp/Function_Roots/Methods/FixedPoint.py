@@ -34,17 +34,7 @@ class FixedPoint:
             xn = g_function.subs(x,x0)
             fi = function.subs(x,xn)
             fn = function.subs(x,x0)
-            if x0 != 0 and xn != 0 and fn != 0 and error != 0:
-                ansTable.append([counter, "{0:0.9e}".format(x0), "{0:0.9e}".format(xn), "{0:0.9e}".format(fn), "{0:0.9e}".format(error)])
-            elif x0 == 0 and xn != 0 and fn != 0 and error != 0:
-                ansTable.append([counter, x0, "{0:0.9e}".format(xn), "{0:0.9e}".format(fn), "{0:0.9e}".format(error)])
-            elif x0 != 0 and xn == 0 and fn != 0 and error != 0:
-                ansTable.append([counter, "{0:0.9e}".format(x0), xn, "{0:0.9e}".format(fn), "{0:0.9e}".format(error)])
-            elif x0 != 0 and xn != 0 and fn == 0 and error != 0:
-                ansTable.append([counter, "{0:0.9e}".format(x0), "{0:0.9e}".format(xn), fn, "{0:0.9e}".format(error)])
-            elif x0 != 0 and xn != 0 and fn != 0 and error == 0:
-                ansTable.append([counter, "{0:0.9e}".format(x0), "{0:0.9e}".format(xn), "{0:0.9e}".format(fn), error])
-            else: ansTable.append([counter, x0, xn, fn, error])
+            ansTable.append([counter, x0, xn, fn, error])
 
 
             if type_error == 0:
