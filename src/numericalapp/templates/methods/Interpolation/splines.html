@@ -12,7 +12,8 @@
     font-size: 13px;
   }
   tr,
-  td {
+  td,
+  th {
     border: 2px solid black;
   }
   input[type="number"]::-webkit-inner-spin-button,
@@ -77,17 +78,16 @@
     <a href="./"><i style="font-size: 24px" class="fa">&#xf059;</i></a>
     <p>
       The Splains seeks to interpolation of a given data set, this set must be composed by {x,y} pairs for which the method generate a corresponding piecewise function s(x). <br/>
-      There are 3 kinds of splain (lineal, cuadratic and cubic) which will determine the degree of the funcions defined in s(x). <br/>
+      There are 3 kinds of spline (lineal, cuadratic and cubic) which will determine the degree of the funcions defined in s(x). <br/>
       The set of x values must be unique between them, otherwise the method wont be able to interpolate.
     </p>
     <p>
       1. <strong>Variables</strong>: number of x values you want to set (max=15)
     </p>
-    <p>2. <strong>Splain</strong>: splain method you want to use</p>
+    <p>2. <strong>Spline</strong>: spline method you want to use</p>
     <p>3. <strong>X</strong>: X values of the data set you want to interpolate</p>
     <p>4. <strong>Y</strong>: Y values of the data set you want to interpolate matching verticaly the corresponding X value</p>
   </div>
-
 
   <div class="text-center">
     <div>
@@ -99,14 +99,13 @@
       <form
         method="post"
         class="text-center justify-content-center"
-        action="./"
-      >
+        action="./">
         {% csrf_token %}
 
-        <label for="method">Splain</label>
+        <label for="method">Spline</label>
         <select name="method" id="method">
           <option selected>Lineal</option>
-          <option>Cuadratic</option>
+          <option>Quadratic</option>
           <option>Cubic</option>
         </select>
 
@@ -230,8 +229,10 @@
         <br />
         <button type="btn submit">Interpolate</button>
       </form>
+
     </div>
     <div>
+
       {% if coefficients and tracers %}
       <h4 class="methods-title text-uppercase text-secondary mb-0">
         COEFFICIENTS
@@ -240,13 +241,26 @@
       {% for i in coefficients %} {{ i }}
       <br />
       {% endfor %}
+
+
       <br />
       <br />
       <h4 class="methods-title text-uppercase text-secondary mb-0">TRACERS s(x)</h4>
-      <br />
-      {% for i in tracers %} {{ i }}
-      <br />
-      {% endfor %} {% endif %}
+      <table align="center" class="text-center">
+        <tr>
+          <th> function </th>
+          <th> interval </th>
+        </tr>
+        {% for i in tracers %} 
+          <tr>
+            <td> {{ i.0 }} </td>
+            <td> {{ i.1 }} </td>
+          </tr>
+        <br/>
+        {% endfor %} {% endif %}
+      </table>
+
+
     </div>
     {% if message %}
     <h4 class="methods-title text-uppercase text-secondary mb-0">Output</h4>

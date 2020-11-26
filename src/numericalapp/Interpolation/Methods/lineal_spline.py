@@ -8,7 +8,7 @@ def splain(x, y):
     y = np.array(y).astype(np.float)
 
     if not mu.checkUnique(x):
-        return None, None, 'X values must be unique' 
+        return None, None, 'X values must be unique between them' 
 
     dimension = 2*len(x) - 2
 
@@ -32,10 +32,11 @@ def splain(x, y):
     tracers = []
     for i in range(0,len(matrix), 2):
         expr = float("{:.5f}".format(xact[i]))*xv + float("{:.5f}".format(xact[i+1]))
-        tracers.append(sp.latex(expr))
+        tracer = [sp.latex(expr)]
+        tracers.append(tracer)
 
     for i in range(len(x)-1):
-        tracers[i] = str(tracers[i]) + f' -----------> {x[i]} <= x <= {x[i+1]} <br />'
+        tracers[i].append(f'{x[i]} <= x <= {x[i+1]}')
 
     return tracers, coefficients, 'Successful'
 

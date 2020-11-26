@@ -1,12 +1,12 @@
 from pydoc import html
 from django.shortcuts import render
 from .Forms import splainForm, vandermonde, newtondivdif, lagrange, neville
-from .Methods import lineal_spline, cuadratic_splain, cubic_spline
+from .Methods import lineal_spline, cubic_spline, quadratic_spline
 
 
 # Create your views here.
 
-def splains_view(request, *args, **kwargs):
+def splines_view(request, *args, **kwargs):
     if request.method == 'POST':
         method = request.POST['method']
         x = request.POST.getlist('x')
@@ -20,13 +20,13 @@ def splains_view(request, *args, **kwargs):
         if method == 'Lineal':
             tracers, coefficients, message = lineal_spline.splain(x,y)
         elif method == 'Quadratic':
-            tracers, coefficients, message = cuadratic_splain.splain(x,y)
+            tracers, coefficients, message = quadratic_spline.splain(x,y)
         else:
             tracers, coefficients, message = cubic_spline.splain(x,y)
 
-        return render(request, 'methods/interpolation/splains.html',
+        return render(request, 'methods/interpolation/splines.html',
         {'tracers': tracers, 'coefficients': coefficients, 'xSplain': request.session['x'], 'ySplain': request.session['y'], 'message': message})
-    return render(request, 'methods/interpolation/splains.html', {'default': True})
+    return render(request, 'methods/interpolation/splines.html', {'default': True})
 
 def vandermonde_view(request, *args, **kwargs):
     form = splainForm()

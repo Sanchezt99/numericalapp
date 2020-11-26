@@ -34,37 +34,55 @@
       <br />
       <div class="row text-center">
         <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'incrementalsearch.index' %}"
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'incrementalsearch.index' %}"
             >Incremental Search
           </a>
         </div>
         <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'bisection.index' %}">Bisection</a>
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'bisection.index' %}"
+            >Bisection</a
+          >
         </div>
         <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'falseposition.index' %}"
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'falseposition.index' %}"
             >False Position</a
           >
         </div>
         <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'newton.index' %}">Newton Method</a>
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'newton.index' %}"
+            >Newton Method</a
+          >
         </div>
       </div>
       <br />
       <div class="row text-center">
-        <div class="col-4">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'fixedPoint.index' %}"
+        <div class="col-6">
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'fixedPoint.index' %}"
             >Fixed Point Method</a
           >
         </div>
-        <div class="col-4">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'secant.index' %}">Secant Method</a>
-        </div>
-
-        <div class="col-4">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'multipleRoots.index' %}">
-            Multiple Roots
-          </a>
+        <div class="col-6">
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'secant.index' %}"
+            >Secant Method</a
+          >
         </div>
       </div>
       <br />
@@ -94,29 +112,30 @@
       <br />
       <br />
       <div class="row text-center">
-        <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'doolittle.index' %}"
-            >Doolittle Method</a
+        <div class="col-4">
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'gaussSeidel.index' %}"
           >
-        </div>
-        <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'gaussSeidel.index' %}">
             Gauss Seidel Method
           </a>
         </div>
-        <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'jacobi.index' %}">Jacobi Method</a>
-        </div>
-        <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'gaussSimple.index' %}"
-            >Gauss Simple Method</a
+        <div class="col-4">
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'jacobi.index' %}"
+            >Jacobi Method</a
           >
         </div>
-      </div>
-      <br />
-      <div class="row">
-        <div class="col-12 text-center">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'pivot.index' %}">Gauss Pivots</a>
+        <div class="col-4 text-center">
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'pivot.index' %}"
+            >Gauss Pivots</a
+          >
         </div>
       </div>
       <br />
@@ -144,12 +163,12 @@
       <br />
       <br />
       <div class="row text-center">
-        <div class="col-6">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'simplelu.index' %}">LU Simple</a>
-        </div>
-        <div class="col-6">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'partialLU.index' %}"
-            >LU Partial Pivoting</a
+        <div class="col-12">
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'doolittle.index' %}"
+            >Doolittle Method</a
           >
         </div>
       </div>
@@ -181,24 +200,36 @@
       <br />
       <div class="row text-center">
         <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'vandermonde.index' %}">Vandermonde</a>
-        </div>
-        <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'newtondivdif.index' %}"
-            >Newton Divided difference</a
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'vandermonde.index' %}"
+            >Vandermonde</a
           >
         </div>
         <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'lagrange.index' %}">Lagrange</a>
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'newtondivdif.index' %}"
+            >Newton DD</a
+          >
         </div>
         <div class="col-3">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'splains.index' %}">Splains</a>
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'lagrange.index' %}"
+            >Lagrange</a
+          >
         </div>
-      </div>
-      <br />
-      <div class="row text-center">
-        <div class="col-12">
-          <a class="btn btn-secondary btn-sm" style="font-size: 13px" href="{% url 'neville.index' %}">Neville</a>
+        <div class="col-3">
+          <a
+            class="btn btn-secondary btn-sm"
+            style="font-size: 13px"
+            href="{% url 'splines.index' %}"
+            >Splines</a
+          >
         </div>
       </div>
       <br />
