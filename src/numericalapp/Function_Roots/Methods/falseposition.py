@@ -1,85 +1,57 @@
-from math import *
+from math import sin
+import numpy as np
+import sympy as sp
+from sympy.parsing.sympy_parser import parse_expr as pe
 
-def FalseRule(limitlower,upperanger,funtion,iterations,tolerance):
-   a=limitlower
-   b=upperanger
-   f=funtion
-   i=iterations
-   tol=tolerance
-   control = 1
-   message = ""
-   ansTable = []
-   x = 0
+def FalseRule(f,x1,x2,tol,maxfpos):
+        xh = 0
+        matrixh = []
+        matrixa = []
+        matrixb = []
+        matrixfxh = []
+        message = ""
+        fpos = 0
+        f = pe(f)
+        x = sp.symbols('x')
 
-   def fun1():
-        x = a
-        ya = eval(f)
-        return ya
 
-   def fun2():
-        x = b
-        yb = eval(f)
-        return yb
 
-   def funm():
-        x = c
-        yc = eval(f)
-        return yc
-    
-   if fun1 == 0:
-        message = str(a) + " is root"
-        print (a,"is root")
-   else:
-        if fun2==0:
-            message = str(b) + " is root"
-        else:
-            if (fun1()*fun2())>0:
-                message = "inappropriate interval"
-                print ("inappropriate interval")
-            else:
-                if message:
-                        return message, [], x
-                    
-                c = a-((fun1()*(b-a))/(fun2()-fun1()))
-                funm()
-                error = tol + 1
-                cont = 1
-                while (funm()!= 0)&(error>tol)&(cont<i):
-                    if (fun1()*funm())<0:
-                            b = c
-                            fun2()
-    
-                    else:
-                            a = c
-                            fun1()
-    
-                    xaux=c
-                    if control == 1:
-                            print ("| iter  |        a       |","      xm       |","       b       |","     f(Xm)     |","      E        |")
-                    control=2
-    
-                    float(c)
-                    c = a-((fun1()*(b-a))/(fun2()-fun1()))
-                    fm=funm()
-                    float(error)
-                    error = abs(c-xaux)
-                    print ("|","{:5.1f}".format(cont),"|","{:14.11f}".format(a),"|","{:14.11f}".format(c),"|","{:14.11f}".format(b),"|","{:14.11f}".format(fm),"|","{:14.11f}".format(error),"|")
-                    ansTable.append([str(cont), str(a), str(c), str(b), str(fm), str(error)])
-                    cont = cont + 1
-                if funm() == 0:
-                        print ("\n\n",c,"is root")
-                        x = c
-                else:
-                        if error < tol:
-                                print ("\n\n",c,"is root with tol:",error)
-                                x = c
-                        else:
-                                print ("failure")
-                                message = "failure"
+        if x1>=x2:
+                message = "a has to be smaller than b"
+                return message,None,None,None,None
+        try:
+                f.subs(x,x1)
+                f.subs(x,x2)
                 
-                return message, ansTable, x
-                                
-                                
-                                
-                                                                                              
-FalseRule(0,1,'log(sin(x)**2+1)-1/2',100,0.0000001)
+        except:
+                message= ""
+                return message,None,None,None,None
+        if str(f.subs(x,x1)) == 'zoo' or str(f.subs(x,x2)) == 'zoo' : 
+                message = "Undefined function for the intervals"
+                return message,None,None,None,None
+
+        fx1 = f.subs(x,x1)
+        fx2 = f.subs(x,x2)
+
+        if fx1 * fx2 < 0:
+                for fpos in range(1,maxfpos+1):
+        
+
+                        xh = x2 - (x2-x1)/(fx2-fx1) *fx2
+                        matrixh.append(xh)
+                        matrixa.append(x1)
+                        matrixb.append(x2)
+                        message = "The root is " + str(xh)
+                        fxh = f.subs(x,xh)
+                        matrixfxh.append(fxh)
+                        if abs(fxh) < tol:
+                                break
+                        elif fx1 * fxh< 0:
+                                x2 = xh
+                        else:
+                                x1 = xh
+        else:
+                message =("no root in the intervals")
+        return message,matrixh,matrixa,matrixb,matrixfxh
+
+#def funcs and vars

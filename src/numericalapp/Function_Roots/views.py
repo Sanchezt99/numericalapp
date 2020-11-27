@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .Forms import *
 from .Methods import FixedPoint,Secant,newton,falseposition,bisection
 from .Methods.multipleRoots import multiple_roots
-from .Methods.bisection import Bisection
+from .Methods.bisection import bisection
 from .Methods.falseposition import FalseRule
 from .Methods.incrementalsearch import Incrementalsearches
 
@@ -33,11 +33,11 @@ def newton_view(request, *args, **kwargs):
         xi = float(form.data['xi'])
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
-        F = form.data['F']
+        Fu = form.data['F']
         FPrime = form.data['FPrime']
 
 
-        res,sol = newt.evaluate(Tol,xi,Iter,F,FPrime)
+        res,sol = newt.evaluate(Tol,xi,Iter,Fu,FPrime)
         #print(res)
         return render(request, 'methods/function_roots/newton.html',{'form':form,'res':res,'sol':sol})
     else:
@@ -95,7 +95,13 @@ def incrementalsearch_view(request, *args, **kwargs):
     return render(request, 'methods/function_roots/incrementalsearch.html', {'form':form})
 
 def bisection_view(request, *args, **kwargs):
-    message, ansTable, x =[], [] ,0
+    message = ""
+    arra = []
+    arrb = []
+    arre = []
+    arrxm = []
+    arrfxm = []
+
     if request.method == 'POST':
         form = bisectionForm(request.POST)
         a = float(form.data['a'])
@@ -103,11 +109,10 @@ def bisection_view(request, *args, **kwargs):
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        message, ansTable, x = Bisection(a,b,F,Iter,Tol)
-        if a >= b:
-            message="a has to be smaller than b"
-            return render(request, 'methods/function_roots/bisection.html',{'form':form,'message':message,'res':None, 'sol':None})
-        return render(request, 'methods/function_roots/bisection.html',{'form':form,'message':message,'res':ansTable, 'sol':x})
+
+        arra, arrb, arre, arrxm, arrfxm, message = bisection(a,b,F,Tol,Iter)
+
+        return render(request, 'methods/function_roots/bisection.html',{'form':form,'message':message,'arra':arra, 'arrxm':arrxm,'arrb':arrb, 'arre':arre, 'arrfxm':arrfxm})
     else:
         form = bisectionForm()
     return render(request, 'methods/function_roots/bisection.html', {'form':form})
@@ -122,8 +127,8 @@ def falseposition_view(request, *args, **kwargs):
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        message, ansTable, x = FalseRule(a,b,F,Iter,Tol)
-        return render(request, 'methods/function_roots/falseposition.html',{'form':form,'message':message,'res':ansTable, 'sol':x})
+        message,matrixh,matrixa,matrixb,matrixfxh = FalseRule(F,a,b,Tol,Iter)
+        return render(request, 'methods/function_roots/falseposition.html',{'form':form,'message':message,'matrixa':matrixa, 'matrixb':matrixb,'matrixh':matrixh,'matrixfxh':matrixfxh})
     else:
         form = falsepositionForm()
     return render(request, 'methods/function_roots/falseposition.html', {'form':form})
