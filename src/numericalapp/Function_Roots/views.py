@@ -33,11 +33,11 @@ def newton_view(request, *args, **kwargs):
         xi = float(form.data['xi'])
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
-        F = form.data['F']
+        Fu = form.data['F']
         FPrime = form.data['FPrime']
 
 
-        res,sol = newt.evaluate(Tol,xi,Iter,F,FPrime)
+        res,sol = newt.evaluate(Tol,xi,Iter,Fu,FPrime)
         #print(res)
         return render(request, 'methods/function_roots/newton.html',{'form':form,'res':res,'sol':sol})
     else:

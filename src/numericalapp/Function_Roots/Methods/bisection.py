@@ -6,7 +6,7 @@ from sympy.parsing.sympy_parser import parse_expr as pe
 def bisection(a,b, f, tol,i):
         f = pe(f)
         x = sp.symbols('x')
-
+        print(f.subs(x,b))
         xl = a
         xr = b
         counter = 0
@@ -18,7 +18,8 @@ def bisection(a,b, f, tol,i):
         arre = []
         arrxm = []
         arrfxm = []
-        if a>b:
+
+        if a>=b:
                 message = "a has to be smaller than b"
                 return None,None,None,None,None,message
         try:
@@ -28,7 +29,9 @@ def bisection(a,b, f, tol,i):
         except:
                 message= ""
                 return None,None,None,None,None,message
-
+        if str(f.subs(x,xl)) == 'zoo' or str(f.subs(x,xr)) == 'zoo' : 
+                message = "Undefined function for the intervals"
+                return None,None,None,None,None,message
         while (np.abs(xl-xr)>= tol):
                 # print(f)
                 if counter > i:
@@ -37,14 +40,14 @@ def bisection(a,b, f, tol,i):
                 if counter > 2:
                         aux = c
                 c =(xl + xr)/2.0
-                arrxm.append(c)
-                arre.append(np.abs(xl-xr))
-                arra.append(xl)
-                arrb.append(xr)
-                arrfxm.append(f.subs(x,c))
+                arrxm.append(format(c,",.3e"))
+                arre.append(format(np.abs(xl-xr),",.3e"))
+                arra.append(format(xl,",.3e"))
+                arrb.append(format(xr,",.3e"))
+                arrfxm.append(format(f.subs(x,c),",.3e"))
                 fxl = f.subs(x,xl)
                 fxc = f.subs(x,c)
-                print(c)
+     
                 prod = fxl*fxc
 
                 if prod > tol:
@@ -53,4 +56,5 @@ def bisection(a,b, f, tol,i):
                         if prod< tol:
                                 xr = c
                 counter= counter +1
+        message = "The root is " + str(c)
         return arra, arrb, arre, arrxm, arrfxm, message
