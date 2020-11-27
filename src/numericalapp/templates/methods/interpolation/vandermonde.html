@@ -70,13 +70,21 @@
 <section class="container page-section">
   <div class="card">
     <div>
-      <h4><b>Vandermonte</b> <i style="font-size:24px" class="fa">&#xf059;</i> </h4>
+      <h4><b>Vandermonte</b> </h4>
       <p>A Vandermonde matrix is ​​one that presents a geometric progression in each row. The indices of the matrix of size n×n</p>
       <p>In the first element of each row there are only ones (being the power of zero) and in the second element there are a series of arbitrary numbers. In the third are those same numbers squared. In the fourth are those same numbers cubed and in the following columns raised to the immediately higher power so that in element n of each row those numbers are raised to the power n-1.</p>  
       <p>The elements of the matrix are given in a general way as:</p>
       <p>  V (i, j) = x (i) ^ (n-j)</p>
       <p>Where n is a dimension of the matrix, x(i) are the values ​​of the coordinate vector and j are the columns. The objective of this method is to find an interpolating polynomial that represents a function or a problem without exact definition, that passes through a set of given points.</p>
       
+      <details>
+        <summary><i style="font-size:24px" class="fa">&#xf059;</i></summary>
+        <ul>
+           <li>X vector or Y vector can´t contain a repeat value.</li>
+           <li>The array dimension must not be less than 2 and must not be greater than 15.</li>
+        </ul>
+       </details>
+       <br></br>
          
       <label for="variables">Variables:</label>
       <input type="number" id="variables" onchange="appendInput()" min="2" />
