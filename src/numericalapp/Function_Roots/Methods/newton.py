@@ -18,12 +18,10 @@ class Newton:
         
         dfunction = pe(dfun)
         fx = function.subs(x,xi)
-  
         dfx = dfunction.subs(x,xi)
-        if 'I' in str(fx):
-            return ansTable, " I can't compute imaginary numbers such as :" + str(fx)
-        if 'I' in str(dfx):
-            return ansTable," I can't compute imaginary numbers such as :" + str(dfx)
+        
+        if 'I' in str(fx) or  str(dfx):
+            return ansTable, "The initial value must be in the function domain"
         if fx == 0:
             return ansTable, str(fx) + " is a root."
         if dfun == 0:
