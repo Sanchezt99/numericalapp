@@ -3,40 +3,38 @@ import sympy as sp
 from math import *
 
 
-def Incrementalsearches(function,initialvalue,delta,iterations):
-   f= pe(function)
-   xo=initialvalue     
-   d=delta
-   i=iterations
-   message = ""
-   ansTable = []
-   x = sp.symbols('x')
+def Incrementalsearches(function,initialvalue,d,i):
+	f= pe(function)
+	xo=initialvalue
+	ansTable = []
+	x = sp.symbols('x')
+	found=False
 
-   if f.subs(x,xo) == 0.0:
-       message = str(x) + " is root"
-       return message, ansTable
+	if f.subs(x,xo) == 0:
+		iterFound =  f'Root of f found at x = {xo}'
+		ansTable.append(iterFound)
+		xo += d
+		found = True
 
-
-   else:
-
-       cont = 1 
-       encontrado=False
-       while (cont < i):
-           res1 = f.subs(x,xo)
-           xa = xo + d
-           res2 = f.subs(x,xa)
-           if res2 == 0:
-               message = str(xa) + " is root"
-               return message, ansTable
-           else:
-               if (res1*res2 < 0):
-                   m = "There is a root of f in [","{:14.10f}".format(xo),",","{:14.10f}".format(xa),"]"
-                   ansTable.append(m)
-                   encontrado=True
-           cont = cont + 1
-           xo=xa
-   if ((cont==i) and (not encontrado)):
-       message = "With the number of requested iterations, no interval was found that could contain a root"
-       
-       return message, ansTable
+	cont = 0 
+	while (cont < i):
+		res1 = f.subs(x,xo)
+		xa = xo + d
+		res2 = f.subs(x,xa)
+		if res2 == 0:
+			iterFound = f'Root of f found at x = {xa}'
+			ansTable.append(iterFound)
+			xa += d
+			found=True
+		elif (res1*res2 < 0):
+			m = f'There is a root of f in ( {"{:14.5f}".format(xo)},{"{:14.5f}".format(xa)} )'
+			ansTable.append(m)
+			found=True
+		cont += 1
+		xo=xa
+	if (cont==i and not found):
+		message = "With the number of requested iterations, no interval was found that could contain a root"
+		return ansTable, message
+	message = "Roots information"
+	return ansTable, message
 
