@@ -2,6 +2,14 @@
 {% block content %}
 {% load static %}
 
+
+
+
+<style>
+tr,td{
+  border:1px solid black
+}
+</style>
 <section class="page-section">
   <div class="container">
     <div>
@@ -31,7 +39,7 @@
        
        <br><br>
 
-       <div class="row">
+       <div class="row text-center">
         <div class="col-4">
           <form method="POST">
             {% csrf_token %} 
@@ -45,17 +53,21 @@
             <input type="submit" value="Submit" />
           </form>
         </div>
+        
+
+        <br>
+        <div class="col-8">
         {% if message %}
           <h6>{{message}}</h6>
         {% endif %}
-<!-- 
-
-        {% if ansTable %}
-          {% for m in ansTable %}
-           <ul>{{ m }}</ul>
+        <table align="center">
+        {% if res %}
+          {% for m in res %}
+          <tr> <td>{{ m }} </td> </tr>
           {% endfor %}
-        {% endif %} -->
-
+        {% endif %}
+        </table>
+        </div>
         </div>
         </div>
 </section>
