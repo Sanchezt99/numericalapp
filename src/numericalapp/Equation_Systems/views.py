@@ -248,6 +248,7 @@ def pivot_view(request, *args, **kwargs):
         dim = int(request.POST['dim'])
         a = toMatrix(request.POST.getlist('a'), dim)
         b = request.POST.getlist('b')
+        request.session['dim'] = dim
         request.session['a'] = a
         request.session['b'] = b
 
@@ -265,7 +266,7 @@ def pivot_view(request, *args, **kwargs):
                 solved = True
 
         return render(request, 'methods/equation_systems/pivot.html',
-        {'steps': steps, 'solution': solution, 'aMatrix': request.session['a'], 'bMatrix': request.session['b'], 'message': message, 'solved':solved})
+        {'steps': steps, 'solution': solution, 'aMatrix': request.session['a'], 'bMatrix': request.session['b'], 'dim': request.session['dim'], 'message': message, 'solved':solved})
     return render(request, 'methods/equation_systems/pivot.html', {'default': default, 'a': a, 'b':b})
 
 def toMatrix(matrix, rows):
