@@ -18,10 +18,8 @@ class Secant:
         function = pe(fun)
         fx0 = function.subs(x,x0)
 
-        
-
         if fx0 == 0:
-            return f"{x0} is the root"
+            return None,f"{x0} is the root and was found in the first iteration"
         else:
             fx1 = function.subs(x,x1)
             cont = 2
@@ -42,7 +40,7 @@ class Secant:
             #print(1, x0, fx0)
             
 
-            while error > tol and fx1 != 0 and den != 0 and cont < niter:
+            while not isinstance(den, sp.core.numbers.ComplexInfinity) and not isinstance(fx0, sp.core.numbers.ComplexInfinity) and not isinstance(fx1,sp.core.numbers.ComplexInfinity) and error > tol and den != 0 and fx1 != 0 and cont - 1 < niter:
 
                 
                 x2 = x1 - (fx1*(x1 - x0)/den)
@@ -71,7 +69,9 @@ class Secant:
                 else:
                     ansTable.append([cont, x1, fx1, error])
 
-            if fx1 == 0:
+            if isinstance(fx0, sp.core.numbers.ComplexInfinity) or isinstance(fx1, sp.core.numbers.ComplexInfinity):
+                return ansTable , f'Check function f(x) = {function} continuity'
+            elif fx1 == 0:
                 return ansTable, f"{x1} is the root"
 
             elif error < tol:

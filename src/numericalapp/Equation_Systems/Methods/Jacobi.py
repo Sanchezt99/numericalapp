@@ -14,11 +14,18 @@ class Jacobi:
         LU = A-D
         T= Jacobi.duoTC(np.dot(-D1,B))
         C= Jacobi.duoTC(np.dot(D1,b))
-
+        message = ''
         x = x0
 
         # print(x0)
         error = tol + 1
+        for i in range(0,len(A.diagonal())):
+            if A.diagonal()[i] == 0:
+                message = "Diagonal can't have a 0"
+                return None, None,None,None,message
+        if(np.linalg.det(A) == 0):
+            return None,None,None,None,message
+
         for i in range(interaciones):
             D_inv = np.linalg.inv(D)
             xtemp = x

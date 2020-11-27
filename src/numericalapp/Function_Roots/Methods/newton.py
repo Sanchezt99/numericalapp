@@ -25,7 +25,7 @@ class Newton:
         error = tol + 1
 
         xn = 0
-        while error > tol and fx != 0 and dfx != 0 and counter - 1 < niter:
+        while not isinstance(fx, sp.core.numbers.ComplexInfinity) and not isinstance(xn, sp.core.numbers.ComplexInfinity) and not isinstance(dfx,sp.core.numbers.ComplexInfinity) and error > tol and fx != 0 and dfx != 0 and counter - 1 < niter:
             xn = xi - (fx.subs(x,xi)/dfx.subs(x,xi))
             fx = function.subs(x,xn)
             dfx = dfunction.subs(x,xn) 
@@ -40,7 +40,14 @@ class Newton:
             xi = xn
 
             counter = counter + 1
-        if xi != 0 and fx != 0 and error != 0:
+        if isinstance(dfx, sp.core.numbers.ComplexInfinity) and isinstance(fx, sp.core.numbers.ComplexInfinity):
+            return ansTable , f'Check both functions f(x) = {function} and f\'(x) = {dfunction} continuity'
+        elif isinstance(dfx, sp.core.numbers.ComplexInfinity):
+            return ansTable , f'Check function f\'(x) = {dfunction} continuity'
+        elif isinstance(fx, sp.core.numbers.ComplexInfinity):
+            return ansTable , f'Check function f(x) = {function} continuity'
+        
+        elif xi != 0 and fx != 0 and error != 0:
             ansTable.append([counter, "{0:0.9e}".format(xi), "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
         elif xi == 0 and fx != 0 and error != 0:
             ansTable.append([counter, xi, "{0:0.9e}".format(fx), "{0:0.2e}".format(error)])
