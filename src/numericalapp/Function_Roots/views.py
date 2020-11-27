@@ -127,8 +127,8 @@ def falseposition_view(request, *args, **kwargs):
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        message, ansTable, x = FalseRule(a,b,F,Iter,Tol)
-        return render(request, 'methods/function_roots/falseposition.html',{'form':form,'message':message,'res':ansTable, 'sol':x})
+        message,matrixh,matrixa,matrixb,matrixfxh = FalseRule(F,a,b,Tol,Iter)
+        return render(request, 'methods/function_roots/falseposition.html',{'form':form,'message':message,'matrixa':matrixa, 'matrixb':matrixb,'matrixh':matrixh,'matrixfxh':matrixfxh})
     else:
         form = falsepositionForm()
     return render(request, 'methods/function_roots/falseposition.html', {'form':form})

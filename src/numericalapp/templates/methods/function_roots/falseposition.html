@@ -41,36 +41,72 @@
             <input type="submit" value="Submit" />
           </form>
         </div>
-        <div class="col-8">
+        <div class ="container">
+        <div class="row Tabla">
+        {%if matrixa%}
+        <div class = "col-1 iteraciones">
+          <div class ="row iteraciones" style = "border:1px solid black; background:#00899b">
+            Iteracion #
+          </div>
+          {%for row in matrixa%}
+            <div class="row iteraciones" style = "border:1px solid black; background:#00899b">
+                {{forloop.counter}}
+            </div>
+          {%endfor%}
+        </div>
+        {%endif%}
+        {%if matrixa%}
+        <div class = "col iteraciones">
+          <div class ="row " style = "border:1px solid black; background:#00899b">
+            a
+          </div>
+          {%for row in matrixa%}
+            <div class="row iteraciones" style = "border:1px solid black">
+                {{row}}
+            </div>
+          {%endfor%}
+        </div>
+        {%endif%}
+        {%if matrixb%}
+        <div class = "col iteraciones">
+          <div class ="row " style = "border:1px solid black; background:#00899b">
+            b
+          </div>
+          {%for row in matrixb%}
+            <div class="row iteraciones" style = "border:1px solid black">
+                {{row}}
+            </div>
+          {%endfor%}
+        </div>
+        {%endif%}
+        {%if matrixh%}
+        <div class = "col iteraciones">
+          <div class ="row " style = "border:1px solid black; background:#00899b">
+            xm
+          </div>
+          {%for row in matrixfxh%}
+            <div class="row iteraciones" style = "border:1px solid black">
+                {{row}}
+            </div>
+          {%endfor%}
+        </div>
+        {%endif%}
 
-        <table class="table table-bordered text-center">
-          <tr>
-            <th>Iter</th>
-            <th>a</th>
-            <th>xm</th>
-            <th>b</th>
-            <th>f(xm)</th>
-            <th>Error</th>
-          </tr>
-        {% for i in res %} {% comment %} manda arr {% endcomment %}
-        <tr>
-          {% for j in i %} {% comment %} separa cols {% endcomment %}
-            <td> {{j}} </td>
-          {% endfor %}
-        </tr>
+
+        </div>
         
-        {% endfor %}
-        </table>
-        <br>
 
-        Root found at {{sol}}
-        <br>
-        <br>
 
+
+        </div>
         </div>
         </div>
     </div>
   </div>
+   {%if message%}
+ <br>
+  <h1 style = "text-align: center"> {{message}}</h1>
+ {%endif%}
 </section>
 
 
