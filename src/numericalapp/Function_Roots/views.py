@@ -88,7 +88,7 @@ def incrementalsearch_view(request, *args, **kwargs):
         F = form.data['F']
         print(f" f: {F}, \n x0: {x0} , tol: {Delta} , Iter: {Iter}")
         print('\n'*10)
-        message, ansTable = Incrementalsearches(F,x0,Delta,Iter )
+        ansTable, message = Incrementalsearches(F,x0,Delta,Iter )
         return render(request, 'methods/function_roots/incrementalsearch.html',{'form':form,'message':message,'res':ansTable})
     else:
         form = incrementalsearchForm()
@@ -104,7 +104,6 @@ def bisection_view(request, *args, **kwargs):
         Iter = int(form.data['Iter'])
         F = form.data['F']
         menssage, ansTable, x = Bisection(a,b,F,Iter,Tol)
-        #print(res)
         return render(request, 'methods/function_roots/bisection.html',{'form':form,'message':message,'res':ansTable, 'sol':x})
     else:
         form = bisectionForm()
@@ -121,7 +120,6 @@ def falseposition_view(request, *args, **kwargs):
         Iter = int(form.data['Iter'])
         F = form.data['F']
         message, ansTable, x = FalseRule(a,b,F,Iter,Tol)
-        #print(res)
         return render(request, 'methods/function_roots/falseposition.html',{'form':form,'message':message,'res':ansTable, 'sol':x})
     else:
         form = falsepositionForm()
