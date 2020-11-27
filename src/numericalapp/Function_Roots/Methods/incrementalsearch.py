@@ -1,46 +1,33 @@
-
+from sympy.parsing.sympy_parser import parse_expr as pe
+import sympy as sp
 from math import *
 
 
 def Incrementalsearches(function,initialvalue,delta,iterations):
-   print(function,initialvalue,delta,iterations)
-   f=function
+   f= pe(function)
    xo=initialvalue     
    d=delta
    i=iterations
    message = ""
    ansTable = []
+   x = sp.symbols('x')
 
-   def func():
-       x=xo
-       res = eval(f)
-       return float(res)
-      
-   def fun1():
-       x=xa
-       res = eval(f)
-       return res
-
-   if func() == 0.0:
+   if f.subs(x,xo) == 0.0:
        message = str(x) + " is root"
        return message, ansTable
 
 
    else:
-       if message:
-           print("message")
-           return message
 
        cont = 1 
        encontrado=False
        while (cont < i):
-           res1 = func()
+           res1 = f.subs(x,xo)
            xa = xo + d
-           res2 = fun1()
+           res2 = f.subs(x,xa)
            if res2 == 0:
                message = str(xa) + " is root"
-               return message, []
-               print (xa,"is root")
+               return message, ansTable
            else:
                if (res1*res2 < 0):
                    m = "There is a root of f in [","{:14.10f}".format(xo),",","{:14.10f}".format(xa),"]"
@@ -50,8 +37,6 @@ def Incrementalsearches(function,initialvalue,delta,iterations):
            xo=xa
    if ((cont==i) and (not encontrado)):
        message = "With the number of requested iterations, no interval was found that could contain a root"
-       print("With the number of requested iterations, no interval was found that could contain a root")
        
        return message, ansTable
-Incrementalsearches('log(sin(x)**2+1)-1/2', -3, 0.5, 100)
 
