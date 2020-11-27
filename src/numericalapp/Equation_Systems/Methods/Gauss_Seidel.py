@@ -21,9 +21,10 @@ class GaussSeidel:
         error = tol + 1
         for i in range(0,len(A.diagonal())):
             if A.diagonal()[i] == 0:
-                message = "Diagonal can't have a 0"
+                message = "ERROR: Diagonal can't have a 0"
                 return None, None,None,None,message
         if(np.linalg.det(A) == 0):
+            message = "ERROR: Determinant of matrix A is 0"
             return None,None,None,None,message
                    
         for i in range(interaciones):
@@ -36,9 +37,9 @@ class GaussSeidel:
             
             if np.linalg.norm(x-xtemp)<tol:
                 
-                return ans,errorma,T,C
+                return ans,errorma,T,C,"Successful"
         
-        return ans,errorma,T,C
+        return ans,errorma,T,C,"Successful"
 
     def duoarr(x):
         n=[]
