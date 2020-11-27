@@ -103,7 +103,10 @@ def bisection_view(request, *args, **kwargs):
         Tol = float(form.data['Tol'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        menssage, ansTable, x = Bisection(a,b,F,Iter,Tol)
+        message, ansTable, x = Bisection(a,b,F,Iter,Tol)
+        if a >= b:
+            message="a has to be smaller than b"
+            return render(request, 'methods/function_roots/bisection.html',{'form':form,'message':message,'res':None, 'sol':None})
         return render(request, 'methods/function_roots/bisection.html',{'form':form,'message':message,'res':ansTable, 'sol':x})
     else:
         form = bisectionForm()
