@@ -86,8 +86,6 @@ def incrementalsearch_view(request, *args, **kwargs):
         Delta = float(form.data['Delta'])
         Iter = int(form.data['Iter'])
         F = form.data['F']
-        print(f" f: {F}, \n x0: {x0} , tol: {Delta} , Iter: {Iter}")
-        print('\n'*10)
         ansTable, message = Incrementalsearches(F,x0,Delta,Iter )
         return render(request, 'methods/function_roots/incrementalsearch.html',{'form':form,'message':message,'res':ansTable})
     else:

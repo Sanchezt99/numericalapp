@@ -1,13 +1,18 @@
-from sympy.parsing.sympy_parser import parse_expr as pe
 import sympy as sp
+from sympy.parsing.sympy_parser import parse_expr as pe
+from sympy.calculus.util import continuous_domain as cd
 from math import *
+
 
 
 def Incrementalsearches(function,initialvalue,d,i):
 	f= pe(function)
-	xo=initialvalue
-	ansTable = []
 	x = sp.symbols('x')
+	domain = cd(f,x,sp.S.Reals)
+	ansTable = []
+	if (not domain.contains(float(initialvalue))):
+		return None, f'{initialvalue} doesn\'t belong to {function} domain'
+	xo = initialvalue
 	found=False
 
 	if f.subs(x,xo) == 0:
