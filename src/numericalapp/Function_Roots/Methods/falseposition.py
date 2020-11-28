@@ -32,7 +32,9 @@ def FalseRule(f,x1,x2,tol,maxfpos):
 
         fx1 = f.subs(x,x1)
         fx2 = f.subs(x,x2)
-
+        if 'I' in str(f.subs(x,x1)) or  str(f.subs(x,x2)):
+                message ="The initial value must be in the function domain"
+                return message,None,None,None,None
         if fx1 * fx2 < 0:
                 for fpos in range(1,maxfpos+1):
         
