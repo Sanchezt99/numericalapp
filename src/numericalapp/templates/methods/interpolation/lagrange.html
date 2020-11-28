@@ -68,7 +68,7 @@
 </script>
 
 <section class="container page-section">
-  <div class="card">
+  <div class="">
     <div>
       <h4><b>Lagrange</b>  </h4>
       <p>The objective of this method is to find an interpolating polynomial that represents a function or a problem without exact definition, that passes through a set of given points.</p>
@@ -225,45 +225,41 @@
         <br />
         <button type="btn submit">Interpolate</button>
       </form>
-
     </div>
-    <div>
+    <div class="text-center">
 
-      {% if coefficients and tracers %}
+      {% if lp and lps %}
       <h4 class="methods-title text-uppercase text-secondary mb-0">
-        COEFFICIENTS
+        Lagrenge L<sub>i</sub> polynomials
       </h4>
       <br />
-      {% for i in coefficients %} {{ i }}
+      {% for i in lp %}
+        L<sub>{{ forloop.counter0 }}</sub> = {{ i }}
       <br />
       {% endfor %}
 
 
       <br />
       <br />
-      <h4 class="methods-title text-uppercase text-secondary mb-0">TRACERS s(x)</h4>
-      <table align="center" class="text-center">
-        <tr>
-          <th> function </th>
-          <th> interval </th>
-        </tr>
-        {% for i in tracers %} 
-          <tr>
-            <td> {{ i.0 }} </td>
-            <td> {{ i.1 }} </td>
-          </tr>
-        <br/>
+      <h4 class="methods-title text-uppercase text-secondary mb-0">Lagrange polynomial p(x)</h4>
+      <div align="center" class="text-center">
+        {% for i in lps %} 
+          {% if forloop.last %}
+            ({{ i }})
+          {% else %}
+            ({{ i }}) +
+          {% endif %}
         {% endfor %} {% endif %}
-      </table>
+      </div>
 
 
+      {% if message %}
+      <h4 class="methods-title text-uppercase text-secondary mb-0">Output</h4>
+      <br />
+      {{ message }}
+      <br />
+      {% endif %}
     </div>
-    {% if message %}
-    <h4 class="methods-title text-uppercase text-secondary mb-0">Output</h4>
-    <br />
-    {{ message }}
-    <br />
-    {% endif %}
   </div>
 </section>
 {% endblock content %}
