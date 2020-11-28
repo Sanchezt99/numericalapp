@@ -10,7 +10,7 @@ def splain(x, y):
     y = np.array(y).astype(np.float)
 
     if not mu.checkUnique(x):
-        return None, None, 'X values must be unique between them' 
+        return None, None, 'X vector can\'t contain repeated values'
 
 
     dimension = 4*len(x) - 4

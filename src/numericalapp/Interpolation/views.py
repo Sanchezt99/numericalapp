@@ -29,15 +29,21 @@ def splines_view(request, *args, **kwargs):
     return render(request, 'methods/interpolation/splines.html', {'default': True})
 
 def vandermonde_view(request, *args, **kwargs):
-    form = splainForm()
-    return render(request, 'methods/interpolation/vandermonde.html', {'form': form, 'range': range(10)})
+    return render(request, 'methods/interpolation/vandermonde.html', {})
+
+
+
+
+
+    
+
 def newtondivdif_view(request, *args, **kwargs):
-    form = splainForm()
-    return render(request, 'methods/interpolation/newtondivdif.html', {'form': form, 'range': range(10)})
+    return render(request, 'methods/interpolation/newtondivdif.html', {})
+
+
+
+
+
 def lagrange_view(request, *args, **kwargs):
-    form = splainForm()
-    return render(request, 'methods/interpolation/lagrange.html', {'form': form, 'range': range(10)})
-def neville_view(request, *args, **kwargs):
-    form = splainForm()
-    return render(request, 'methods/interpolation/neville.html', {'form': form, 'range': range(10)})
+    return render(request, 'methods/interpolation/lagrange.html', {})
 
