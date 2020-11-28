@@ -1,74 +1,8 @@
 {% extends 'layouts/master.html' %} {% block content %}
 
-<style>
-  #x_input {
-    width: 70px;
-    border: 0px;
-    font-size: 13px;
-  }
-  #y_input {
-    width: 70px;
-    border: 0px;
-    font-size: 13px;
-  }
-  tr,
-  td {
-    border: 2px solid black;
-  }
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-</style>
-
-<script>
-  function appendInput() {
-    let x_row = document.querySelector("#x_row");
-    let y_row = document.querySelector("#y_row");
-    x_row.innerHTML = "";
-    y_row.innerHTML = "";
-
-    let th_x = document.createElement("th_x");
-    th_x.setAttribute("scope", "row");
-    th_x.innerText = "X";
-    x_row.appendChild(th_x);
-    let th_y = document.createElement("th_y");
-    th_y.setAttribute("scope", "row");
-    th_y.innerText = "Y";
-    y_row.appendChild(th_y);
-
-    let inputValue = document.getElementById("variables").value;
-    if (inputValue < 2) {
-      alert("Number of variables must be greater than 1");
-      inputValue = 2;
-    } else if (inputValue > 15) {
-      alert("Max number of variables admitted by the aplication is 15");
-      inputValue = 15;
-    }
-    for (let i = 0; i < inputValue; i++) {
-      let x_input = document.createElement("input");
-      let y_input = document.createElement("input");
-      let td_x = document.createElement("td");
-      td_x.appendChild(x_input);
-      x_input.type = "number";
-      x_input.id = "x_input";
-      x_input.name = "x";
-      x_input.setAttribute("step", "any");
-      x_row.appendChild(td_x);
-      let td_y = document.createElement("td");
-      td_y.appendChild(y_input);
-      y_input.type = "number";
-      y_input.id = "y_input";
-      y_input.name = "y";
-      y_input.setAttribute("step", "any");
-      y_row.appendChild(td_y);
-    }
-  }
-</script>
 
 <section class="container page-section">
-  <div class="card">
+  <div class="container">
     <div>
       
       <h4><b>Newton (Divided difference method)</b> </h4>
@@ -86,165 +20,144 @@
        </details>
        <br></br>
 
-      <label for="variables">Variables:</label>
-      <input type="number" id="variables" onchange="appendInput()" min="2" />
+        <div class="grid-child purple">
+        <br>
+        <h6>Enter matrix size</h6>
+        <section id="plot">
+            <form action= "{% url 'newtondivdif.index' %}", method="post">
+                {% csrf_token %}
+                       {{form}}
+                {% comment %} <input type=number id="sizeMatriz"  value=2 step=1 min=2> {% endcomment %}
+                <br>
+                <br>
+                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name="rows_matrix">Enter Rows</button>
+        </div>
+                
+            </form>
 
-      <br />
-      <br />
-      <form
-        method="post"
-        class="text-center justify-content-center"
-        action="./"
-      >
-        {% csrf_token %}
 
-        <label for="method">Enter the number of data to use</label>
-       
-        <br />
-        <br />
+<form action= "{% url 'newtondivdif.index' %}", method="post" class="ab">
+{% csrf_token %}
+    {{form2}}
+    <div class= 'row'>
+    <h1>x</h1>
+  
+        {%if x%}
+        
+        {%for element in x%}
+        
+        <div class="col">
+            <input
+            id= "element"
+            name ="element"
+            type="text"
+            class="col"
+            style="
+              border-top-style: hidden;
+              border-right-style: hidden;
+              border-left-style: hidden;
+              border-bottom-style: groove;
+              border: 1px solid black;
+              background-color: #FFF;
+            "
+            value="{{element}}"
+          />
+        </div>
 
-        <table align="center">
-          <tr id="x_row">
-            <th scope="row">X</th>
-            {% if default %}
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="-1"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="0"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="3"
-              />
-            </td>
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="4"
-              />
-            </td>
-            {% elif xSplain %} {% for i in xSplain %}
-            <td>
-              <input
-                name="x"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="{{i}}"
-              />
-            </td>
-            {% endfor %} {% endif %}
-          </tr>
-          <tr id="y_row">
-            <th scope="row">Y</th>
-            {% if default %}
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="15.5"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="3"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="8"
-              />
-            </td>
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="y_input"
-                step="any"
-                value="1"
-              />
-            </td>
-            {% elif ySplain %} {% for i in ySplain %}
-            <td>
-              <input
-                name="y"
-                type="number"
-                ,
-                id="x_input"
-                step="any"
-                value="{{i}}"
-              />
-            </td>
-            {% endfor %} {% endif %}
-          </tr>
-        </table>
-        <br />
-        <button type="btn submit">sub</button>
-      </form>
+     
+        {%endfor%}
+        {%else%}
+        {% with ''|center:size as range %}
+            {% for i in range %}
+                 <!-- <input id = i,j type=number> -->
+                 {{element}}
+                <br>
+            {% endfor %}
+        {% endwith %}
+        {%endif%}
     </div>
-    <div>
-      {% if coefficients and tracers %}
-      <h4 class="methods-title text-uppercase text-secondary mb-0">
-        COEFFICIENTS
-      </h4>
-      <br />
-      {% for i in coefficients %} {{ i }}
-      <br />
-      {% endfor %}
-      <br />
-      <br />
+    <div class= 'row'>
+    <h1>y</h1>
+  
+        {%if y%}
+        
+        {%for element in y%}
+        
+        <div class="col">
+            <input
+            id= "element"
+            name ="element"
+            type="text"
+            class="col"
+            style="
+              border-top-style: hidden;
+              border-right-style: hidden;
+              border-left-style: hidden;
+              border-bottom-style: groove;
+              border: 1px solid black;
+              background-color: #FFF;
+            "
+            value="{{element}}"
+          />
+        </div>
 
-      <h4 class="methods-title text-uppercase text-secondary mb-0">TRACERS</h4>
-      <br />
-      {% for i in tracers %} {{ i }}
-      <br />
-      {% endfor %} {% endif %}
+     
+        {%endfor%}
+        {%else%}
+        {% with ''|center:size as range %}
+            {% for i in range %}
+                 <!-- <input id = i,j type=number> -->
+                 {{element}}
+                <br>
+            {% endfor %}
+        {% endwith %}
+        {%endif%}
     </div>
-    {% if message %}
-    <h4 class="methods-title text-uppercase text-secondary mb-0">Output</h4>
-    <br />
-    {{ message }}
-    <br />
-    {% endif %}
+ 
+<button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Run</button>
+</form>
+        </section>
+        <div class ="container">
+          <div class = 'row'>
+            {%if salida.any%}
+            <div class = 'col'>
+            <h1> Newton’s Divided Difference Table </h1>
+            {%for row in salida%}
+            <div class = 'row '>
+              {%for col in row%}
+              <div class = 'col' style = "border:1px solid black">
+                {{col}}
+              </div>
+              {%endfor%}
+            </div>
+            {%endfor%}
+            </div>
+            {%endif%}
+          </div>
+          {%if term.any%}
+          <h1> Newton’s Polynomial coefficients</h1>
+          <div class  = "row">
+          
+          {%for element in term%}
+          <div class = 'col mb-4' style = "border:1px solid black">
+                {{element}}
+          </div>
+          {%endfor%}
+         </div>
+          {%endif%}
+          {%if polinomio%}
+          <h1> Newton’s polynom: </h1>
+          <p style = "border:1px solid black"> {{polinomio}} </p>
+          {%endif%}
+          {%if polisimple%}
+          <h1> Newton’s polynom: </h1>
+          <p style = "border:1px solid black"> {{polisimple}} </p>
+          {%endif%}
+        </div>
+        {%if message%}
+          <h1 style = "text-align:center">{{message}}</h1>
+        {%endif%}
+  </div>
   </div>
 </section>
 {% endblock content %}

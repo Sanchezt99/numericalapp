@@ -1,11 +1,17 @@
 from pydoc import html
 from django.shortcuts import render
 from .Forms import vandermonde, newtondivdif
-from .Methods import lineal_spline, cubic_spline, quadratic_spline, lagrange
-
+from .Methods import lineal_spline, cubic_spline, quadratic_spline, lagrange,Newton_Divided_Difference
+from django import forms
 
 # Create your views here.
+class Matrix(forms.Form):
+    rows = forms.IntegerField(min_value=2, max_value=8,)
 
+class MatrixElement(forms.Form):
+    element = forms.FloatField(label=False, widget=forms.NumberInput(attrs={'size': '5'}),initial=1)
+
+  
 def splines_view(request, *args, **kwargs):
     if request.method == 'POST':
         method = request.POST['method']
@@ -43,7 +49,37 @@ def vandermonde_view(request, *args, **kwargs):
     
 
 def newtondivdif_view(request, *args, **kwargs):
-    return render(request, 'methods/interpolation/newtondivdif.html', {})
+    term     = []
+    salida      = []
+    polinomio = ''
+    polisimple = ''
+    x= []
+    y = []
+    message = ""
+    if 'matrix_size' not in request.session:
+        request.session['matrix_size'] = 2
+        
+    if request.method == "POST":
+        if "rows_matrix" in request.POST:
+            form = Matrix(request.POST)
+            if form.is_valid():
+                row = form.cleaned_data["rows"]
+                request.session['matrix_size'] = row
+
+        if "method" in request.POST:
+            elements = request.POST.getlist('element')
+            x = elements[:request.session['matrix_size']]
+            y = elements[request.session['matrix_size']:]
+            print(x)
+            print(y)
+            term,salida, polinomio,polisimple, message= Newton_Divided_Difference.evaluate(x,y)
+       
+        
+
+
+    return render(request, 'methods/interpolation/newtondivdif.html',
+        {"element": MatrixElement(),"size":request.session['matrix_size'], "form": Matrix(),'term': term, 'salida': salida, 'message': message, 'polinomio' : polinomio , 'polisimple':polisimple, 'x':x, 'y':y})
+
 
 
 

@@ -51,9 +51,7 @@ load mathfilters %}
             </form>
           </section>
         </div>
-        {% if message %}
-        <h1 style="text-align: center;">{{ message }} </h1>
-        {%endif%}
+
 
 
           <form action="{% url 'doolittle.index' %}" , method="post" class="ab">
@@ -163,7 +161,8 @@ load mathfilters %}
 
 
         <h5 style="text-align: center" class="mt-4">Doolittle Method</h5>
-        <h1>Paso 1</h1>
+       {%if matrix%}
+        <h1>Paso 1</h1>{%endif%}
         {%for matrix in matrixs%} 
 
        
@@ -205,6 +204,9 @@ load mathfilters %}
         <!-- <button onclick="plot()">Click Here</button> -->
       </div>
     </div>
+            {% if message %}
+        <h1 style="text-align: center;">{{ message }} </h1>
+        {%endif%}
   </section>
 </div>
 {% endblock content %}

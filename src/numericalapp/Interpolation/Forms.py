@@ -13,8 +13,8 @@ class vandermonde(forms.Form):
     y.widget.attrs.update({'id' : 'y_input'})
 
 class newtondivdif(forms.Form):
-    x = forms.DecimalField()
-    y = forms.DecimalField()
+    x = forms.FloatField()
+    y = forms.FloatField()
     x.widget.attrs.update({'id' : 'x_input'})
     y.widget.attrs.update({'id' : 'y_input'})
 
