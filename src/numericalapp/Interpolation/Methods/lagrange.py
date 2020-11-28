@@ -8,7 +8,7 @@ def lagrange(x,y):
     y = np.array(y).astype(np.float)
     lps = []
     lp = []
-    message = 'Succesful'
+    message = 'Successful'
 
     if not mu.checkUnique(x):
         return None, None, 'X vector can\'t contain repeated values'

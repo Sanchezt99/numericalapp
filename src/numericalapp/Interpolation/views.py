@@ -1,7 +1,7 @@
 from pydoc import html
 from django.shortcuts import render
 from .Forms import vandermonde, newtondivdif
-from .Methods import lineal_spline, cubic_spline, quadratic_spline, lagrange
+from .Methods import lineal_spline, cubic_spline, quadratic_spline, lagrange, vandermonde
 
 
 # Create your views here.
@@ -34,7 +34,26 @@ def splines_view(request, *args, **kwargs):
     {'default': default,'xInterpolation': request.session['xInterpolation'], 'yInterpolation': request.session['yInterpolation']})
 
 def vandermonde_view(request, *args, **kwargs):
-    return render(request, 'methods/interpolation/vandermonde.html', {})
+    if request.method == 'POST':
+        x      = request.POST.getlist('x')
+        y      = request.POST.getlist('y')
+        request.session['xInterpolation'] = x
+        request.session['yInterpolation'] = y
+
+        A           = []
+        vPolynomial = []
+        message     = ''
+        A, vPolynomial, message = vandermonde.Vandermonde(x,y)
+        print(A,vPolynomial)
+        return render(request, 'methods/interpolation/vandermonde.html',
+        {'aMatrix': A, 'vPolynomial': vPolynomial, 'xInterpolation': request.session['xInterpolation'], 'yInterpolation': request.session['yInterpolation'], 'message': message})
+
+    default = False if ('xInterpolation' in request.session and 'yInterpolation' in request.session) else True
+
+    if default:
+        return render(request, 'methods/interpolation/vandermonde.html', {'default': default})
+    return render(request, 'methods/interpolation/vandermonde.html',
+    {'default': default,'xInterpolation': request.session['xInterpolation'], 'yInterpolation': request.session['yInterpolation']})
 
 
 
