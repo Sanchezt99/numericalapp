@@ -18,7 +18,12 @@ def bisection(a,b, f, tol,i):
         arre = []
         arrxm = []
         arrfxm = []
-
+        if a > 0:
+                message = "There is not root for the intervals "
+                return None,None,None,None,None,message
+        if 'I' in str(f.subs(x,xl)) or  str(f.subs(x,xr)):
+                message ="The initial value must be in the function domain"
+                return None,None,None,None,None,message
         if a>=b:
                 message = "a has to be smaller than b"
                 return None,None,None,None,None,message

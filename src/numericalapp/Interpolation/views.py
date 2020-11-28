@@ -1,6 +1,6 @@
 from pydoc import html
 from django.shortcuts import render
-from .Forms import splainForm, vandermonde, newtondivdif, lagrange, neville
+from .Forms import splainForm, vandermonde, newtondivdif, lagrange
 from .Methods import lineal_spline, cubic_spline, quadratic_spline
 
 
