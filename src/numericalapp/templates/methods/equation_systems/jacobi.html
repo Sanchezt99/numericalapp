@@ -24,7 +24,7 @@
                          </ul>
                        </details>
                         
-                                    <div class="grid-child purple">
+                                    <div class="grid-child purple ">
                                         <br>
                                         <h6>Enter matrix size</h6>
                                         <section id="plot">
@@ -42,16 +42,18 @@
                                         </section>
                                                                                 
                         
-                        <div class="matrix container">
+                      
                             <form action= "{% url 'jacobi.index' %}", method="post" class="ab">
                                 {% csrf_token %}
+                                <div class="ml-3 mr-3">
                                     {{form2}}
+                                    </div>
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col ml-5 mr-3">
                                         <h5>A</h5>
                                         {%if matrix1.any%}
                                         {%for row in matrix1%}
-                                        <div class="row mr-3" style = "border: 1px solid black mr-3">
+                                        <div class="row ml-3 mr-3" style = "border: 1px solid black mr-3">
                                           {%for element in row%}
                                             <input
                                             id= "element"
@@ -98,7 +100,7 @@
                                             id= "element"
                                             name ="element"
                                             type="text"
-                                            class="col-3"
+                                            class="col"
                                             style="
                                               border-top-style: hidden;
                                               border-right-style: hidden;
@@ -136,7 +138,7 @@
                                             id= "element"
                                             name ="element"
                                             type="text"
-                                            class="col-3"
+                                            class="col"
                                             style="
                                               border-top-style: hidden;
                                               border-right-style: hidden;
@@ -165,7 +167,7 @@
                                 </div>
                                 
 
-                                <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" name='method' >Run</button>
+                                <button class="btn btn-primary btn-xl ml-5 mr-3" id="sendMessageButton" type="submit" name='method' >Run</button>
                             </form>
 
                             {% if message%}
@@ -174,8 +176,7 @@
 
 
 
-                        </div>
-                        
+              
                         <h5 style="text-align: center;">Jacobi </h5>
 
                                         
@@ -236,7 +237,7 @@
                                             <div class="col-1">
                                                 <h3>T=</h3>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col">
                                                 {%for row in T%}
                                                 <div class="row" >
                                                     {%for element in row%}
