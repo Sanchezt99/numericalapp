@@ -25,7 +25,8 @@ def lagrange(x,y):
         lps.append(str('{:.5f}'.format(denominator)) + l)
     
     for i in range(len(x)): 
-        lp.append(f'{y[i]}*({lps[i]})')
+        lp.append(f'({lps[i]})')
+        lps[i] = str(y[i]) + '*(' + lps[i] + ')'
     return lps, lp, message
 
 x = [1,2,3,4]

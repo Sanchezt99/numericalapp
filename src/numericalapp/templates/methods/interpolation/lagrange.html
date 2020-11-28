@@ -234,9 +234,9 @@
       <div align="center" class="text-center">
         {% for i in lps %} 
           {% if forloop.last %}
-            ({{ i }})
+            {{ i }}
           {% else %}
-            ({{ i }}) +
+            {{ i }} +
           {% endif %}
         {% endfor %} {% endif %}
       </div>
