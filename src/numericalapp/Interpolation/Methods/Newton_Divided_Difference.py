@@ -8,9 +8,6 @@ def evaluate (x , y):
     if not mu.checkUnique(x):
         message = "The values in the vectors have to be unique "
         return None,None,None,None, message
-    if not mu.checkUnique(y):
-        message = "The values in the vectors have to be unique "
-        return None,None, None,None, message
     xi=np.zeros(n)
     fi=np.zeros(n)
     for i in range(0,len(x)):
@@ -66,14 +63,5 @@ def evaluate (x , y):
 
 
     np.set_printoptions(precision = 4)
-    print('Newton’s polynomial coefficients: ')
-    print(term)
-    print('Newton’s Divided Difference Table')
-    print(salida)
-
-    print(' Newton’s polynom: ')
-    print(polinomio)
-    print('Newton’s simple polynom:: ' )
-    print(polisimple)
 
     return term,salida, str(polinomio),str(polisimple), None
