@@ -26,7 +26,7 @@ class GaussSeidel:
         if(np.linalg.det(A) == 0):
             message = "ERROR: Determinant of matrix A is 0"
             return None,None,None,None,message
-                   
+            
         for i in range(interaciones):
             D_inv = np.linalg.inv(LD)
             xtemp = x
@@ -43,9 +43,10 @@ class GaussSeidel:
 
     def duoarr(x):
         n=[]
-        for i in x:
-            for j in i:
-                n.append(round(j,7))
+        for row in x:
+            for element in row:
+                
+                n.append(format(element,",.2e"))
         return n
 
     def duoTC(x):
@@ -54,7 +55,9 @@ class GaussSeidel:
             m=[]
             for j in i:
                 m.append(round(j,5))
+                
             n.append(m)
+            print(m)
         n=np.array(n)
         return n
 
