@@ -1,12 +1,14 @@
-import sympy as sp
 from sympy.parsing.sympy_parser import parse_expr as pe
 from utils import MatrixUtils as mu
+import numpy as np
 
 
 def lagrange(x,y):
+    x = np.array(x).astype(np.float)
+    y = np.array(y).astype(np.float)
     lps = []
     lp = []
-    message = ''
+    message = 'Succesful'
 
     if not mu.checkUnique(x):
         return None, None, 'X vector can\'t contain repeated values'
